@@ -40,6 +40,7 @@
 		const color7 = new THREE.Color(0x0000ff);
 		const color8 = new THREE.Color(0x00ff00);
 		const color9 = new THREE.Color(0x232323);
+		const color0 = new THREE.Color(0x8fbd5a);
 
 		// Mouse position
 		let mouse = new THREE.Vector2();
@@ -137,7 +138,7 @@
     }
 
     void main() {
-      float n = noise(vUv) + (sin(time) * 0.15);
+      float n = noise(vUv) + 0.15;
       vec3 color = mix(color1, color2, n);
       color = mix(color, color3, n*n);
       color = mix(color, color4, n*n*n)  ;
@@ -145,10 +146,10 @@
     }
   `,
 			uniforms: {
-				color1: { value: color6 },
-				color2: { value: color7 },
-				color3: { value: color8 },
-				color4: { value: color9 },
+				color1: { value: color1 },
+				color2: { value: color2 },
+				color3: { value: color7 },
+				color4: { value: color8 },
 				time: { value: 0 },
 				mouse: { value: mouse }
 			}
@@ -172,53 +173,16 @@
 
 				void main() {
 					vec2 position = vUv * 4.0;
-				vec2 ripple = position;
-				float dist = sqrt(dot(ripple, ripple));
-				dist += cos(4.0 * atan(ripple.y, ripple.x + 0.1) - time * 0.1); // add circular distortion
-				float wave = 0.5 * (1.0 + sin(dist * 10.0 - time * 0.5));
-				vec3 color = mix(color1, color2, wave);
-				color = mix(color, color3, wave * wave);
-				gl_FragColor = vec4(color, 1.0);
-			}
-			`,
-			uniforms: {
-				color1: { value: color9 },
-				color2: { value: color4 },
-				color3: { value: color1 },
-				time: { value: 0 },
-				mouse: { value: mouse }
-			}
-		});
-
-		// Shader material
-		shaderMaterial5 = new THREE.ShaderMaterial({
-			vertexShader: `
-				varying vec2 vUv;
-				void main() {
-					vUv = uv;
-					gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 2.0);
-				}
-			`,
-			fragmentShader: `
-				varying vec2 vUv;
-				uniform vec3 color1;
-				uniform vec3 color2;
-				uniform vec3 color3;
-				uniform float time;
-				uniform vec2 mouse;
-
-				void main() {
-					vec2 position = vUv * 4.0;
-					float wave = atan(0.5 * (cos(position.x + time * 0.1 + 10.0 ) + mouse.x + sin(position.y + time +  mouse.y)));
+					float wave = sin(2.0 * (sin(position.x + time * 0.5 + 10.0 )  - mouse.x  * 0.5  + sin(position.y + time * 0.5 - mouse.y * 0.2)));
 					vec3 color = mix(color1, color2, wave);
 					color = mix(color, color3, wave * wave);
 					gl_FragColor = vec4(color, 1.0);
 				}
 			`,
 			uniforms: {
-				color1: { value: color1 },
-				color2: { value: color1 },
-				color3: { value: color4 },
+				color1: { value: color0},
+				color2: { value: color5 },
+				color3: { value: color6 },
 				time: { value: 0 },
 				mouse: { value: mouse }
 			}
@@ -243,7 +207,7 @@
 
 	function setHome () {
 		let plane4 = new THREE.Mesh(new THREE.PlaneGeometry(1000, 1000), shaderMaterial4);
-		let plane5 = new THREE.Mesh(new THREE.PlaneGeometry(100, 100), shaderMaterial5);
+		let plane5 = new THREE.Mesh(new THREE.PlaneGeometry(100, 100), shaderMaterial4);
 		plane5.position.z = 200;
 		scene.add(plane4, plane5);
 	}
@@ -314,8 +278,7 @@
 		shaderMaterial.uniforms.mouse.value = mouse;
 		shaderMaterial2.uniforms.mouse.value = mouse;
 		shaderMaterial3.uniforms.mouse.value = mouse;
-
-
+		shaderMaterial4.uniforms.mouse.value = mouse;
 
 	};
 
@@ -330,7 +293,6 @@
 		shaderMaterial2.uniforms.time.value = elapsedTime;
 		shaderMaterial3.uniforms.time.value = elapsedTime;
 		shaderMaterial4.uniforms.time.value = elapsedTime;
-		shaderMaterial5.uniforms.time.value = elapsedTime;
 
 		if ($screenType == 1 && $page.url.pathname == '/niels') {
 			// this.plane.rotateX(1);
