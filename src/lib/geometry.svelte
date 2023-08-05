@@ -13,7 +13,7 @@
 	let width = window.innerWidth;
 	let height = window.innerHeight;
 
-	let shaderMaterial, shaderMaterial2, shaderMaterial3;
+	let shaderMaterial, shaderMaterial2, shaderMaterial3, shaderMaterial4, shaderMaterial5;
 
 	let windowHalfX = width / 2;
 	let windowHalfY = height / 2;
@@ -154,6 +154,76 @@
 			}
 		});
 
+		shaderMaterial4 = new THREE.ShaderMaterial({
+			vertexShader: `
+				varying vec2 vUv;
+				void main() {
+					vUv = uv;
+					gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 2.0);
+				}
+			`,
+			fragmentShader: `
+				varying vec2 vUv;
+				uniform vec3 color1;
+				uniform vec3 color2;
+				uniform vec3 color3;
+				uniform float time;
+				uniform vec2 mouse;
+
+				void main() {
+					vec2 position = vUv * 4.0;
+				vec2 ripple = position;
+				float dist = sqrt(dot(ripple, ripple));
+				dist += cos(4.0 * atan(ripple.y, ripple.x + 0.1) - time * 0.1); // add circular distortion
+				float wave = 0.5 * (1.0 + sin(dist * 10.0 - time * 0.5));
+				vec3 color = mix(color1, color2, wave);
+				color = mix(color, color3, wave * wave);
+				gl_FragColor = vec4(color, 1.0);
+			}
+			`,
+			uniforms: {
+				color1: { value: color9 },
+				color2: { value: color2 },
+				color3: { value: color3 },
+				time: { value: 0 },
+				mouse: { value: mouse }
+			}
+		});
+
+		// Shader material
+		shaderMaterial5 = new THREE.ShaderMaterial({
+			vertexShader: `
+				varying vec2 vUv;
+				void main() {
+					vUv = uv;
+					gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 2.0);
+				}
+			`,
+			fragmentShader: `
+				varying vec2 vUv;
+				uniform vec3 color1;
+				uniform vec3 color2;
+				uniform vec3 color3;
+				uniform float time;
+				uniform vec2 mouse;
+
+				void main() {
+					vec2 position = vUv * 4.0;
+					float wave = 0.5 * (sin(position.x + time * 0.1 + 10.0 ) + mouse.x + sin(position.y + time +  mouse.y));
+					vec3 color = mix(color1, color2, wave);
+					color = mix(color, color3, wave * wave);
+					gl_FragColor = vec4(color, 1.0);
+				}
+			`,
+			uniforms: {
+				color1: { value: color9 },
+				color2: { value: color9 },
+				color3: { value: color6 },
+				time: { value: 0 },
+				mouse: { value: mouse }
+			}
+		});
+
 		setScene();
 
 		// -------------------------------------------------------------------------
@@ -171,6 +241,13 @@
 		// window.addEventListener('navigate', onNavigate);
 	}
 
+	function setHome () {
+		let plane4 = new THREE.Mesh(new THREE.PlaneGeometry(1000, 1000), shaderMaterial4);
+		let plane5 = new THREE.Mesh(new THREE.PlaneGeometry(100, 100), shaderMaterial5);
+		plane5.position.z = 200;
+		scene.add(plane4, plane5);
+	}
+
 	function setNiels () {
 		let plane3 = new THREE.Mesh(new THREE.PlaneGeometry(600, 600), shaderMaterial3);
 		plane3.position.z = -0.1;
@@ -185,6 +262,11 @@
 	}
 
 	function setScene () {
+
+		if ($page.url.pathname == '/') {
+			setHome();
+		}
+
 		if ($page.url.pathname == '/niels') {
 			setNiels();
 		}
@@ -247,6 +329,8 @@
 		shaderMaterial.uniforms.time.value = elapsedTime;
 		shaderMaterial2.uniforms.time.value = elapsedTime;
 		shaderMaterial3.uniforms.time.value = elapsedTime;
+		shaderMaterial4.uniforms.time.value = elapsedTime;
+		shaderMaterial5.uniforms.time.value = elapsedTime;
 
 		if ($screenType == 1 && $page.url.pathname == '/niels') {
 			// this.plane.rotateX(1);
