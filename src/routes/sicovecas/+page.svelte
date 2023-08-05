@@ -43,7 +43,6 @@ section {
 		.main {
 			position: absolute;
 			bottom: 5%;
-			z-index: -1;
 			width: 90vw;
 			gap: 24px;
 		}
