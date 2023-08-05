@@ -1,14 +1,9 @@
 <script>
-	import graph from '$lib/images/icons/graph.svg';
 </script>
 
 <section>
-<div class="main">
-  <div class="icons">
-		<img src={graph} alt="graph" class="icon" />
-	</div>
-		<h1>PAGE 2<br>-</h1>
-		<p>Words</p>
+	<div class="main">
+		<a href="https://sicovecas-demo.netlify.app" target="_blank" rel="noreferrer">visit sicovecas</a>
 	</div>
 </section>
 
@@ -38,18 +33,10 @@ section {
 		background: var(--background);
 		color: var(--primary);
 		border: var(--border);
+	}
+
+	.main a {
 		padding:  40px 48px;
-	}
-
-  .icons {
-		display: flex;
-		flex-flow: row;
-		padding-bottom: 10px;
-	}
-
-	.icon {
-		height: 60px;
-		width: 100%;
 	}
 
 	@media only screen and (max-width: 768px) {
@@ -59,7 +46,6 @@ section {
 			z-index: -1;
 			width: 90vw;
 			gap: 24px;
-			padding:  40px 24px;
 		}
 	}
 </style>

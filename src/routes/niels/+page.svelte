@@ -1,14 +1,9 @@
 <script>
-	import chat from '$lib/images/icons/chat.svg';
 </script>
 
 <section>
-<div class="main">
-  <div class="icons">
-		<img src={chat} alt="graph" class="icon" />
-	</div>
-		<h1>PAGE 1<br>-</h1>
-		<p>Words</p>
+	<div class="main">
+		<a href="https://niels.aufbau.io" target="_blank" rel="noreferrer">visit niels</a>
 	</div>
 </section>
 
@@ -39,18 +34,10 @@ section {
 		background: var(--background);
 		color: var(--primary);
 		border: var(--border);
+	}
+
+	.main a {
 		padding:  40px 48px;
-	}
-
-  .icons {
-		display: flex;
-		flex-flow: row;
-		padding-bottom: 10px;
-	}
-
-	.icon {
-		height: 60px;
-		width: 100%;
 	}
 
 	@media only screen and (max-width: 768px) {
@@ -60,7 +47,6 @@ section {
 			z-index: -1;
 			width: 90vw;
 			gap: 24px;
-			padding:  40px 24px;
 		}
 	}
 </style>

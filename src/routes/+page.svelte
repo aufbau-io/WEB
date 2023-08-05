@@ -1,17 +1,11 @@
 <script>
-
-	import www from '$lib/images/icons/www2.svg';
 </script>
 
 <section>
 	<div class="main">
-		<div class="icons">
-			<img src={www} alt="www" class="icon" />
-		</div>
-		<h1>AUFBAU<br>-</h1>
-		<p>words</p>
-	</div>
-	
+		<!-- <h1>AUFBAU<br>-</h1> -->
+		<p>make web fun again</p>
+	</div>	
 </section>
 
 <style>
@@ -43,17 +37,6 @@
 		color: var(--primary);
 		border: var(--border);
 		padding:  40px 48px;
-	}
-
-	.icons {
-		display: flex;
-		flex-flow: row;
-		padding-bottom: 16px;
-	}
-
-	.icon {
-		height: 60px;
-		width: 100%;
 	}
 
 

@@ -1,6 +1,8 @@
 <script>
 	import { onMount } from 'svelte';
 	import { screenType } from '$lib/store/store';
+	import { page } from '$app/stores';
+	import { afterNavigate } from '$app/navigation';
 
 	import * as THREE from 'three';
 
@@ -11,7 +13,7 @@
 	let width = window.innerWidth;
 	let height = window.innerHeight;
 
-	let shaderMaterial, shaderMaterial2;
+	let shaderMaterial, shaderMaterial2, shaderMaterial3;
 
 	let windowHalfX = width / 2;
 	let windowHalfY = height / 2;
@@ -33,6 +35,11 @@
 		const color3 = new THREE.Color(0xdaaa55);
 		const color4 = new THREE.Color(0x006994 );
 		const color5 = new THREE.Color(0x5099b4 );
+
+		const color6 = new THREE.Color(0xd0d0d0);
+		const color7 = new THREE.Color(0x0000ff);
+		const color8 = new THREE.Color(0x00ff00);
+		const color9 = new THREE.Color(0x232323);
 
 		// Mouse position
 		let mouse = new THREE.Vector2();
@@ -58,7 +65,7 @@
 					vec2 position = vUv * 4.0;
 				vec2 ripple = position;
 				float dist = sqrt(dot(ripple, ripple));
-				dist += (0.01 * mouse.x) * sin(5.0 * atan(ripple.y, ripple.x + 0.5 * mouse.y) - time * 0.1); // add circular distortion
+				dist += sin(4.0 * atan(ripple.y, ripple.x + 0.1) - time * 0.1); // add circular distortion
 				float wave = 0.5 * (1.0 + sin(dist * 10.0 - time * 0.5));
 				vec3 color = mix(color1, color2, wave);
 				color = mix(color, color3, wave * wave);
@@ -93,7 +100,7 @@
 
 				void main() {
 					vec2 position = vUv * 4.0;
-					float wave = 0.5 * (tan(position.x + time * 0.1 + 10.0 ) +  mouse.x + sin(position.y + time +  mouse.y));
+					float wave = 0.5 * (tan(position.x + time * 0.1 + 10.0 ) + mouse.x + sin(position.y + time +  mouse.y));
 					vec3 color = mix(color1, color2, wave);
 					color = mix(color, color3, wave * wave);
 					gl_FragColor = vec4(color, 1.0);
@@ -108,10 +115,46 @@
 			}
 		});
 
-		let plane = new THREE.Mesh(new THREE.PlaneGeometry(1000, 1000), shaderMaterial);
-		let plane2 = new THREE.Mesh(new THREE.PlaneGeometry(100, 100), shaderMaterial2);
-		plane2.position.z = 200;
-		scene.add(plane, plane2);
+		shaderMaterial3 = new THREE.ShaderMaterial({
+			vertexShader: `
+    varying vec2 vUv;
+    void main() {
+      vUv = uv;
+      gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+    }
+  `,
+			fragmentShader: `
+    varying vec2 vUv;
+    uniform vec3 color1;
+    uniform vec3 color2;
+    uniform vec3 color3;
+    uniform vec3 color4;
+    uniform float time;
+    uniform vec2 mouse;
+
+    float noise(vec2 position) {
+      return fract(sin(dot(position, vec2(0, 90))) * 2.5453 + (mouse.x * 0.5)) - fract(sin(dot(position, vec2(90, 90))) * 3.5453 + (mouse.y * 0.5));
+    }
+
+    void main() {
+      float n = noise(vUv) + (sin(time) * 0.15);
+      vec3 color = mix(color1, color2, n);
+      color = mix(color, color3, n*n);
+      color = mix(color, color4, n*n*n)  ;
+      gl_FragColor = vec4(color, 1.0);
+    }
+  `,
+			uniforms: {
+				color1: { value: color6 },
+				color2: { value: color7 },
+				color3: { value: color8 },
+				color4: { value: color9 },
+				time: { value: 0 },
+				mouse: { value: mouse }
+			}
+		});
+
+		setScene();
 
 		// -------------------------------------------------------------------------
 
@@ -125,6 +168,42 @@
 
 		window.addEventListener('mousemove', onDocumentMouseMove);
 		window.addEventListener('resize', onWindowResize);
+		// window.addEventListener('navigate', onNavigate);
+	}
+
+	function setNiels () {
+		let plane3 = new THREE.Mesh(new THREE.PlaneGeometry(600, 600), shaderMaterial3);
+		plane3.position.z = -0.1;
+		scene.add(plane3)
+	}
+
+	function setSicovecas () {
+		let plane = new THREE.Mesh(new THREE.PlaneGeometry(1000, 1000), shaderMaterial);
+		let plane2 = new THREE.Mesh(new THREE.PlaneGeometry(100, 100), shaderMaterial2);
+		plane2.position.z = 200;
+		scene.add(plane, plane2);
+	}
+
+	function setScene () {
+		if ($page.url.pathname == '/niels') {
+			setNiels();
+		}
+
+		if ($page.url.pathname == '/sicovecas') {
+			setSicovecas();
+		}
+	}
+
+	afterNavigate (onNavigate);
+	function onNavigate() {
+
+		for( var i = scene.children.length - 1; i >= 0; i--) { 
+				let obj = scene.children[i];
+				scene.remove(obj); 
+		}
+
+		setScene();
+
 	}
 
 	function onWindowResize() {
@@ -142,14 +221,18 @@
 
 	function onDocumentMouseMove(event) {
 		event.preventDefault();
-    var clientX = event.clientX || (event.touches && event.touches[0].clientX);
-    var clientY = event.clientY || (event.touches && event.touches[0].clientY);
+    var clientX = event.clientX;
+    var clientY = event.clientY;
 
-    var mouse = new THREE.Vector2();
-    mouse.x = ((clientX +1 ) / window.innerWidth) * 2 - 1;
-    mouse.y = -((clientY + 1) / window.innerHeight) * 2 + 1;
+		var mouse = new THREE.Vector2();
+    mouse.x = (clientX / window.innerWidth) * 2 - 1;
+		mouse.y = -(clientY / window.innerHeight) * 2 + 1;
+
+		// console.log(mouse)
 		shaderMaterial.uniforms.mouse.value = mouse;
 		shaderMaterial2.uniforms.mouse.value = mouse;
+		shaderMaterial3.uniforms.mouse.value = mouse;
+
 
 
 	};
@@ -163,6 +246,16 @@
 		const elapsedTime = clock.getElapsedTime();
 		shaderMaterial.uniforms.time.value = elapsedTime;
 		shaderMaterial2.uniforms.time.value = elapsedTime;
+		shaderMaterial3.uniforms.time.value = elapsedTime;
+
+		if ($screenType == 1 && $page.url.pathname == '/niels') {
+			// this.plane.rotateX(1);
+			shaderMaterial3.uniforms.mouse.value = {
+				x: clock.getElapsedTime() * 1,
+				y: clock.getElapsedTime() * 0.1
+			};
+		}
+
 		renderer.render(scene, camera);
 	}
 </script>

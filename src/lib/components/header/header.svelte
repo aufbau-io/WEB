@@ -16,12 +16,12 @@
 			href: '/'
 		},
 		{
-			name: 'PAGE 1',
-			href: '/page1'
+			name: 'NIELS',
+			href: '/niels'
 		},
 		{
-			name: 'PAGE 2',
-			href: '/page2'
+			name: 'SICOVECAS',
+			href: '/sicovecas'
 		},
 	];
 
