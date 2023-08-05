@@ -1,0 +1,65 @@
+<script>
+	import graph from '$lib/images/icons/graph.svg';
+</script>
+
+<section>
+<div class="main">
+  <div class="icons">
+		<img src={graph} alt="graph" class="icon" />
+	</div>
+		<h1>PAGE 2<br>-</h1>
+		<p>Words</p>
+	</div>
+</section>
+
+<style>
+section {
+  padding: 0 0;
+  height: 100%;
+  width: 100%;
+
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+
+  align-items: center;
+  text-align: center;
+
+  overflow: auto;
+}
+.main {
+		max-width: 800px;
+
+		display: flex;
+		flex-flow: column nowrap;
+		justify-content: center;
+		gap: 10px;
+
+		background: var(--background);
+		color: var(--primary);
+		border: var(--border);
+		padding:  40px 48px;
+	}
+
+  .icons {
+		display: flex;
+		flex-flow: row;
+		padding-bottom: 10px;
+	}
+
+	.icon {
+		height: 60px;
+		width: 100%;
+	}
+
+	@media only screen and (max-width: 768px) {
+		.main {
+			position: absolute;
+			bottom: 5%;
+			z-index: -1;
+			width: 90vw;
+			gap: 24px;
+			padding:  40px 24px;
+		}
+	}
+</style>

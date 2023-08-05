@@ -1,0 +1,178 @@
+@tailwind base;
+
+:root {
+	--font-body: nb-architekt, sans-serif;
+	--font-header: untitled-sans, sans-serif;
+	--column-width: 42rem;
+	--margin: 20px;
+
+	font-family: var(--font-body);
+	color: var(--color-text);
+}
+
+:root {
+	--background: #2b2b2b;
+	--background-50: #d0d0d080;
+	--primary: #f0f0f0;
+	--primary-50: #ffa50080;
+
+	--green: #008080;
+	--white: #d0d0d0;
+	--black: #1b1b1b;
+
+	--border: solid 1px var(--black);
+}
+
+/* :root.dark-mode {
+	--background: #232323;
+	--background-50: #23232380;
+	--primary: #d0d0d0;
+	--primary-50: #f0f0f080;
+
+	--green: #008080;
+	--white: #d0d0d0;
+	--black: #232323;
+} */
+
+@font-face {
+	font-family: nb-television;
+	src: url(/fonts/NB-Television-Pro-Mono.woff) format('woff');
+	font-weight: 400;
+}
+
+@font-face {
+	font-family: untitled-sans;
+	src: url(/fonts/test-untitled-sans-medium.woff2) format('woff2');
+	font-weight: 500;
+}
+
+@font-face {
+	font-family: untitled-sans;
+	src: url(/fonts/test-untitled-sans-regular.woff2) format('woff2');
+	font-weight: 400;
+}
+
+@font-face {
+	font-family: untitled-sans;
+	src: url(/fonts/test-untitled-sans-light.woff2) format('woff2');
+	font-weight: 300;
+}
+
+@font-face {
+	font-family: nb-architekt;
+	src: url(/fonts/NB-Architekt-Pro-Bold.woff) format('woff');
+	font-weight: 700;
+}
+
+@font-face {
+	font-family: nb-architekt;
+	src: url(/fonts/NB-Architekt-Pro-Regular.woff) format('woff');
+	font-weight: 500;
+}
+
+@font-face {
+	font-family: nb-architekt;
+	src: url(/fonts/NB-Architekt-Pro-Light.woff) format('woff');
+	font-weight: 400;
+}
+
+/* body {
+	margin: 0;
+	background-attachment: fixed;
+	background-color: var(--background);
+	background-size: 100% 100%;
+	background: linear-gradient(var(--background), var(--background));
+} */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-family: var(--font-header);
+	letter-spacing: 0.1em;
+}
+
+h1 {
+	font-size: 22px;
+	font-weight: 400;
+}
+
+p,
+a {
+	font-weight: 400;
+
+	line-height: 120%;
+	text-transform: none;
+	letter-spacing: 0.1em;
+	font-size: 14px;
+}
+
+p {
+	line-height: 1.5;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+pre {
+	font-size: 16px;
+	font-family: var(--font-mono);
+	background-color: rgba(255, 255, 255, 0.45);
+	border-radius: 3px;
+	box-shadow: 2px 2px 6px rgb(255 255 255 / 25%);
+	padding: 0.5em;
+	overflow-x: auto;
+	color: var(--color-text);
+}
+
+input,
+button {
+	font-size: inherit;
+	font-family: inherit;
+}
+
+button:focus:not(:focus-visible) {
+	outline: none;
+}
+
+/* @media (max-width: 720px) {
+	h1 {
+		font-size: 2.4rem;
+	}
+} */
+
+.visually-hidden {
+	border: 0;
+	clip: rect(0 0 0 0);
+	height: auto;
+	margin: 0;
+	overflow: hidden;
+	padding: 0;
+	position: absolute;
+	width: 1px;
+	white-space: nowrap;
+}
+
+@media only screen and (max-width: 768px) {
+	h1 {
+		font-size: 18px;
+		font-weight: 400;
+	}
+
+	p,
+	a {
+		font-weight: 400;
+
+		line-height: 120%;
+		text-transform: none;
+		letter-spacing: 0.1em;
+		font-size: 13px;
+	}
+}
