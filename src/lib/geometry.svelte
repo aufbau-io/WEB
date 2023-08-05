@@ -183,8 +183,8 @@
 			`,
 			uniforms: {
 				color1: { value: color9 },
-				color2: { value: color2 },
-				color3: { value: color3 },
+				color2: { value: color4 },
+				color3: { value: color1 },
 				time: { value: 0 },
 				mouse: { value: mouse }
 			}
@@ -209,16 +209,16 @@
 
 				void main() {
 					vec2 position = vUv * 4.0;
-					float wave = 0.5 * (tan(position.x + time * 0.1 + 10.0 ) + mouse.x + sin(position.y + time +  mouse.y));
+					float wave = atan(0.5 * (cos(position.x + time * 0.1 + 10.0 ) + mouse.x + sin(position.y + time +  mouse.y)));
 					vec3 color = mix(color1, color2, wave);
 					color = mix(color, color3, wave * wave);
 					gl_FragColor = vec4(color, 1.0);
 				}
 			`,
 			uniforms: {
-				color1: { value: color9 },
-				color2: { value: color5 },
-				color3: { value: color9 },
+				color1: { value: color1 },
+				color2: { value: color1 },
+				color3: { value: color4 },
 				time: { value: 0 },
 				mouse: { value: mouse }
 			}
