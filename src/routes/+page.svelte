@@ -25,6 +25,12 @@
 		overflow: auto;
 	}
 
+	p {
+		line-height: 1.5;
+		background: var(--black);
+		padding: 20px;
+	}
+
 	.main {
 		max-width: 800px;
 
@@ -36,7 +42,7 @@
 		background: var(--background);
 		color: var(--primary);
 		border: var(--border);
-		padding:  40px 48px;
+		padding:  20px;
 	}
 
 
@@ -46,7 +52,11 @@
 			bottom: 5%;
 			width: 90vw;
 			gap: 24px;
-			padding:  40px 24px;
+			padding:  20px;
+		}
+
+		p {
+			padding:  20px 20px;
 		}
 	}
 </style>
