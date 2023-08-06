@@ -1,6 +1,6 @@
 {
-	"name": "niels-web",
-	"version": "0.3.0",
+	"name": "aufbau",
+	"version": "0.5.0",
 	"scripts": {
 		"dev": "vite dev --port 3000",
 		"build": "vite build",
