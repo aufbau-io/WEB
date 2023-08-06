@@ -173,7 +173,7 @@
 
 				void main() {
 					vec2 position = vUv * 4.0;
-					float wave = sin(2.0 * (sin(position.x + time * 0.5 + 10.0 )  - mouse.x  * 0.5  + sin(position.y + time * 0.5 - mouse.y * 0.2)));
+					float wave = sin(2.0 * (sin(position.x + time * 0.4 + 10.0 )  - mouse.x  * 0.5  + sin(position.y + time * 0.4 - mouse.y * 0.2)));
 					vec3 color = mix(color1, color2, wave);
 					color = mix(color, color3, wave * wave);
 					gl_FragColor = vec4(color, 1.0);

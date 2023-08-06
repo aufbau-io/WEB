@@ -40,7 +40,7 @@
 
 <svelte:head>
 	<title>AUFBAU</title>
-	<meta name="description" content="AUFBAU DIGITAL" />
+	<meta name="description" content="AUFBAU WEB" />
 </svelte:head>
 
 <svelte:component this={Geometry} />
