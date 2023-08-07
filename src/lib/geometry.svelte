@@ -343,11 +343,10 @@
 			plane5.position.z = 200;
 			scene.add(plane4, plane5);
 		} else {
-			let plane4 = new THREE.Mesh(new THREE.PlaneGeometry(1000, 1000), shaderMaterial5);
-			// let plane5 = new THREE.Mesh(new THREE.PlaneGeometry(100, 100), shaderMaterial6);
-			// plane5.position.z = 200;
-			// scene.add(plane4, plane5);
-			scene.add(plane4);
+			let plane4 = new THREE.Mesh(new THREE.PlaneGeometry(1000, 1000), shaderMaterial4);
+			let plane5 = new THREE.Mesh(new THREE.PlaneGeometry(70, 70), shaderMaterial4);
+			plane5.position.z = 200;
+			scene.add(plane4, plane5);
 		}
 	}
 
