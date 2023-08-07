@@ -53,8 +53,8 @@
 		}
 
 		.main p {
-			background:  var(--black);
 			color: var(--primary);
+			border: solid 1px var(--primary);
 		}
 	}
 </style>
