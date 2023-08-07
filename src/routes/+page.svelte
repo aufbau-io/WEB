@@ -41,7 +41,6 @@
 
 	.main p {
 		padding: 20px;
-		font-weight: 500;
 	}
 
 	@media only screen and (max-width: 768px) {
@@ -51,6 +50,11 @@
 			color: var(--primary); */
 			bottom: 20px;
 			width: calc(100% - 40px);
+		}
+
+		.main p {
+			background: var(--background);
+			color: var(--primary);
 		}
 
 	}
