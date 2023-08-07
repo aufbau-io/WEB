@@ -38,7 +38,7 @@ section {
 	}
 
 	.main a {
-		background: var(--black);
+		border: solid 1px var(--primary);
 		padding: 20px;
 	}
 

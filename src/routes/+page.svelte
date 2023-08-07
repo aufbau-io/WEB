@@ -40,7 +40,7 @@
 	}
 
 	.main p {
-		background: var(--black);
+		color: var(--background);
 		padding: 20px;
 	}
 
@@ -52,5 +52,9 @@
 			width: calc(100% - 40px);
 		}
 
+		.main p {
+			border: solid 1px var(--primary);
+			color: var(--primary);
+		}
 	}
 </style>

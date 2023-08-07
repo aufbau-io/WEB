@@ -38,8 +38,8 @@ section {
 	}
 
 	.main a {
-		background: var(--black);
 		padding: 20px;
+		border: solid 1px var(--primary);
 	}
 
 	@media only screen and (max-width: 768px) {
