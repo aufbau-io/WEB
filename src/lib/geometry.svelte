@@ -183,7 +183,7 @@
 					vec2 z = (vUv - 0.5) * 4.0 / zoom;
 
 					float n = 0.0;
-					const int maxIter = 50;
+					const int maxIter = 40;
 					for(int i = 0; i < maxIter; i++) {
 							float x = (z.x * z.x - z.y * z.y) + c.x;
 							float y = (z.y * z.x + z.x * z.y) + c.y;
