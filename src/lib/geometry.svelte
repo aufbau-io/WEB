@@ -28,7 +28,7 @@
 		camera.position.z = 400;
 
 		scene = new THREE.Scene();
-		scene.background = new THREE.Color(0x232323); // 
+		scene.background = new THREE.Color(0xd0d0d0); // 
 
 		const color1 = new THREE.Color(0xd0d0d0);
 		const color2 = new THREE.Color(0xbb4500);
@@ -41,6 +41,7 @@
 		const color8 = new THREE.Color(0x00ff00);
 		const color9 = new THREE.Color(0x232323);
 		const color0 = new THREE.Color(0x8fbd5a);
+
 
 		// Mouse position
 		let mouse = new THREE.Vector2();
@@ -172,21 +173,67 @@
 				uniform vec2 mouse;
 
 				void main() {
-					vec2 position = vUv * 4.0;
-					float wave = sin(2.0 * (sin(position.x + time * 0.4 + 10.0 )  - mouse.x  * 0.5  + sin(position.y + time * 0.4 - mouse.y * 0.2)));
-					vec3 color = mix(color1, color2, wave);
-					color = mix(color, color3, wave * wave);
-					gl_FragColor = vec4(color, 1.0);
-				}
+    vec2 c = vec2(-0.8, 0.156); // This particular point produces a beautiful Julia set
+
+    float zoom = 1.0;  // Increase zoom factor based on time
+    vec2 pan = vec2(0.0, 0.0); // Centered pan for Julia
+    vec2 z = (vUv - 0.5) * 4.0 / zoom + pan;
+
+    float n = 0.0;
+    const int maxIter = 50; // Increased iterations for more detail
+    for(int i = 0; i < maxIter; i++) {
+        float x = (z.x * z.x - z.y * z.y) + c.x + sin(mouse.x * 0.01) + sin(time * 0.001);
+        float y = (z.y * z.x + z.x * z.y) + c.y + sin(mouse.y * 0.01) + sin(time * 0.001);
+        if((x * x + y * y) > 4.0) break;
+        z = vec2(x,y);
+        n++;
+    }
+    float wave = mod(n, 2.0);
+    vec3 color = mix(color1, color1, wave);
+    color = mix(color, color3, wave * wave);
+    gl_FragColor = vec4(color, 1.0);
+}
 			`,
 			uniforms: {
-				color1: { value: color1},
-				color2: { value: color0 },
-				color3: { value: color5 },
+				color1: { value: color9},
+				color3: { value: color1 },
 				time: { value: 0 },
 				mouse: { value: mouse }
 			}
 		});
+
+		// shaderMaterial5 = new THREE.ShaderMaterial({
+		// 	vertexShader: `
+		// 		varying vec2 vUv;
+		// 		void main() {
+		// 			vUv = uv;
+		// 			gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 2.0);
+		// 		}
+		// 	`,
+		// 	fragmentShader: `
+		// 		varying vec2 vUv;
+		// 		uniform vec3 color1;
+		// 		uniform vec3 color2;
+		// 		uniform vec3 color3;
+		// 		uniform float time;
+		// 		uniform vec2 mouse;
+				
+		// 		void main() {
+		// 			vec2 position = vUv * 4.0;
+		// 			float wave = cos(2.0 * (sin(position.x + time * 0.4 + 10.0 )  - mouse.x  * 0.5  + sin(position.y + time * 0.4 - mouse.y * 0.2)));
+		// 			vec3 color = mix(color1, color2, wave);
+		// 			color = mix(color, color3, wave * wave);
+		// 			gl_FragColor = vec4(color, 1.0);
+		// 		}
+		// 	`,
+		// 	uniforms: {
+		// 		color1: { value: color1},
+		// 		color2: { value: color0 },
+		// 		color3: { value: color5 },
+		// 		time: { value: 0 },
+		// 		mouse: { value: mouse }
+		// 	}
+		// });
 
 		setScene();
 
@@ -207,9 +254,7 @@
 
 	function setHome () {
 		let plane4 = new THREE.Mesh(new THREE.PlaneGeometry(1000, 1000), shaderMaterial4);
-		let plane5 = new THREE.Mesh(new THREE.PlaneGeometry(100, 100), shaderMaterial4);
-		plane5.position.z = 200;
-		scene.add(plane4, plane5);
+		scene.add(plane4);
 	}
 
 	function setNiels () {

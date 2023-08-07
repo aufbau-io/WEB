@@ -25,11 +25,6 @@
 		overflow: auto;
 	}
 
-	p {
-		line-height: 1.5;
-		background: var(--black);
-		padding: 20px;
-	}
 
 	.main {
 		max-width: 800px;
@@ -42,21 +37,16 @@
 		background: var(--background);
 		color: var(--primary);
 		border: var(--border);
-		padding:  20px;
+		padding:  40px;
 	}
-
 
 	@media only screen and (max-width: 768px) {
 		.main {
-			position: fixed;
-			bottom: 5%;
-			width: 90vw;
-			gap: 24px;
-			padding:  20px;
+			position: absolute;
+			bottom: 20px;
+			width: calc(100% - 40px);
 		}
 
-		p {
-			padding:  20px 20px;
-		}
+
 	}
 </style>

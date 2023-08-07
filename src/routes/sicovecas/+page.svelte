@@ -36,15 +36,15 @@ section {
 	}
 
 	.main a {
-		padding:  40px 48px;
+			padding:  40px;
 	}
 
 	@media only screen and (max-width: 768px) {
 		.main {
 			position: absolute;
-			bottom: 5%;
-			width: 90vw;
-			gap: 24px;
+			bottom: 20px;
+			width: calc(100% - 40px);
 		}
+
 	}
 </style>
