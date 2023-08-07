@@ -3,7 +3,7 @@
 
 <section>
 	<div class="main">
-		<a href="https://sicovecas-demo.netlify.app" target="_blank" rel="noreferrer">visit sicovecas</a>
+		<a href="https://sicovecas-demo.netlify.app" target="_blank" rel="noreferrer">[ visit sicovecas ]</a>
 	</div>
 </section>
 
@@ -22,6 +22,7 @@ section {
 
   overflow: auto;
 }
+
 .main {
 		max-width: 800px;
 
@@ -30,13 +31,14 @@ section {
 		justify-content: center;
 		gap: 10px;
 
-		background: var(--background);
-		color: var(--primary);
+		background:  var(--background);
+		color: var(--background);
 		border: var(--border);
+		padding:  20px;
 	}
 
 	.main a {
-			padding:  40px;
+		padding: 20px;
 	}
 
 	@media only screen and (max-width: 768px) {
@@ -44,6 +46,11 @@ section {
 			position: absolute;
 			bottom: 20px;
 			width: calc(100% - 40px);
+		}
+
+		.main a {
+			background: var(--black);
+			color: var(--primary);
 		}
 
 	}

@@ -33,7 +33,7 @@
 		justify-content: center;
 		gap: 10px;
 
-		background:  none;
+		background:  var(--background);
 		color: var(--background);
 		border: var(--border);
 		padding:  20px;
@@ -46,14 +46,12 @@
 	@media only screen and (max-width: 768px) {
 		.main {
 			position: absolute;
-			/* background: var(--background);
-			color: var(--primary); */
 			bottom: 20px;
 			width: calc(100% - 40px);
 		}
 
 		.main p {
-			background: var(--background);
+			background: var(--black);
 			color: var(--primary);
 		}
 
