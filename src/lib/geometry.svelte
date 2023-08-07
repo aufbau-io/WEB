@@ -354,7 +354,11 @@
 		shaderMaterial.uniforms.mouse.value = mouse;
 		shaderMaterial2.uniforms.mouse.value = mouse;
 		shaderMaterial3.uniforms.mouse.value = mouse;
-		shaderMaterial4.uniforms.mouse.value = mouse;
+
+
+		if ($screenType != 1) {
+			shaderMaterial4.uniforms.mouse.value = mouse;
+		}
 		// shaderMaterial5.uniforms.mouse.value = mouse;
 
 	};
