@@ -250,7 +250,7 @@
 		material = new THREE.MeshPhysicalMaterial({
 			roughness: 0.1,  
 			transmission: 1,  
-			thickness: 0.5, // Add refraction!
+			thickness: 100, // Add refraction!
 		});
 					
 
@@ -283,7 +283,7 @@
 			let plane4 = new THREE.Mesh(new THREE.PlaneGeometry(1000, 1000), shaderMaterial4);
 			const geometry = new THREE.IcosahedronGeometry(30, 0);
 			mesh = new THREE.Mesh(geometry, material)
-			mesh.position.z = 50;
+			mesh.position.z = 75;
 			scene.add(plane4, mesh);
 		}
 	}
