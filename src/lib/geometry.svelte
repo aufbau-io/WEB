@@ -216,7 +216,7 @@
 				varying vec2 vUv;
 				void main() {
 					vUv = uv;
-					gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 5.0);
+					gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 4.0);
 				}
 			`,
 			fragmentShader: `
@@ -238,8 +238,8 @@
 					float n = 1.0;
 					const int maxIter = 70; // Increased iterations for more detail
 					for(int i = 0; i < maxIter; i++) {
-							float x = (z.x * z.x - z.y * z.y) + c.x + (mouse.x * 0.01) + sin(time * 0.01) * 0.025;
-							float y = (z.y * z.x + z.x * z.y) + c.y + (mouse.y * 0.01) + sin(time * 0.01) * 0.025;
+							float x = (z.x * z.x - z.y * z.y) + c.x + (mouse.x * 0.01) + sin(time * 0.01) * 0.1;
+							float y = (z.y * z.x + z.x * z.y) + c.y + (mouse.y * 0.01) + sin(time * 0.01) * 0.1;
 							if((x * x + y * y) > 4.0) break;
 							z = vec2(x,y);
 							n++;
@@ -248,8 +248,8 @@
 					vec3 color = mix(color1, color1, wave);
 					float smoothColor = n;
 
-					vec3 gradient1 = mix(color1, color2, 0.5 + 0.5 * cos(smoothColor + time * 0.1)) ;
-    			vec3 gradient2 = mix(color3, gradient1, 0.5 + 0.5 * cos(time + smoothColor * 0.1));
+					vec3 gradient1 = mix(color1, color2, 0.5 + 0.5 * cos(smoothColor + time)) ;
+    			vec3 gradient2 = mix(color3, gradient1, 0.5 + 0.5 * cos(time + smoothColor ));
 				
 					
 					gl_FragColor = vec4(gradient2, 1.0);
@@ -291,7 +291,9 @@
 			scene.add(plane4, plane5);
 		} else {
 			let plane4 = new THREE.Mesh(new THREE.PlaneGeometry(1000, 1000), shaderMaterial5);
-			scene.add(plane4);
+			let plane5 = new THREE.Mesh(new THREE.PlaneGeometry(100, 100), shaderMaterial5);
+			plane5.position.z = 200;
+			scene.add(plane4, plane5);
 		}
 	}
 
