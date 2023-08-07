@@ -18,6 +18,8 @@
 	let windowHalfX = width / 2;
 	let windowHalfY = height / 2;
 
+	let mesh, material;
+
 	const clock = new THREE.Clock();
 
 	init();
@@ -244,6 +246,14 @@
 			}
 		});
 
+		// physical material
+		material = new THREE.MeshPhysicalMaterial({
+			roughness: 0.1,  
+			transmission: 1,  
+			thickness: 0.5, // Add refraction!
+		});
+					
+
 		setScene();
 
 		// -------------------------------------------------------------------------
@@ -271,9 +281,10 @@
 			scene.add(plane4, plane5);
 		} else {
 			let plane4 = new THREE.Mesh(new THREE.PlaneGeometry(1000, 1000), shaderMaterial4);
-			let plane5 = new THREE.Mesh(new THREE.PlaneGeometry(100, 100), shaderMaterial5);
-			plane5.position.z = 100;
-			scene.add(plane4, plane5);
+			const geometry = new THREE.IcosahedronGeometry(30, 0);
+			mesh = new THREE.Mesh(geometry, material)
+			mesh.position.z = 50;
+			scene.add(plane4, mesh);
 		}
 	}
 
@@ -355,6 +366,10 @@
 	function animate() {
 		requestAnimationFrame(animate);
 		render();
+
+		if ($screenType == 1 && $page.url.pathname == '/') {
+			mesh.rotation.y += 0.01;
+		}
 	}
 
 	function render() {

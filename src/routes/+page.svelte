@@ -33,7 +33,8 @@
 		justify-content: center;
 		gap: 10px;
 
-		background: var(--background);
+		background:  none;
+		color: var(--background);
 		border: var(--border);
 		padding:  20px;
 	}
@@ -52,7 +53,7 @@
 		}
 
 		.main p {
-			background: var(--black);
+			background: var(--background);
 			color: var(--primary);
 		}
 
