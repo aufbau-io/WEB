@@ -278,9 +278,14 @@
 
 	function setHome () {
 		let plane4 = new THREE.Mesh(new THREE.PlaneGeometry(1000, 1000), shaderMaterial4);
-		let plane5 = new THREE.Mesh(new THREE.PlaneGeometry(100, 100), shaderMaterial4);
-		plane5.position.z = 200;
-		scene.add(plane4, plane5);
+
+		scene.add(plane4);
+
+		if ($screenType != 1) {
+			let plane5 = new THREE.Mesh(new THREE.PlaneGeometry(100, 100), shaderMaterial4);
+			plane5.position.z = 200;
+			scene.add(plane5);
+		}
 	}
 
 	function setNiels () {
