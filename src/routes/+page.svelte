@@ -47,13 +47,13 @@
 	@media only screen and (max-width: 768px) {
 		.main {
 			position: absolute;
-
+			background:  var(--background);
 			bottom: 20px;
 			width: calc(100% - 40px);
 		}
 
 		.main p {
-			background:  var(--background);
+			background:  var(--black);
 			color: var(--primary);
 		}
 	}
