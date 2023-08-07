@@ -175,7 +175,7 @@
 				
 				void main() {
 					// Varying Julia constant based on mouse input and time
-					vec2 c = vec2(-0.8 + mouse.x * 0.1, 0.156 + mouse.y * 0.1) + vec2(sin(time * 0.1) * 0.1, sin(time * 0.1) * 0.1);
+					vec2 c = vec2(-0.8 + mouse.x * 0.1, 0.156 + mouse.y * 0.1) + vec2(sin(time * 0.1) * 0.01, sin(time * 0.1) * 0.1);
 					
 					float zoom = 1.0;  
 					vec2 z = (vUv - 0.5) * 4.0 / zoom;
@@ -211,53 +211,53 @@
 			}
 		});
 
-		shaderMaterial5 = new THREE.ShaderMaterial({
-			vertexShader: `
-				varying vec2 vUv;
-				void main() {
-					vUv = uv;
-					gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 2.0);
-				}
-			`,
-			fragmentShader: `
-				varying vec2 vUv;
-				uniform vec3 color1;
-				uniform vec3 color2;
-				uniform vec3 color3;
-				uniform float time;
-				uniform vec2 mouse;
+		// shaderMaterial5 = new THREE.ShaderMaterial({
+		// 	vertexShader: `
+		// 		varying vec2 vUv;
+		// 		void main() {
+		// 			vUv = uv;
+		// 			gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 2.0);
+		// 		}
+		// 	`,
+		// 	fragmentShader: `
+		// 		varying vec2 vUv;
+		// 		uniform vec3 color1;
+		// 		uniform vec3 color2;
+		// 		uniform vec3 color3;
+		// 		uniform float time;
+		// 		uniform vec2 mouse;
 
 				
-				void main() {
-					vec2 c = vec2(-0.8, 0.156); // This particular point produces a beautiful Julia set
+		// 		void main() {
+		// 			vec2 c = vec2(-0.8, 0.156); // This particular point produces a beautiful Julia set
 
-					float zoom = 3.0;  // Increase zoom factor based on time
-					vec2 pan = vec2(0.0, 0.0); // Centered pan for Julia
-					vec2 z = (vUv - 0.5) * 4.0 / zoom + pan;
+		// 			float zoom = 3.0;  // Increase zoom factor based on time
+		// 			vec2 pan = vec2(0.0, 0.0); // Centered pan for Julia
+		// 			vec2 z = (vUv - 0.5) * 4.0 / zoom + pan;
 
-					float n = 0.0;
-					const int maxIter = 50; // Increased iterations for more detail
-					for(int i = 0; i < maxIter; i++) {
-							float x = (z.x * z.x - z.y * z.y) + c.x + (mouse.x * 0.01) + (time * 0.001);
-							float y = (z.y * z.x + z.x * z.y) + c.y + (mouse.y * 0.01) + (time * 0.001);
-							if((x * x + y * y) > 4.0) break;
-							z = vec2(x,y);
-							n++;
-					}
-					float wave = mod(n, 2.0);
-					vec3 color = mix(color1, color1, wave);
-					color = mix(color, color3, wave * wave);
-					gl_FragColor = vec4(color, 1.0);
-			}
-			`,
-			uniforms: {
-				color1: { value: color9},
-				color2: { value: color0 },
-				color3: { value: color1 },
-				time: { value: 0 },
-				mouse: { value: mouse }
-			}
-		});
+		// 			float n = 0.0;
+		// 			const int maxIter = 50; // Increased iterations for more detail
+		// 			for(int i = 0; i < maxIter; i++) {
+		// 					float x = (z.x * z.x - z.y * z.y) + c.x + (mouse.x * 0.01) + (time * 0.001);
+		// 					float y = (z.y * z.x + z.x * z.y) + c.y + (mouse.y * 0.01) + (time * 0.001);
+		// 					if((x * x + y * y) > 4.0) break;
+		// 					z = vec2(x,y);
+		// 					n++;
+		// 			}
+		// 			float wave = mod(n, 2.0);
+		// 			vec3 color = mix(color1, color1, wave);
+		// 			color = mix(color, color3, wave * wave);
+		// 			gl_FragColor = vec4(color, 1.0);
+		// 	}
+		// 	`,
+		// 	uniforms: {
+		// 		color1: { value: color9},
+		// 		color2: { value: color0 },
+		// 		color3: { value: color1 },
+		// 		time: { value: 0 },
+		// 		mouse: { value: mouse }
+		// 	}
+		// });
 
 		setScene();
 
