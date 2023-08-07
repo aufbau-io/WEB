@@ -175,7 +175,7 @@
 				
 				void main() {
 					// Varying Julia constant based on mouse input and time
-					vec2 c = vec2(-0.8 + mouse.x * 0.1, 0.156 + mouse.y * 0.1) + vec2(sin(time * 0.1) * 0.01, sin(time * 0.1) * 0.1);
+					vec2 c = vec2(-0.8 + mouse.x * 0.1, 0.156 + mouse.y * 0.1) + vec2(sin(time * 0.1) * 0.01, sin(time * 0.1) * 0.01);
 					
 					float zoom = 1.0;  
 					vec2 z = (vUv - 0.5) * 4.0 / zoom;
