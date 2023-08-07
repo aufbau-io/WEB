@@ -33,13 +33,14 @@
 		justify-content: center;
 		gap: 10px;
 
-		background:  var(--background);
-		color: var(--background);
+		background: none;
+		color: var(--primary);
 		border: var(--border);
 		padding:  20px;
 	}
 
 	.main p {
+		background: var(--black);
 		padding: 20px;
 	}
 
@@ -48,11 +49,6 @@
 			position: absolute;
 			bottom: 20px;
 			width: calc(100% - 40px);
-		}
-
-		.main p {
-			background: var(--black);
-			color: var(--primary);
 		}
 
 	}

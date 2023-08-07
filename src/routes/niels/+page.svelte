@@ -3,7 +3,7 @@
 
 <section>
 	<div class="main">
-		<a href="https://niels.aufbau.io" target="_blank" rel="noreferrer">[ visit niels ]</a>
+		<a href="https://niels.aufbau.io" target="_blank" rel="noreferrer">visit niels</a>
 	</div>
 </section>
 
@@ -32,12 +32,13 @@ section {
 		gap: 10px;
 
 		background:  var(--background);
-		color: var(--background);
+		color: var(--primary);
 		border: var(--border);
 		padding:  20px;
 	}
 
 	.main a {
+		background: var(--black);
 		padding: 20px;
 	}
 
@@ -47,11 +48,5 @@ section {
 			bottom: 20px;
 			width: calc(100% - 40px);
 		}
-
-		.main a {
-			background: var(--black);
-			color: var(--primary);
-		}
-
 	}
 </style>
