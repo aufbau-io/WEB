@@ -216,7 +216,7 @@
 				varying vec2 vUv;
 				void main() {
 					vUv = uv;
-					gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 3.0);
+					gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 2.0);
 				}
 			`,
 			fragmentShader: `
@@ -227,91 +227,18 @@
 				uniform float time;
 				uniform vec2 mouse;
 
-				
 				void main() {
-					vec2 c = vec2(-0.8, 0.156); // This particular point produces a beautiful Julia set
-
-					float zoom = 2.0;  // Increase zoom factor based on time
-					vec2 pan = vec2(0.0, 0.0); // Centered pan for Julia
-					vec2 z = (vUv - 0.5) * 4.0 / zoom + pan;
-
-					float n = 1.0;
-					const int maxIter = 70; // Increased iterations for more detail
-					for(int i = 0; i < maxIter; i++) {
-							float x = (z.x * z.x - z.y * z.y) + c.x + (mouse.x * 0.01) + sin(time * 0.01) * 0.1;
-							float y = (z.y * z.x + z.x * z.y) + c.y + (mouse.y * 0.01) + sin(time * 0.01) * 0.1;
-							if((x * x + y * y) > 4.0) break;
-							z = vec2(x,y);
-							n++;
-					}
-					float wave = mod(n, 1.1);
-					vec3 color = mix(color1, color1, wave);
-					float smoothColor = n;
-
-					vec3 gradient1 = mix(color1, color2, 0.5 + 0.5 * sin(smoothColor + time * 0.01));
-    			vec3 gradient2 = mix(color3, gradient1, 0.5 + 0.5 * sin(time + smoothColor ));
-				
-					
-					gl_FragColor = vec4(gradient2, 1.0);
-			}
-			`,
-			uniforms: {
-				color1: { value: color5 },
-				color2: { value: color0 },
-				color3: { value: color1 },
-				time: { value: 0 },
-				mouse: { value: mouse }
-			}
-		});
-
-		shaderMaterial6 = new THREE.ShaderMaterial({
-			vertexShader: `
-				varying vec2 vUv;
-				void main() {
-					vUv = uv;
-					gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 3.0);
+					vec2 position = vUv * 100.0 ;
+					float wave = 0.6 * (cos(position.x + time * 0.1 + 10.0 ) + mouse.x + cos(position.y + time +  mouse.y));
+					vec3 color = mix(color1, color2, wave);
+					color = mix(color, color3, wave * wave);
+					gl_FragColor = vec4(color, 1.0);
 				}
 			`,
-			fragmentShader: `
-				varying vec2 vUv;
-				uniform vec3 color1;
-				uniform vec3 color2;
-				uniform vec3 color3;
-				uniform float time;
-				uniform vec2 mouse;
-
-				
-				void main() {
-					vec2 c = vec2(-0.8, 0.156); // This particular point produces a beautiful Julia set
-
-					float zoom = 2.0;  // Increase zoom factor based on time
-					vec2 pan = vec2(0.0, 0.0); // Centered pan for Julia
-					vec2 z = (vUv - 0.5) * 4.0 / zoom + pan;
-
-					float n = 1.0;
-					const int maxIter = 70; // Increased iterations for more detail
-					for(int i = 0; i < maxIter; i++) {
-							float x = (z.x * z.x - z.y * z.y) + c.x + (mouse.x * 0.01) + sin(time * 0.01) * 0.1;
-							float y = (z.y * z.x + z.x * z.y) + c.y + (mouse.y * 0.01) + sin(time * 0.01) * 0.1;
-							if((x * x + y * y) > 4.0) break;
-							z = vec2(x,y);
-							n++;
-					}
-					float wave = mod(n, 1.1);
-					vec3 color = mix(color1, color1, wave);
-					float smoothColor = n;
-
-					vec3 gradient1 = mix(color1, color2, 0.5 + 0.5 * sin(smoothColor + time * 0.01));
-    			vec3 gradient2 = mix(color3, gradient1, 0.5 + 0.5 * sin(time + smoothColor ));
-				
-					
-					gl_FragColor = vec4(gradient2, 1.0);
-			}
-			`,
 			uniforms: {
-				color1: { value: color0},
-				color2: { value: color4 },
-				color3: { value: color1 },
+				color1: { value: color1 },
+				color2: { value: color1 },
+				color3: { value: color4 },
 				time: { value: 0 },
 				mouse: { value: mouse }
 			}
@@ -344,8 +271,8 @@
 			scene.add(plane4, plane5);
 		} else {
 			let plane4 = new THREE.Mesh(new THREE.PlaneGeometry(1000, 1000), shaderMaterial4);
-			let plane5 = new THREE.Mesh(new THREE.PlaneGeometry(70, 70), shaderMaterial4);
-			plane5.position.z = 200;
+			let plane5 = new THREE.Mesh(new THREE.PlaneGeometry(100, 100), shaderMaterial5);
+			plane5.position.z = 100;
 			scene.add(plane4, plane5);
 		}
 	}
@@ -437,7 +364,6 @@
 		shaderMaterial3.uniforms.time.value = elapsedTime;
 		shaderMaterial4.uniforms.time.value = elapsedTime;
 		shaderMaterial5.uniforms.time.value = elapsedTime;
-		shaderMaterial6.uniforms.time.value = elapsedTime;
 
 		if ($screenType == 1 && $page.url.pathname == '/niels') {
 			// this.plane.rotateX(1);
