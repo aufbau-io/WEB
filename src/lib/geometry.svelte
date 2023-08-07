@@ -204,7 +204,7 @@
 			`,
 			uniforms: {
 				color1: { value: color1},
-				color2: { value: color4 },
+				color2: { value: color5 },
 				color3: { value: color0 },
 				time: { value: 0 },
 				mouse: { value: mouse }
@@ -256,7 +256,7 @@
 			}
 			`,
 			uniforms: {
-				color1: { value: color4 },
+				color1: { value: color5 },
 				color2: { value: color0 },
 				color3: { value: color1 },
 				time: { value: 0 },
@@ -344,9 +344,10 @@
 			scene.add(plane4, plane5);
 		} else {
 			let plane4 = new THREE.Mesh(new THREE.PlaneGeometry(1000, 1000), shaderMaterial5);
-			let plane5 = new THREE.Mesh(new THREE.PlaneGeometry(100, 100), shaderMaterial6);
-			plane5.position.z = 200;
-			scene.add(plane4, plane5);
+			// let plane5 = new THREE.Mesh(new THREE.PlaneGeometry(100, 100), shaderMaterial6);
+			// plane5.position.z = 200;
+			// scene.add(plane4, plane5);
+			scene.add(plane4);
 		}
 	}
 
