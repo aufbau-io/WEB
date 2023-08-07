@@ -196,7 +196,7 @@
 					float smoothColor = n;
 					
 					// Dynamic gradient based on time and smoothColor
-					vec3 gradient1 = mix(color1, color2, 0.5 + 0.5 * sin(smoothColor + time * 0.01));
+					vec3 gradient1 = mix(color1, color2, 0.5 + 0.5 * sin(smoothColor + time * 0.002));
     			vec3 gradient2 = mix(color3, gradient1, 0.5 + 0.5 * sin(time + smoothColor));
 				
 					
@@ -377,8 +377,12 @@
 		shaderMaterial.uniforms.time.value = elapsedTime;
 		shaderMaterial2.uniforms.time.value = elapsedTime;
 		shaderMaterial3.uniforms.time.value = elapsedTime;
-		shaderMaterial4.uniforms.time.value = elapsedTime;
-		shaderMaterial5.uniforms.time.value = elapsedTime;
+
+		if ($screenType == 1) {
+			shaderMaterial4.uniforms.time.value = elapsedTime * 5.0;
+		} else {
+			shaderMaterial4.uniforms.time.value = elapsedTime * 2.0 ;
+		}
 
 		if ($screenType == 1 && $page.url.pathname == '/niels') {
 			// this.plane.rotateX(1);
