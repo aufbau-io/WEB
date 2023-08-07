@@ -216,7 +216,7 @@
 				varying vec2 vUv;
 				void main() {
 					vUv = uv;
-					gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 4.0);
+					gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 3.0);
 				}
 			`,
 			fragmentShader: `
