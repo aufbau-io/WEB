@@ -204,7 +204,7 @@
 			`,
 			uniforms: {
 				color1: { value: color1},
-				color2: { value: color5 },
+				color2: { value: color4 },
 				color3: { value: color0 },
 				time: { value: 0 },
 				mouse: { value: mouse }
