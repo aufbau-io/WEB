@@ -256,7 +256,7 @@
 			}
 			`,
 			uniforms: {
-				color1: { value: color0},
+				color1: { value: color4 },
 				color2: { value: color0 },
 				color3: { value: color1 },
 				time: { value: 0 },
@@ -309,9 +309,9 @@
 			}
 			`,
 			uniforms: {
-				color1: { value: color5},
-				color2: { value: color5 },
-				color3: { value: color0 },
+				color1: { value: color0},
+				color2: { value: color4 },
+				color3: { value: color1 },
 				time: { value: 0 },
 				mouse: { value: mouse }
 			}
