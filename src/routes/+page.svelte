@@ -53,8 +53,7 @@
 		}
 
 		.main p {
-			background: var(--black);
-			color: var(--primary);
+			font-weight: 500;
 		}
 
 	}
