@@ -37,7 +37,12 @@
 		background: var(--background);
 		color: var(--primary);
 		border: var(--border);
-		padding:  40px;
+		padding:  20px;
+	}
+
+	.main p {
+		padding: 20px;
+		background: var(--black);
 	}
 
 	@media only screen and (max-width: 768px) {
