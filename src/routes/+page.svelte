@@ -3,7 +3,6 @@
 
 <section>
 	<div class="main">
-		<!-- <h1>AUFBAU<br>-</h1> -->
 		<p>make web fun again</p>
 	</div>	
 </section>
@@ -34,24 +33,28 @@
 		justify-content: center;
 		gap: 10px;
 
-		background: var(--background);
-		color: var(--primary);
+		background: none;
+		color: var(--black);
 		border: var(--border);
 		padding:  20px;
 	}
 
 	.main p {
 		padding: 20px;
-		background: var(--black);
 	}
 
 	@media only screen and (max-width: 768px) {
 		.main {
 			position: absolute;
+			background: var(--background);
+			color: var(--primary);
 			bottom: 20px;
 			width: calc(100% - 40px);
 		}
 
+		.main p {
+			background: var(--black);
+		}
 
 	}
 </style>

@@ -172,68 +172,95 @@
 				uniform float time;
 				uniform vec2 mouse;
 
+				
 				void main() {
-    vec2 c = vec2(-0.8, 0.156); // This particular point produces a beautiful Julia set
+					// Varying Julia constant based on mouse input and time
+					vec2 c = vec2(-0.8 + mouse.x * 0.1, 0.156 + mouse.y * 0.1) + vec2(sin(time * 0.1) * 0.1, sin(time * 0.1) * 0.1);
+					
+					float zoom = 1.0;  
+					vec2 z = (vUv - 0.5) * 4.0 / zoom;
 
-    float zoom = 1.0;  // Increase zoom factor based on time
-    vec2 pan = vec2(0.0, 0.0); // Centered pan for Julia
-    vec2 z = (vUv - 0.5) * 4.0 / zoom + pan;
+					float n = 0.0;
+					const int maxIter = 50;
+					for(int i = 0; i < maxIter; i++) {
+							float x = (z.x * z.x - z.y * z.y) + c.x;
+							float y = (z.y * z.x + z.x * z.y) + c.y;
+							if((x * x + y * y) > 4.0) break;
+							z = vec2(x, y);
+							n++;
+					}
 
-    float n = 0.0;
-    const int maxIter = 50; // Increased iterations for more detail
-    for(int i = 0; i < maxIter; i++) {
-        float x = (z.x * z.x - z.y * z.y) + c.x + sin(mouse.x * 0.01) + sin(time * 0.001);
-        float y = (z.y * z.x + z.x * z.y) + c.y + sin(mouse.y * 0.01) + sin(time * 0.001);
-        if((x * x + y * y) > 4.0) break;
-        z = vec2(x,y);
-        n++;
-    }
-    float wave = mod(n, 2.0);
-    vec3 color = mix(color1, color1, wave);
-    color = mix(color, color3, wave * wave);
-    gl_FragColor = vec4(color, 1.0);
-}
+					// Smooth coloring
+					float smoothColor = n;
+					
+					// Dynamic gradient based on time and smoothColor
+					vec3 gradient1 = mix(color1, color2, 0.5 + 0.5 * sin(smoothColor + time * 0.1));
+    			vec3 gradient2 = mix(color3, gradient1, 0.5 + 0.5 * sin(time + smoothColor * 0.5));
+					
+					// Circular mask
+					float distToCenter = length(vUv - vec2(0., 0.));
+					float mask = 1.0 - smoothstep(0.5, 0.5, distToCenter);
+					
+					gl_FragColor = vec4(gradient2 * mask, 1.0);
+			}
+
 			`,
 			uniforms: {
-				color1: { value: color9},
-				color3: { value: color1 },
+				color1: { value: color1},
+				color2: { value: color5 },
+				color3: { value: color0 },
 				time: { value: 0 },
 				mouse: { value: mouse }
 			}
 		});
 
-		// shaderMaterial5 = new THREE.ShaderMaterial({
-		// 	vertexShader: `
-		// 		varying vec2 vUv;
-		// 		void main() {
-		// 			vUv = uv;
-		// 			gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 2.0);
-		// 		}
-		// 	`,
-		// 	fragmentShader: `
-		// 		varying vec2 vUv;
-		// 		uniform vec3 color1;
-		// 		uniform vec3 color2;
-		// 		uniform vec3 color3;
-		// 		uniform float time;
-		// 		uniform vec2 mouse;
+		shaderMaterial5 = new THREE.ShaderMaterial({
+			vertexShader: `
+				varying vec2 vUv;
+				void main() {
+					vUv = uv;
+					gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 2.0);
+				}
+			`,
+			fragmentShader: `
+				varying vec2 vUv;
+				uniform vec3 color1;
+				uniform vec3 color2;
+				uniform vec3 color3;
+				uniform float time;
+				uniform vec2 mouse;
+
 				
-		// 		void main() {
-		// 			vec2 position = vUv * 4.0;
-		// 			float wave = cos(2.0 * (sin(position.x + time * 0.4 + 10.0 )  - mouse.x  * 0.5  + sin(position.y + time * 0.4 - mouse.y * 0.2)));
-		// 			vec3 color = mix(color1, color2, wave);
-		// 			color = mix(color, color3, wave * wave);
-		// 			gl_FragColor = vec4(color, 1.0);
-		// 		}
-		// 	`,
-		// 	uniforms: {
-		// 		color1: { value: color1},
-		// 		color2: { value: color0 },
-		// 		color3: { value: color5 },
-		// 		time: { value: 0 },
-		// 		mouse: { value: mouse }
-		// 	}
-		// });
+				void main() {
+					vec2 c = vec2(-0.8, 0.156); // This particular point produces a beautiful Julia set
+
+					float zoom = 3.0;  // Increase zoom factor based on time
+					vec2 pan = vec2(0.0, 0.0); // Centered pan for Julia
+					vec2 z = (vUv - 0.5) * 4.0 / zoom + pan;
+
+					float n = 0.0;
+					const int maxIter = 50; // Increased iterations for more detail
+					for(int i = 0; i < maxIter; i++) {
+							float x = (z.x * z.x - z.y * z.y) + c.x + (mouse.x * 0.01) + (time * 0.001);
+							float y = (z.y * z.x + z.x * z.y) + c.y + (mouse.y * 0.01) + (time * 0.001);
+							if((x * x + y * y) > 4.0) break;
+							z = vec2(x,y);
+							n++;
+					}
+					float wave = mod(n, 2.0);
+					vec3 color = mix(color1, color1, wave);
+					color = mix(color, color3, wave * wave);
+					gl_FragColor = vec4(color, 1.0);
+			}
+			`,
+			uniforms: {
+				color1: { value: color9},
+				color2: { value: color0 },
+				color3: { value: color1 },
+				time: { value: 0 },
+				mouse: { value: mouse }
+			}
+		});
 
 		setScene();
 
@@ -254,7 +281,9 @@
 
 	function setHome () {
 		let plane4 = new THREE.Mesh(new THREE.PlaneGeometry(1000, 1000), shaderMaterial4);
-		scene.add(plane4);
+		let plane5 = new THREE.Mesh(new THREE.PlaneGeometry(100, 100), shaderMaterial4);
+		plane5.position.z = 200;
+		scene.add(plane4, plane5);
 	}
 
 	function setNiels () {
@@ -324,6 +353,7 @@
 		shaderMaterial2.uniforms.mouse.value = mouse;
 		shaderMaterial3.uniforms.mouse.value = mouse;
 		shaderMaterial4.uniforms.mouse.value = mouse;
+		// shaderMaterial5.uniforms.mouse.value = mouse;
 
 	};
 
@@ -338,6 +368,7 @@
 		shaderMaterial2.uniforms.time.value = elapsedTime;
 		shaderMaterial3.uniforms.time.value = elapsedTime;
 		shaderMaterial4.uniforms.time.value = elapsedTime;
+		// shaderMaterial5.uniforms.time.value = elapsedTime;
 
 		if ($screenType == 1 && $page.url.pathname == '/niels') {
 			// this.plane.rotateX(1);
