@@ -196,8 +196,8 @@
 					float smoothColor = n;
 					
 					// Dynamic gradient based on time and smoothColor
-					vec3 gradient1 = mix(color1, color2, 0.5 + 0.5 * sin(smoothColor + time * 0.001));
-    			vec3 gradient2 = mix(color3, gradient1, 0.5 + 0.5 * sin(time + smoothColor));
+					vec3 gradient1 = mix(color1, color2, 0.5 + 0.5 * sin(smoothColor + time * 0.1));
+    			vec3 gradient2 = mix(color3, gradient1, 0.5 + 0.5 * sin(time * 0.1 + smoothColor));
 				
 					
 					gl_FragColor = vec4(gradient2, 1.0);
