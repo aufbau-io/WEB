@@ -13,7 +13,7 @@
 	let width = window.innerWidth;
 	let height = window.innerHeight;
 
-	let shaderMaterial, shaderMaterial2, shaderMaterial3, shaderMaterial4, shaderMaterial5;
+	let shaderMaterial, shaderMaterial2, shaderMaterial3, shaderMaterial4, shaderMaterial5, shaderMaterial6;
 
 	let windowHalfX = width / 2;
 	let windowHalfY = height / 2;
@@ -257,6 +257,59 @@
 			`,
 			uniforms: {
 				color1: { value: color1},
+				color2: { value: color2 },
+				color3: { value: color3 },
+				time: { value: 0 },
+				mouse: { value: mouse }
+			}
+		});
+
+		shaderMaterial6 = new THREE.ShaderMaterial({
+			vertexShader: `
+				varying vec2 vUv;
+				void main() {
+					vUv = uv;
+					gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 3.0);
+				}
+			`,
+			fragmentShader: `
+				varying vec2 vUv;
+				uniform vec3 color1;
+				uniform vec3 color2;
+				uniform vec3 color3;
+				uniform float time;
+				uniform vec2 mouse;
+
+				
+				void main() {
+					vec2 c = vec2(-0.8, 0.156); // This particular point produces a beautiful Julia set
+
+					float zoom = 2.0;  // Increase zoom factor based on time
+					vec2 pan = vec2(0.0, 0.0); // Centered pan for Julia
+					vec2 z = (vUv - 0.5) * 4.0 / zoom + pan;
+
+					float n = 1.0;
+					const int maxIter = 70; // Increased iterations for more detail
+					for(int i = 0; i < maxIter; i++) {
+							float x = (z.x * z.x - z.y * z.y) + c.x + (mouse.x * 0.01) + sin(time * 0.01) * 0.1;
+							float y = (z.y * z.x + z.x * z.y) + c.y + (mouse.y * 0.01) + sin(time * 0.01) * 0.1;
+							if((x * x + y * y) > 4.0) break;
+							z = vec2(x,y);
+							n++;
+					}
+					float wave = mod(n, 1.1);
+					vec3 color = mix(color1, color1, wave);
+					float smoothColor = n;
+
+					vec3 gradient1 = mix(color1, color2, 0.5 + 0.5 * sin(smoothColor + time * 0.01));
+    			vec3 gradient2 = mix(color3, gradient1, 0.5 + 0.5 * sin(time + smoothColor ));
+				
+					
+					gl_FragColor = vec4(gradient2, 1.0);
+			}
+			`,
+			uniforms: {
+				color1: { value: color1},
 				color2: { value: color5 },
 				color3: { value: color0 },
 				time: { value: 0 },
@@ -291,7 +344,7 @@
 			scene.add(plane4, plane5);
 		} else {
 			let plane4 = new THREE.Mesh(new THREE.PlaneGeometry(1000, 1000), shaderMaterial5);
-			let plane5 = new THREE.Mesh(new THREE.PlaneGeometry(100, 100), shaderMaterial5);
+			let plane5 = new THREE.Mesh(new THREE.PlaneGeometry(100, 100), shaderMaterial6);
 			plane5.position.z = 200;
 			scene.add(plane4, plane5);
 		}
@@ -384,6 +437,7 @@
 		shaderMaterial3.uniforms.time.value = elapsedTime;
 		shaderMaterial4.uniforms.time.value = elapsedTime;
 		shaderMaterial5.uniforms.time.value = elapsedTime;
+		shaderMaterial6.uniforms.time.value = elapsedTime;
 
 		if ($screenType == 1 && $page.url.pathname == '/niels') {
 			// this.plane.rotateX(1);
