@@ -197,11 +197,8 @@
 					vec3 gradient1 = mix(color1, color2, 0.5 + 0.5 * sin(smoothColor + time * 0.1));
     			vec3 gradient2 = mix(color3, gradient1, 0.5 + 0.5 * sin(time + smoothColor * 0.5));
 					
-					// Circular mask
-					float distToCenter = length(vUv - vec2(0., 0.));
-					float mask = 1.0 - smoothstep(0.5, 0.5, distToCenter);
 					
-					gl_FragColor = vec4(gradient2 * mask, 1.0);
+					gl_FragColor = vec4(gradient2, 1.0);
 			}
 
 			`,
