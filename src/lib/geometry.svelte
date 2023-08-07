@@ -216,7 +216,7 @@
 				varying vec2 vUv;
 				void main() {
 					vUv = uv;
-					gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 2.0);
+					gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 5.0);
 				}
 			`,
 			fragmentShader: `
@@ -231,29 +231,34 @@
 				void main() {
 					vec2 c = vec2(-0.8, 0.156); // This particular point produces a beautiful Julia set
 
-					float zoom = 3.0;  // Increase zoom factor based on time
+					float zoom = 2.0;  // Increase zoom factor based on time
 					vec2 pan = vec2(0.0, 0.0); // Centered pan for Julia
-					vec2 z = (vUv - 0.48) * 4.0 / zoom + pan;
+					vec2 z = (vUv - 0.5) * 4.0 / zoom + pan;
 
-					float n = 0.0;
-					const int maxIter = 50; // Increased iterations for more detail
+					float n = 1.0;
+					const int maxIter = 70; // Increased iterations for more detail
 					for(int i = 0; i < maxIter; i++) {
-							float x = (z.x * z.x - z.y * z.y) + c.x + (mouse.x * 0.01) + (time * 0.001);
-							float y = (z.y * z.x + z.x * z.y) + c.y + (mouse.y * 0.01) + (time * 0.001);
+							float x = (z.x * z.x - z.y * z.y) + c.x + (mouse.x * 0.01) + sin(time * 0.01) * 0.025;
+							float y = (z.y * z.x + z.x * z.y) + c.y + (mouse.y * 0.01) + sin(time * 0.01) * 0.025;
 							if((x * x + y * y) > 4.0) break;
 							z = vec2(x,y);
 							n++;
 					}
-					float wave = mod(n, 2.0);
+					float wave = mod(n, 1.1);
 					vec3 color = mix(color1, color1, wave);
-					color = mix(color, color3, wave * wave);
-					gl_FragColor = vec4(color, 1.0);
+					float smoothColor = n;
+
+					vec3 gradient1 = mix(color1, color2, 0.5 + 0.5 * cos(smoothColor + time * 0.1)) ;
+    			vec3 gradient2 = mix(color3, gradient1, 0.5 + 0.5 * cos(time + smoothColor * 0.1));
+				
+					
+					gl_FragColor = vec4(gradient2, 1.0);
 			}
 			`,
 			uniforms: {
-				color1: { value: color9},
-				color2: { value: color0 },
-				color3: { value: color1 },
+				color1: { value: color1},
+				color2: { value: color5 },
+				color3: { value: color0 },
 				time: { value: 0 },
 				mouse: { value: mouse }
 			}

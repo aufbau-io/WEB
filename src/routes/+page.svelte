@@ -52,9 +52,5 @@
 			width: calc(100% - 40px);
 		}
 
-		.main p {
-			background: var(--black);
-		}
-
 	}
 </style>
