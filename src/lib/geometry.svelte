@@ -311,7 +311,7 @@
 	function setSicovecas () {
 		let plane = new THREE.Mesh(new THREE.PlaneGeometry(1000, 1000), shaderMaterial);
 		let plane2 = new THREE.Mesh(new THREE.PlaneGeometry(100, 100), shaderMaterial2);
-		plane2.position.z = 200;
+		plane2.position.z = 100;
 		scene.add(plane, plane2);
 	}
 
