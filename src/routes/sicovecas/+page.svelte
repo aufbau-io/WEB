@@ -45,60 +45,11 @@ section {
 	}
 
 	@media only screen and (max-width: 768px) {
-		section {
-			padding: 20px 0;
-			justify-content: flex-end;
+		.main {
+			position: absolute;
+			bottom: 20px;
+			width: calc(100% - 40px);
+			padding: 20px;
 		}
-
-    .main {
-        position: absolute;
-
-        width: calc(100% - 40px);
-        background: transparent; /* Make sure it's transparent */
-        padding: 20px;
-        position: relative;
-    }
-
-    .main::before, .main::after, .main a::before, .main a::after {
-        content: "";
-        position: absolute;
-        background: var(--background);
-        z-index: -1;
-    }
-
-    /* Top and Bottom boxes for .main */
-    .main::before {
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 18px;
-    }
-    .main::after {
-        bottom: 0;
-        left: 0;
-        right: 0;
-        height: 18px;
-    }
-
-    /* Left and Right boxes for .main */
-    .main a::before {
-        top: 1px; /* leave a 1px gap */
-        bottom: 1px; /* leave a 1px gap */
-        left: 0;
-        width: 18px;
-    }
-    .main a::after {
-        top: 1px; /* leave a 1px gap */
-        bottom: 1px; /* leave a 1px gap */
-        right: 0;
-        width: 18px;
-    }
-
-    .main a {
-        color: var(--primary);
-        border: none;
-        width: 100%;
-        height: 100%;
-    }
-}
+	}
 </style>
