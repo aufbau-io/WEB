@@ -33,7 +33,7 @@
 		flex-flow: column nowrap;
 		justify-content: center;
 		gap: 10px;
-		padding: 20px;
+		padding: 10px;
 
 		color: var(--background);
 		border: var(--border);

@@ -38,7 +38,7 @@ section {
 	}
 
 	.main a {
-		padding: 20px;
+		padding: 10px;
 		border: solid 1px var(--background);
 		background:  var(--background);
 		color: var(--primary);
@@ -49,7 +49,7 @@ section {
 			position: absolute;
 			bottom: 20px;
 			width: calc(100% - 40px);
-			padding: 20px;
+			padding: 10px;
 			background:  var(--background);
 		}
 
