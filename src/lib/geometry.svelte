@@ -208,52 +208,52 @@
 			`,
 			uniforms: {
 				color1: { value: color1},
-				color2: { value: color5 },
-				color3: { value: color0 },
+				color2: { value: color2 },
+				color3: { value: color3 },
 				time: { value: 0 },
 				mouse: { value: mouse }
 			}
 		});
 
-		shaderMaterial5 = new THREE.ShaderMaterial({
-			vertexShader: `
-				varying vec2 vUv;
-				void main() {
-					vUv = uv;
-					gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 2.0);
-				}
-			`,
-			fragmentShader: `
-				varying vec2 vUv;
-				uniform vec3 color1;
-				uniform vec3 color2;
-				uniform vec3 color3;
-				uniform float time;
-				uniform vec2 mouse;
+		// shaderMaterial5 = new THREE.ShaderMaterial({
+		// 	vertexShader: `
+		// 		varying vec2 vUv;
+		// 		void main() {
+		// 			vUv = uv;
+		// 			gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 2.0);
+		// 		}
+		// 	`,
+		// 	fragmentShader: `
+		// 		varying vec2 vUv;
+		// 		uniform vec3 color1;
+		// 		uniform vec3 color2;
+		// 		uniform vec3 color3;
+		// 		uniform float time;
+		// 		uniform vec2 mouse;
 
-				void main() {
-					vec2 position = vUv * 100.0 ;
-					float wave = (cos(position.x + time * 0.2 ) + mouse.x + cos(position.y + time +  mouse.y));
-					vec3 color = mix(color1, color2, wave);
-					color = mix(color, color3, wave * wave);
-					gl_FragColor = vec4(color, 1.0);
-				}
-			`,
-			uniforms: {
-				color1: { value: color1 },
-				color2: { value: color1 },
-				color3: { value: color4 },
-				time: { value: 0 },
-				mouse: { value: mouse }
-			}
-		});
+		// 		void main() {
+		// 			vec2 position = vUv * 100.0 ;
+		// 			float wave = (cos(position.x + time * 0.2 ) + mouse.x + cos(position.y + time +  mouse.y));
+		// 			vec3 color = mix(color1, color2, wave);
+		// 			color = mix(color, color3, wave * wave);
+		// 			gl_FragColor = vec4(color, 1.0);
+		// 		}
+		// 	`,
+		// 	uniforms: {
+		// 		color1: { value: color1 },
+		// 		color2: { value: color1 },
+		// 		color3: { value: color4 },
+		// 		time: { value: 0 },
+		// 		mouse: { value: mouse }
+		// 	}
+		// });
 
-		// physical material
-		material = new THREE.MeshPhysicalMaterial({
-			roughness: 0.1,  
-			transmission: 1,  
-			thickness: 100, // Add refraction!
-		});
+		// // physical material
+		// material = new THREE.MeshPhysicalMaterial({
+		// 	roughness: 0.1,  
+		// 	transmission: 1,  
+		// 	thickness: 100, // Add refraction!
+		// });
 					
 
 		setScene();
@@ -386,8 +386,6 @@
 				} 
 			} else {
 				shaderMaterial4.uniforms.mouse.value = mouse;
-				shaderMaterial5.uniforms.mouse.value = mouse;
-
 				shaderMaterial4.uniforms.time.value = elapsedTime;
 			}
 		}
