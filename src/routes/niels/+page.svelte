@@ -3,7 +3,7 @@
 
 <section>
 	<div class="main">
-		<a href="https://niels.aufbau.io" target="_blank" rel="noreferrer">visit niels</a>
+		<a href="https://niels.aufbau.io" target="_blank" rel="noreferrer">// visit niels</a>
 	</div>
 </section>
 
@@ -33,8 +33,8 @@ section {
 		gap: 10px;
 
 		color: var(--background);
-		border: var(--border);
-		padding:  20px;
+		/* border: var(--border);
+		padding:  20px; */
 	}
 
 	.main a {

@@ -3,7 +3,7 @@
 
 <section>
 	<div class="main">
-		<a href="https://sicovecas-demo.netlify.app" target="_blank" rel="noreferrer">visit sicovecas</a>
+		<a href="https://sicovecas-demo.netlify.app" target="_blank" rel="noreferrer">// visit sicovecas</a>
 	</div>
 </section>
 
@@ -33,8 +33,8 @@ section {
 		gap: 10px;
 
 		color: var(--background);
-		border: var(--border);
-		padding:  20px;
+		/* border: var(--border);
+		padding:  20px; */
 	}
 
 	.main a {

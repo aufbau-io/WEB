@@ -105,7 +105,7 @@
 				uniform vec2 mouse;
 
 				void main() {
-					vec2 position = vUv * 4.0;
+					vec2 position = vUv * 3.0;
 					float wave = 0.5 * (tan(position.x + time * 0.1 + 10.0 ) + mouse.x + sin(position.y + time +  mouse.y));
 					vec3 color = mix(color1, color2, wave);
 					color = mix(color, color3, wave * wave);
@@ -208,8 +208,8 @@
 			`,
 			uniforms: {
 				color1: { value: color1 },
-				color2: { value: color0 },
-				color3: { value: color5 },
+				color2: { value: color5 },
+				color3: { value: color0 },
 				time: { value: 0 },
 				mouse: { value: mouse }
 			}
