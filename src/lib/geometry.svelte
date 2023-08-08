@@ -185,7 +185,7 @@
 					vec2 z = (vUv - 0.5) * 4.0 / zoom;
 
 					float n = 0.0;
-					const int maxIter = 50;
+					const int maxIter = 40;
 					for(int i = 0; i < maxIter; i++) {
 							float x = (z.x * z.x - z.y * z.y) + c.x;
 							float y = (z.y * z.x + z.x * z.y) + c.y;
@@ -207,9 +207,9 @@
 
 			`,
 			uniforms: {
-				color1: { value: color1 },
-				color2: { value: color5 },
-				color3: { value: color0 },
+				color1: { value: color1 }, // 1
+				color2: { value: color5 }, // 2
+				color3: { value: color0 }, // 3
 				time: { value: 0 },
 				mouse: { value: mouse }
 			}
