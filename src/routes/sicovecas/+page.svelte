@@ -23,7 +23,21 @@ section {
   overflow: auto;
 }
 
-.main a {
+.main {
+		max-width: 800px;
+		min-width: 240px;
+
+		display: flex;
+		flex-flow: column nowrap;
+		justify-content: center;
+		gap: 10px;
+
+		color: var(--background);
+		/* border: var(--border);
+		padding:  20px; */
+	}
+
+	.main a {
 		padding: 20px;
 		border: solid 1px var(--background);
 		background:  var(--background);
