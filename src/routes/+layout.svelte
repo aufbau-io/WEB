@@ -49,6 +49,14 @@
 		type="font/woff"
 		crossorigin="anonymous"
 	/>
+
+	<link
+	rel="preload"
+	as="font"
+	href="/fonts/NB-Architekt-Pro-Regular.woff"
+	type="font/woff"
+	crossorigin="anonymous"
+/>
 </svelte:head>
 
 <svelte:component this={Geometry} />
