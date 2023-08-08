@@ -56,6 +56,7 @@
 		.main p {
 			color: var(--primary);
 			background: var(--black);
+			border: solid 1px var(--primary);
 		}
 	}
 </style>

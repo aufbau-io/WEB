@@ -56,6 +56,7 @@ section {
 		.main a {
 			color: var(--primary);
 			background: var(--black);
+			border-color: var(--primary);
 		}
 	}
 </style>
