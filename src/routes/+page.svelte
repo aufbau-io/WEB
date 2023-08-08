@@ -33,16 +33,17 @@
 		flex-flow: column nowrap;
 		justify-content: center;
 		gap: 10px;
-		padding: 10px;
 
 		color: var(--background);
 		border: var(--border);
-
+		padding:  20px;
 	}
 
 	.main p {
-		padding: 20px;
-		color: var(--background);
+		padding: 10px;
+		border: solid 1px var(--background);
+		background:  var(--background);
+		color: var(--primary);
 	}
 
 	@media only screen and (max-width: 768px) {
@@ -50,11 +51,13 @@
 			position: absolute;
 			bottom: 20px;
 			width: calc(100% - 40px);
+			padding: 10px;
+			background:  var(--background);
 		}
 
 		.main p {
-			color: var(--primary);
-			background: var(--background);
+			background:  var(--background);
+			border: solid 1px var(--black)
 		}
 	}
 </style>
