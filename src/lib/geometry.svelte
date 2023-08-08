@@ -285,6 +285,7 @@
 
 		} else {
 			plane5.position.z = 100;
+			plane5.rotation.z = Math.PI / 2
 			scene.add(plane5);
 		}
 
