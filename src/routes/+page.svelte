@@ -51,7 +51,7 @@
 			position: absolute;
 			bottom: 20px;
 			width: calc(100% - 40px);
-			padding: 10px;
+			padding: 0;
 			background:  var(--background);
 		}
 
