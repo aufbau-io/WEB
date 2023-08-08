@@ -50,6 +50,12 @@ section {
 			bottom: 20px;
 			width: calc(100% - 40px);
 			padding: 20px;
+			background:  var(--background);
+		}
+
+		.main a {
+			background:  var(--background);
+			border: solid 1px var(--black)
 		}
 	}
 </style>
