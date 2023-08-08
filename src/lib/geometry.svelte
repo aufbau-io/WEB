@@ -208,8 +208,8 @@
 			`,
 			uniforms: {
 				color1: { value: color1},
-				color2: { value: color2 },
-				color3: { value: color3 },
+				color2: { value: color0 },
+				color3: { value: color4 },
 				time: { value: 0 },
 				mouse: { value: mouse }
 			}
@@ -311,7 +311,7 @@
 	function setSicovecas () {
 		let plane = new THREE.Mesh(new THREE.PlaneGeometry(1000, 1000), shaderMaterial);
 		let plane2 = new THREE.Mesh(new THREE.PlaneGeometry(100, 100), shaderMaterial2);
-		plane2.position.z = 100;
+		plane2.position.z = 200;
 		scene.add(plane, plane2);
 	}
 
