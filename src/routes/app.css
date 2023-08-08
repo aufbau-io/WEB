@@ -79,14 +79,10 @@ p,
 a {
 	font-weight: 400;
 	color: var(--primary);
-	line-height: 120%;
+	line-height: 1.5;
 	text-transform: none;
 	letter-spacing: 0.1em;
 	font-size: 14px;
-}
-
-p {
-	line-height: 1.5;
 }
 
 a {
