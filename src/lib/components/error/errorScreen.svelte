@@ -19,9 +19,4 @@
 		left: 50%;
 		transform: translate(-50%, -50%);
 	}
-
-	h2,
-	h6 {
-		color: var(--primary);
-	}
 </style>

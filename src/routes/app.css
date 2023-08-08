@@ -78,7 +78,7 @@ h1 {
 p,
 a {
 	font-weight: 400;
-
+	color: var(--primary);
 	line-height: 120%;
 	text-transform: none;
 	letter-spacing: 0.1em;
