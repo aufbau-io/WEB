@@ -27,7 +27,7 @@
 
 	.main {
 		max-width: 800px;
-		min-width: 240px;
+		min-width: 270px;
 
 		display: flex;
 		flex-flow: column nowrap;
