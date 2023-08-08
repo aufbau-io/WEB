@@ -72,13 +72,13 @@
         top: 0;
         left: 0;
         right: 0;
-        height: 19px;
+        height: 18px;
     }
     .main::after {
         bottom: 0;
         left: 0;
         right: 0;
-        height: 19px;
+        height: 18px;
     }
 
     /* Left and Right boxes for .main */
@@ -86,13 +86,13 @@
         top: 1px; /* leave a 1px gap */
         bottom: 1px; /* leave a 1px gap */
         left: 0;
-        width: 19px;
+        width: 18px;
     }
     .main p::after {
         top: 1px; /* leave a 1px gap */
         bottom: 1px; /* leave a 1px gap */
         right: 0;
-        width: 19px;
+        width: 18px;
     }
 
     .main p {
