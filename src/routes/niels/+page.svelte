@@ -49,12 +49,12 @@ section {
 			position: absolute;
 			bottom: 20px;
 			width: calc(100% - 40px);
-			padding: 0;
+			padding: 10px;
 			background:  var(--background);
 		}
 
 		.main a {
-			background:  var(--background);
+			background:  var(--black);
 			border: solid 1px var(--black)
 		}
 	}
