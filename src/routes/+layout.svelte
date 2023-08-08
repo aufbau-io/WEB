@@ -41,6 +41,14 @@
 <svelte:head>
 	<title>AUFBAU</title>
 	<meta name="description" content="AUFBAU :: WEB 1.0 Re-Imagined" />
+
+	<link
+		rel="preload"
+		as="font"
+		href="/fonts/NB-Architekt-Pro-Light.woff"
+		type="font/woff"
+		crossorigin="anonymous"
+	/>
 </svelte:head>
 
 <svelte:component this={Geometry} />
