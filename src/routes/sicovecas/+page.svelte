@@ -23,21 +23,7 @@ section {
   overflow: auto;
 }
 
-.main {
-		max-width: 800px;
-		min-width: 240px;
-
-		display: flex;
-		flex-flow: column nowrap;
-		justify-content: center;
-		gap: 10px;
-
-		color: var(--background);
-		/* border: var(--border);
-		padding:  20px; */
-	}
-
-	.main a {
+.main a {
 		padding: 20px;
 		border: solid 1px var(--background);
 		background:  var(--background);
@@ -49,7 +35,13 @@ section {
 			position: absolute;
 			bottom: 20px;
 			width: calc(100% - 40px);
-			padding:  0;
+			background: var(--background);
+			padding: 20px;
+		}
+
+		.main a {
+			color: var(--primary);
+			background: var(--black);
 		}
 	}
 </style>

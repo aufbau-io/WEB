@@ -49,7 +49,13 @@ section {
 			position: absolute;
 			bottom: 20px;
 			width: calc(100% - 40px);
-			padding:  0;
+			background: var(--background);
+			padding: 20px;
+		}
+
+		.main a {
+			color: var(--primary);
+			background: var(--black);
 		}
 	}
 </style>

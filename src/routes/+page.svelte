@@ -51,11 +51,11 @@
 			background: var(--background);
 			bottom: 20px;
 			width: calc(100% - 40px);
-			padding:  0;
 		}
 
 		.main p {
 			color: var(--primary);
+			background: var(--black);
 		}
 	}
 </style>
