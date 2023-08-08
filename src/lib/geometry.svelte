@@ -20,6 +20,8 @@
 
 	let mesh, material;
 
+	let mouse = new THREE.Vector2();
+
 	const clock = new THREE.Clock();
 
 	init();
@@ -183,7 +185,7 @@
 					vec2 z = (vUv - 0.5) * 4.0 / zoom;
 
 					float n = 0.0;
-					const int maxIter = 40;
+					const int maxIter = 50;
 					for(int i = 0; i < maxIter; i++) {
 							float x = (z.x * z.x - z.y * z.y) + c.x;
 							float y = (z.y * z.x + z.x * z.y) + c.y;
@@ -231,7 +233,7 @@
 
 				void main() {
 					vec2 position = vUv * 100.0 ;
-					float wave = 0.6 * (cos(position.x + time * 0.1 + 10.0 ) + mouse.x + cos(position.y + time +  mouse.y));
+					float wave = (cos(position.x + time * 0.2 ) + mouse.x + cos(position.y + time +  mouse.y));
 					vec3 color = mix(color1, color2, wave);
 					color = mix(color, color3, wave * wave);
 					gl_FragColor = vec4(color, 1.0);
@@ -273,19 +275,31 @@
 
 	function setHome () {
 
+		let plane4 = new THREE.Mesh(new THREE.PlaneGeometry(1000, 1000), shaderMaterial4);
+		let plane5 = new THREE.Mesh(new THREE.PlaneGeometry(100, 100), shaderMaterial4);
+		scene.add(plane4);
 
 		if ($screenType != 1) {
-			let plane4 = new THREE.Mesh(new THREE.PlaneGeometry(1000, 1000), shaderMaterial4);
-			let plane5 = new THREE.Mesh(new THREE.PlaneGeometry(100, 100), shaderMaterial4);
 			plane5.position.z = 200;
-			scene.add(plane4, plane5);
+			scene.add(plane5);
+
 		} else {
-			let plane4 = new THREE.Mesh(new THREE.PlaneGeometry(1000, 1000), shaderMaterial4);
-			const geometry = new THREE.IcosahedronGeometry(30, 0);
-			mesh = new THREE.Mesh(geometry, material)
-			mesh.position.z = 75;
-			scene.add(plane4, mesh);
+			plane5.position.z = 100;
+			scene.add(plane5);
 		}
+
+		// if ($screenType != 1) {
+		// 	let plane4 = new THREE.Mesh(new THREE.PlaneGeometry(1000, 1000), shaderMaterial4);
+		// 	let plane5 = new THREE.Mesh(new THREE.PlaneGeometry(100, 100), shaderMaterial4);
+		// 	plane5.position.z = 200;
+		// 	scene.add(plane4, plane5);
+		// } else {
+		// 	let plane4 = new THREE.Mesh(new THREE.PlaneGeometry(1000, 1000), shaderMaterial4);
+		// 	const geometry = new THREE.IcosahedronGeometry(30, 0);
+		// 	mesh = new THREE.Mesh(geometry, material)
+		// 	mesh.position.z = 75;
+		// 	scene.add(plane4, mesh);
+		// }
 	}
 
 	function setNiels () {
@@ -346,20 +360,8 @@
     var clientX = event.clientX;
     var clientY = event.clientY;
 
-		var mouse = new THREE.Vector2();
     mouse.x = (clientX / window.innerWidth) * 2 - 1;
 		mouse.y = -(clientY / window.innerHeight) * 2 + 1;
-
-		// console.log(mouse)
-		shaderMaterial.uniforms.mouse.value = mouse;
-		shaderMaterial2.uniforms.mouse.value = mouse;
-		shaderMaterial3.uniforms.mouse.value = mouse;
-
-		if ($screenType != 1) {
-			shaderMaterial4.uniforms.mouse.value = mouse;
-			shaderMaterial5.uniforms.mouse.value = mouse;
-		}
-
 
 	};
 
@@ -367,30 +369,48 @@
 		requestAnimationFrame(animate);
 		render();
 
-		if ($screenType == 1 && $page.url.pathname == '/') {
-			mesh.rotation.y += 0.005;
-		}
+		// if ($screenType == 1 && $page.url.pathname == '/') {
+		// 	mesh.rotation.y += 0.005;
+		// }
 	}
 
 	function render() {
 		const elapsedTime = clock.getElapsedTime();
-		shaderMaterial.uniforms.time.value = elapsedTime;
-		shaderMaterial2.uniforms.time.value = elapsedTime;
-		shaderMaterial3.uniforms.time.value = elapsedTime;
 
-		if ($screenType == 1) {
-			shaderMaterial4.uniforms.time.value = elapsedTime * 5.0;
-		} else {
-			shaderMaterial4.uniforms.time.value = elapsedTime * 2.0 ;
+		if ($page.url.pathname == '/') {
+			if ($screenType == 1) {
+				shaderMaterial4.uniforms.time.value = elapsedTime;
+				shaderMaterial4.uniforms.mouse.value = {
+					x: 4 * Math.cos(elapsedTime * 0.1),
+					y: 5 * Math.cos(elapsedTime * 0.1)
+				} 
+			} else {
+				shaderMaterial4.uniforms.mouse.value = mouse;
+				shaderMaterial5.uniforms.mouse.value = mouse;
+
+				shaderMaterial4.uniforms.time.value = elapsedTime;
+			}
 		}
 
-		if ($screenType == 1 && $page.url.pathname == '/niels') {
-			// this.plane.rotateX(1);
-			shaderMaterial3.uniforms.mouse.value = {
-				x: clock.getElapsedTime() * 1,
-				y: clock.getElapsedTime() * 0.1
-			};
+		if ($page.url.pathname == '/niels') {
+			if ($screenType == 1) {
+				shaderMaterial3.uniforms.mouse.value = {
+					x: clock.getElapsedTime() * 1,
+					y: clock.getElapsedTime() * 0.1
+				};
+			} else {
+				shaderMaterial3.uniforms.mouse.value = mouse;
+			}
 		}
+
+		if ($page.url.pathname == '/sicovecas') {
+			shaderMaterial.uniforms.mouse.value = mouse;
+			shaderMaterial2.uniforms.mouse.value = mouse;
+
+			shaderMaterial.uniforms.time.value = elapsedTime;
+			shaderMaterial2.uniforms.time.value = elapsedTime;
+		}
+
 
 		renderer.render(scene, camera);
 	}

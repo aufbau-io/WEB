@@ -27,34 +27,35 @@
 
 	.main {
 		max-width: 800px;
+		min-width: 240px;
 
 		display: flex;
 		flex-flow: column nowrap;
 		justify-content: center;
 		gap: 10px;
+		padding: 20px;
 
-		background: none;
-		color: var(--primary);
+		color: var(--background);
 		border: var(--border);
-		padding:  20px;
+
 	}
 
 	.main p {
-		color: var(--background);
 		padding: 20px;
+		color: var(--background);
 	}
 
 	@media only screen and (max-width: 768px) {
 		.main {
 			position: absolute;
-			background:  var(--background);
+			background: var(--background);
 			bottom: 20px;
 			width: calc(100% - 40px);
+			padding:  0;
 		}
 
 		.main p {
 			color: var(--primary);
-			border: solid 1px var(--primary);
 		}
 	}
 </style>
