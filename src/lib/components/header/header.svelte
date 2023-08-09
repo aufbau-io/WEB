@@ -28,21 +28,11 @@
 	let toggleDarkMode = () => {
 		darkMode.set(!$darkMode);
 		document.querySelector(':root').classList.toggle('dark-mode');
-
-	// 		if ($page.url.pathname == '/') {
-	// goto(`/art`, { replaceState: true }) 
-	// 		}
 		};
 </script>
 
 <header>
 	<main>
-
-		<!-- {#if $screenType == 3}
-		<div class="darkMode">
-			<p>DANIEL HUMPHRIES</p>
-		</div>
-		{/if} -->
 
 		<Nav {navItems} />
 
@@ -85,10 +75,6 @@
 		height: calc(2 * var(--margin));
 	}
 
-	p, a {
-		font-weight: 600;
-	}
-
 	.icons {
 		display: flex;
 		gap: 15px;
@@ -97,7 +83,6 @@
 		background: var(--background);
 		border: var(--border);
 	}
-
 
 	.icon {
 		height: 20px;
@@ -110,43 +95,4 @@
 	.icon:hover{
 		opacity:.5;
 		}
-
-	.darkMode {
-		background: var(--background);
-		color: var(--primary);
-		border: var(--border);
-		display: flex;
-		gap: 12px;
-		padding: 6px 12px;
-		cursor: pointer;
-	}
-
-	.left {
-		justify-content: start;
-	}
-
-	.right {
-		justify-content: end;
-	}
-
-	.app_link {
-		opacity: 0.3;
-	}
-
-	.darkMode p {
-		font-size: 13px;
-		color: inherit;
-	}
-
- 	.right p {
-		opacity: .5;
-	}
-
-	.darkMode p.selected {
-		opacity: 1;
-	}
-
-	@media only screen and (max-width: 768px) {
-
-	}
 </style>

@@ -36,20 +36,14 @@
 
 @font-face {
 	font-family: nb-architekt;
-	src: url(/fonts/NB-Architekt-Pro-Bold.woff) format('woff');
-	font-weight: 700;
-}
-
-@font-face {
-	font-family: nb-architekt;
-	src: url(/fonts/NB-Architekt-Pro-Regular.woff) format('woff');
-	font-weight: 500;
-}
-
-@font-face {
-	font-family: nb-architekt;
 	src: url(/fonts/NB-Architekt-Pro-Light.woff) format('woff');
 	font-weight: 400;
+}
+
+@font-face {
+	font-family: nb-architekt;
+	src: url(/fonts/NB-Architekt-Pro-Bold.woff) format('woff');
+	font-weight: 600;
 }
 
 /* body {
@@ -79,7 +73,6 @@ p,
 a {
 	font-weight: 400;
 	color: var(--primary);
-	line-height: 1.5;
 	text-transform: none;
 	letter-spacing: 0.1em;
 	font-size: 14px;
@@ -93,8 +86,8 @@ a:hover {
 	text-decoration: underline;
 }
 
-pre {
-	font-size: 16px;
+/* pre {
+	font-size: 14px;
 	font-family: var(--font-mono);
 	background-color: rgba(255, 255, 255, 0.45);
 	border-radius: 3px;
@@ -102,7 +95,7 @@ pre {
 	padding: 0.5em;
 	overflow-x: auto;
 	color: var(--color-text);
-}
+} */
 
 input,
 button {

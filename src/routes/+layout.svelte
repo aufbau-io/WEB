@@ -44,43 +44,42 @@
 
 	<link
 		rel="preload"
-		as="font"
 		href="/fonts/NB-Architekt-Pro-Light.woff"
+		as="font"
 		type="font/woff"
 		crossorigin="anonymous"
 	/>
 
 	<link
 		rel="preload"
+		href="/fonts/NB-Architekt-Pro-Bold.woff"
 		as="font"
-		href="/fonts/NB-Architekt-Pro-Regular.woff"
 		type="font/woff"
 		crossorigin="anonymous"
 	/>
+
 
 </svelte:head>
 
 <svelte:component this={Geometry} />
 
-<main>
-	{#if $screenType}
-	<header>
-		<Header />
-	</header>
+{#if $screenType}
+	<main>
+		<header>
+			<Header />
+		</header>
 
-	<body>
-		<slot />
-	</body>
+		<body>
+			<slot />
+		</body>
 
-	{#if $screenType == 3}
-	<footer>
-		<Footer />
-	</footer>
-	{/if}
-	
-	{/if}
-</main>
-
+		{#if $screenType == 3}
+		<footer>
+			<Footer />
+		</footer>
+		{/if}
+	</main>
+{/if}
 
 <style>
 	main {
