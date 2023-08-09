@@ -1,6 +1,6 @@
 <script>
 	import { page } from '$app/stores';
-	import { screenType } from '$lib/store/store';
+	// import { screenType } from '$lib/store/store';
 
 	export let navItems = [];
 	export async function load() {
