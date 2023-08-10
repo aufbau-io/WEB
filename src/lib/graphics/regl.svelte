@@ -18,35 +18,51 @@
   let canvas;
   let rgl;
 	let shaderPrograms = {};
+	let shaderProgram;
 	let mouse = [0, 0]; // assuming you have a way to update this
 	let startTime = (Date.now()) * 0.001
+	let elapsedTime = startTime;
 	let baseUniforms;
 
 	let projectionMatrix, modelViewMatrix;
 
-	function setupProjection() {
-		let canvasWidth = 800;  // assuming an initial value, update as necessary
-		let canvasHeight = 1200; // assuming an initial value, update as necessary
-		let near = 0.1;
-		let far = 100.0;
-		let right = canvasWidth / 2;
-		let left = -right;
-		let top = canvasHeight / 2;
-		let bottom = -top;
+	function setupProjection() {		
+		// let canvasWidth =  window.innerWidth;  // assuming an initial value, update as necessary
+		// let canvasHeight =  window.innerHeight; // assuming an initial value, update as necessary
+		
+		// let near = 0.1;
+		// let far = 100.0;
+		// let right = canvasWidth / 2;
+		// let left = -right;
+		// let top = canvasHeight / 2;
+		// let bottom = -top;
+
+		// projectionMatrix = [
+		// 		2 / (right - left), 0, 0, -(right + left) / (right - left),
+		// 		0, 2 / (top - bottom), 0, -(top + bottom) / (top - bottom),
+		// 		0, 0, -2 / (far - near), -(far + near) / (far - near),
+		// 		0, 0, 0, 1
+		// ];
+
+		// modelViewMatrix = [
+		// 		1, 0, 0, 0,
+		// 		0, 1, 0, 0,
+		// 		0, 0, 1, 0,
+		// 		0, 0, 0, 1
+		// ];
 
 		projectionMatrix = [
-				2 / (right - left), 0, 0, -(right + left) / (right - left),
-				0, 2 / (top - bottom), 0, -(top + bottom) / (top - bottom),
-				0, 0, -2 / (far - near), -(far + near) / (far - near),
-				0, 0, 0, 1
-		];
-
-		modelViewMatrix = [
 				1, 0, 0, 0,
 				0, 1, 0, 0,
 				0, 0, 1, 0,
 				0, 0, 0, 1
-		];
+			];
+			modelViewMatrix = [
+				1, 0, 0, 0,
+				0, 1, 0, 0,
+				0, 0, 1, 0,
+				0, 0, 0, 1
+			];
 	}
 
   function setupShaders() {
@@ -67,6 +83,13 @@
 			color7: [0, 255/255, 0],
 			color9: [143/255, 189/255, 90/255]
 		};
+
+		shaderProgram = createShader(fragmentShader_aufbau, {
+			...baseUniforms,
+			color1: colors.color1,
+			color2: colors.color5,
+			color3: colors.color9
+		});
 
 		// Create shaders with corresponding uniforms
 		shaderPrograms['aufbau'] = createShader(fragmentShader_aufbau, {
@@ -129,6 +152,11 @@
 	function updateShaderUniforms() {
     const elapsedTime = (Date.now() - startTime) * 0.001; 
 
+		//  shaderProgram({ 
+    //             time: 100.0, 
+    //             mouse: $screenType == 1 ? [4 * Math.cos(elapsedTime * 0.1), 5 * Math.cos(elapsedTime * 0.1)] : mouse 
+    //         });
+
     switch ($page.url.pathname) {
         case '/':
             shaderPrograms['aufbau']({ 
@@ -161,23 +189,31 @@
 	}
 
 	function renderLoop() {
+
 		rgl.clear({
 			color: [0.2, 0.4, 0.6, 1],
 			depth: 1
 		});
-    // updateShaderUniforms();
+
+		rgl.poll();
+
+    updateShaderUniforms();
     requestAnimationFrame(renderLoop);
 	}
 
 
 	onMount(() => {
     rgl = regl({ canvas });
-
+		
 		canvas.addEventListener('mousemove', mouseMoveHandler);
+
+		// let dpr = window.devicePixelRatio || 1;
+		canvas.width = window.innerWidth;
+		canvas.height = window.innerHeight;
+
 
 		setupProjection();
 		setupShaders();
-		updateShaderUniforms();
 		renderLoop();
 
 		// return () => {
@@ -193,8 +229,8 @@
 	.geometry {
 		position: absolute;
 		overflow: hidden;
-		width: 100vw;
-		height: 100dvh;
+		/* width: 100vw;
+		height: 100dvh; */
 		z-index: -1;
 	}
 </style>
