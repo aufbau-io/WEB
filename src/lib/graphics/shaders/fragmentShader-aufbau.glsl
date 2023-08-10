@@ -1,3 +1,4 @@
+precision mediump float;
 varying vec2 vUv;
 uniform vec3 color1;
 uniform vec3 color2;
