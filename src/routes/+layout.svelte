@@ -11,7 +11,7 @@
 
 	onMount(async () => {
 
-		const module = await import('$lib/geometry.svelte');
+		const module = await import('$lib/graphics/three.svelte');
 		Geometry = module.default;
 
 		// ---------------------------------------------------------------------------
