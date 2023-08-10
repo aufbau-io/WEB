@@ -21,14 +21,110 @@
 	let width = window.innerWidth;
 	let height = window.innerHeight;
 
-	let windowHalfX = width / 2;
-	let windowHalfY = height / 2;
-
 	let mouse = new THREE.Vector2();
 	const clock = new THREE.Clock();
 
 	init();
 	animate();
+
+	function setupShaderMaterials() {
+		const uniformsBase = {
+			time: { value: 0 },
+			mouse: { value: mouse }
+		};
+
+		const colors = {
+			color1: new THREE.Color(0xd0d0d0),
+			color2: new THREE.Color(0xbb4500),
+			color3: new THREE.Color(0xdaaa55),
+			color4: new THREE.Color(0x006994 ),
+			color5: new THREE.Color(0x5099b4 ),
+			color6: new THREE.Color(0x0000ff),
+			color7: new THREE.Color(0x00ff00),
+			color9: new THREE.Color(0x8fbd5a),
+		};
+
+		shaderMaterial_aufbau = new THREE.ShaderMaterial({
+			vertexShader: vertexShader,
+			fragmentShader: fragmentShader_aufbau,
+			uniforms: {
+				...uniformsBase,
+				color1: { value: colors.color1 },
+				color2: { value: colors.color5 },
+				color3: { value: colors.color9 },
+			}
+		});
+
+		shaderMaterial_niels = new THREE.ShaderMaterial({
+			vertexShader: vertexShader,
+			fragmentShader: fragmentShader_niels,
+			uniforms: {
+				...uniformsBase,
+				color1: { value: colors.color1 },
+				color2: { value: colors.color2 },
+				color3: { value: colors.color6 },
+				color4: { value: colors.color7 },
+			}
+		});
+
+		shaderMaterial_sicovecas1 = new THREE.ShaderMaterial({
+			vertexShader: vertexShader,
+			fragmentShader: fragmentShader_sicovecas1,
+			uniforms: {
+				...uniformsBase,
+				color1: { value: colors.color4 },
+				color2: { value: colors.color4 },
+				color3: { value: colors.color5 },
+			}
+		});
+
+		shaderMaterial_sicovecas2 = new THREE.ShaderMaterial({
+			vertexShader: vertexShader,
+			fragmentShader: fragmentShader_sicovecas2,
+			uniforms: {
+				...uniformsBase,
+				color1: { value: colors.color1 },
+				color2: { value: colors.color2 },
+				color3: { value: colors.color3 },
+			}
+		});
+	}
+
+	function updateShaderUniforms() {
+		const elapsedTime = clock.getElapsedTime();
+
+		if ($page.url.pathname == '/') {
+			if ($screenType == 1) {
+				shaderMaterial_aufbau.uniforms.time.value = elapsedTime;
+				shaderMaterial_aufbau.uniforms.mouse.value = {
+					x: 4 * Math.cos(elapsedTime * 0.1),
+					y: 5 * Math.cos(elapsedTime * 0.1)
+				} 
+			} else {
+				shaderMaterial_aufbau.uniforms.mouse.value = mouse;
+				shaderMaterial_aufbau.uniforms.time.value = elapsedTime;
+			}
+		}
+
+		if ($page.url.pathname == '/niels') {
+			if ($screenType == 1) {
+				shaderMaterial_niels.uniforms.mouse.value = {
+					x: clock.getElapsedTime() * 1,
+					y: clock.getElapsedTime() * 0.1
+				};
+			} else {
+				shaderMaterial_niels.uniforms.mouse.value = mouse;
+			}
+		}
+
+		if ($page.url.pathname == '/sicovecas') {
+			shaderMaterial_sicovecas1.uniforms.mouse.value = mouse;
+			shaderMaterial_sicovecas2.uniforms.mouse.value = mouse;
+
+			shaderMaterial_sicovecas1.uniforms.time.value = elapsedTime;
+			shaderMaterial_sicovecas2.uniforms.time.value = elapsedTime;
+		}
+	}
 
 	function init() {
 		camera = new THREE.PerspectiveCamera(20, width / height, 1, 800);
@@ -37,68 +133,8 @@
 		scene = new THREE.Scene();
 		scene.background = new THREE.Color(0x232323);
 
-		const color1 = new THREE.Color(0xd0d0d0);
-		const color2 = new THREE.Color(0xbb4500);
-		const color3 = new THREE.Color(0xdaaa55);
-		const color4 = new THREE.Color(0x006994 );
-		const color5 = new THREE.Color(0x5099b4 );
-		const color6 = new THREE.Color(0x0000ff);
-		const color7 = new THREE.Color(0x00ff00);
-		const color9 = new THREE.Color(0x8fbd5a);
-
-		// Shaders
-		shaderMaterial_aufbau = new THREE.ShaderMaterial({
-			vertexShader: vertexShader,
-			fragmentShader: fragmentShader_aufbau,
-			uniforms: {
-				color1: { value: color1 },
-				color2: { value: color5 },
-				color3: { value: color9 },
-				time: { value: 0 },
-				mouse: { value: mouse }
-			}
-		});
-
-		shaderMaterial_niels = new THREE.ShaderMaterial({
-			vertexShader: vertexShader,
-			fragmentShader: fragmentShader_niels,
-			uniforms: {
-				color1: { value: color1 },
-				color2: { value: color2 },
-				color3: { value: color6 },
-				color4: { value: color7 },
-				time: { value: 0 },
-				mouse: { value: mouse }
-			}
-		});
-
-		shaderMaterial_sicovecas1 = new THREE.ShaderMaterial({
-			vertexShader: vertexShader,
-			fragmentShader: fragmentShader_sicovecas1,
-			uniforms: {
-				color1: { value: color4 },
-				color2: { value: color4 },
-				color3: { value: color5 },
-				time: { value: 0 },
-				mouse: { value: mouse }
-			}
-		});
-
-		shaderMaterial_sicovecas2 = new THREE.ShaderMaterial({
-			vertexShader: vertexShader,
-			fragmentShader: fragmentShader_sicovecas2,
-			uniforms: {
-				color1: { value: color1 },
-				color2: { value: color2 },
-				color3: { value: color3 },
-				time: { value: 0 },
-				mouse: { value: mouse }
-			}
-		});
-
+		setupShaderMaterials();
 		setScene();
-
-		// -------------------------------------------------------------------------
 
 		renderer = new THREE.WebGLRenderer({ antialias: false });
 		renderer.setPixelRatio(window.devicePixelRatio);
@@ -174,9 +210,6 @@
 		let width = window.innerWidth;
 		let height = window.innerHeight;
 
-		windowHalfX = width / 2;
-		windowHalfY = height / 2;
-
 		camera.aspect = width / height;
 		camera.updateProjectionMatrix();
 
@@ -199,40 +232,7 @@
 	}
 
 	function render() {
-		const elapsedTime = clock.getElapsedTime();
-
-		if ($page.url.pathname == '/') {
-			if ($screenType == 1) {
-				shaderMaterial_aufbau.uniforms.time.value = elapsedTime;
-				shaderMaterial_aufbau.uniforms.mouse.value = {
-					x: 4 * Math.cos(elapsedTime * 0.1),
-					y: 5 * Math.cos(elapsedTime * 0.1)
-				} 
-			} else {
-				shaderMaterial_aufbau.uniforms.mouse.value = mouse;
-				shaderMaterial_aufbau.uniforms.time.value = elapsedTime;
-			}
-		}
-
-		if ($page.url.pathname == '/niels') {
-			if ($screenType == 1) {
-				shaderMaterial_niels.uniforms.mouse.value = {
-					x: clock.getElapsedTime() * 1,
-					y: clock.getElapsedTime() * 0.1
-				};
-			} else {
-				shaderMaterial_niels.uniforms.mouse.value = mouse;
-			}
-		}
-
-		if ($page.url.pathname == '/sicovecas') {
-			shaderMaterial_sicovecas1.uniforms.mouse.value = mouse;
-			shaderMaterial_sicovecas2.uniforms.mouse.value = mouse;
-
-			shaderMaterial_sicovecas1.uniforms.time.value = elapsedTime;
-			shaderMaterial_sicovecas2.uniforms.time.value = elapsedTime;
-		}
-
+		updateShaderUniforms();
 		renderer.render(scene, camera);
 	}
 </script>

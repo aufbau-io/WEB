@@ -1,6 +1,14 @@
 <script>
   import { onMount } from 'svelte';
 
+  import vertexShader from './shaders/vertexShader.glsl';
+	import fragmentShader_aufbau from './shaders/fragmentShader-aufbau.glsl';
+	import fragmentShader_niels from './shaders/fragmentShader-niels.glsl';
+	import fragmentShader_sicovecas1 from './shaders/fragmentShader-sicovecas1.glsl';
+	import fragmentShader_sicovecas2 from './shaders/fragmentShader-sicovecas2.glsl';
+
+	let shaderMaterial_aufbau, shaderMaterial_niels, shaderMaterial_sicovecas1, shaderMaterial_sicovecas2;
+
   let canvas;
 
   onMount(() => {
