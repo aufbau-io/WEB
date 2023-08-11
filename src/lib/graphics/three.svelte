@@ -6,7 +6,7 @@
 
 	import * as THREE from 'three';
 
-	import vertexShader from './shaders/vertexShader.glsl';
+	import vertexShader from './shaders/vertexShader-three.glsl';
 	import fragmentShader_aufbau from './shaders/fragmentShader-aufbau.glsl';
 	import fragmentShader_niels from './shaders/fragmentShader-niels.glsl';
 	import fragmentShader_sicovecas1 from './shaders/fragmentShader-sicovecas1.glsl';
