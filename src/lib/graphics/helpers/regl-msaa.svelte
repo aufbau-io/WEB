@@ -6,10 +6,12 @@ import { mat4 } from 'gl-matrix';
 import vertexShader from './shaders/vertexShader.glsl';
 import fragmentShader_aufbau from './shaders/fragmentShader-aufbau.glsl';
 
-const SUPER_SAMPLE_FACTOR = 2;
+import blitFragShader from './shaders/utils/blit.frag.glsl';
+import quadVertShader from './shaders/utils/quad.vert.glsl';
 
 let canvas;
 let reglInstance;
+let msaaFramebuffer;
 
 const colors = {
     color1: [208/255, 208/255, 208/255],
@@ -40,6 +42,15 @@ const uvHalfSquare = [
     0, 0,
     1, 1,
     0, 1
+];
+
+const fullscreenQuad = [
+  -1, -1,
+   1, -1,
+  -1,  1,
+  -1,  1,
+   1, -1,
+   1,  1
 ];
 
 let projectionMatrix = mat4.create();
@@ -73,11 +84,31 @@ function setCanvasToFullScreen() {
 	];
 
     mat4.ortho(projectionMatrix, -aspectRatio, aspectRatio, -1, 1, -1, 1);
+    
+    if (msaaFramebuffer) {
+        msaaFramebuffer.resize(canvas.width, canvas.height);
+    }
+
+    return;
 }
 
 onMount(() => {
     setCanvasToFullScreen();
     reglInstance = regl(canvas);
+
+    msaaFramebuffer = reglInstance.framebuffer({
+        width: canvas.width,
+        height: canvas.height,
+        color: reglInstance.texture({
+            width: canvas.width,
+            height: canvas.height,
+            type: 'uint8',
+            format: 'rgba'
+        }),
+        depth: true, // This might internally create a depth renderbuffer attachment.
+        stencil: false,
+        samples: 4
+    });
 
     let drawFullScreenSquare = createDrawCommand(fullSquare, uvFullSquare);
     let drawHalfScreenSquare = createDrawCommand(halfSquare, uvHalfSquare);
@@ -118,14 +149,36 @@ onMount(() => {
         });
     }
 
-    reglInstance.frame(({ tick }) => {
-        reglInstance.clear({ color: [0, 0, 0, 1] });
-        drawFullScreenSquare();
-        drawHalfScreenSquare();
+    const drawBlit = reglInstance({
+        frag: blitFragShader,
+        vert: quadVertShader,
+        attributes: {
+            position: fullscreenQuad,
+        },
+        uniforms: {
+            sourceTexture: reglInstance.prop('srcTexture')
+        },
+        count: 6
+        });
+
+
+    const frameLoop = reglInstance.frame(({ tick }) => {
+        // Clear the MSAA framebuffer
+        reglInstance.clear({ color: [0, 0, 0, 1], framebuffer: msaaFramebuffer });
+
+        // Render to the MSAA framebuffer
+        reglInstance({ framebuffer: msaaFramebuffer })(() => {
+            drawFullScreenSquare();
+            drawHalfScreenSquare();
+        });
+
+        drawBlit({ srcTexture: msaaFramebuffer.color[0] });
     });
+
 
     return () => {
         window.removeEventListener('resize', setCanvasToFullScreen);
+        frameLoop.cancel();
     };
 });
 

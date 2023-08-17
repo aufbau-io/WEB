@@ -6,10 +6,11 @@ import { mat4 } from 'gl-matrix';
 import vertexShader from './shaders/vertexShader.glsl';
 import fragmentShader_aufbau from './shaders/fragmentShader-aufbau.glsl';
 
-const SUPER_SAMPLE_FACTOR = 2;
+const SUPER_SAMPLE_FACTOR = 4;
 
 let canvas;
 let reglInstance;
+let superSampledFramebuffer;
 
 const colors = {
     color1: [208/255, 208/255, 208/255],
@@ -73,11 +74,22 @@ function setCanvasToFullScreen() {
 	];
 
     mat4.ortho(projectionMatrix, -aspectRatio, aspectRatio, -1, 1, -1, 1);
+    
+    if (superSampledFramebuffer) {
+        superSampledFramebuffer.resize(canvas.width * SUPER_SAMPLE_FACTOR, canvas.height * SUPER_SAMPLE_FACTOR);
+    }
+
+    return;
 }
 
 onMount(() => {
     setCanvasToFullScreen();
     reglInstance = regl(canvas);
+
+    superSampledFramebuffer = reglInstance.framebuffer({
+        width: canvas.width * SUPER_SAMPLE_FACTOR,
+        height: canvas.height * SUPER_SAMPLE_FACTOR
+    });
 
     let drawFullScreenSquare = createDrawCommand(fullSquare, uvFullSquare);
     let drawHalfScreenSquare = createDrawCommand(halfSquare, uvHalfSquare);
@@ -108,8 +120,8 @@ onMount(() => {
             viewport: {
                 x: 0,
                 y: 0,
-                width: () => canvas.width,
-                height: () => canvas.height
+                width: () => canvas.width * SUPER_SAMPLE_FACTOR,
+                height: () => canvas.height * SUPER_SAMPLE_FACTOR
             },
             depth: {
                 enable: false
@@ -118,14 +130,59 @@ onMount(() => {
         });
     }
 
-    reglInstance.frame(({ tick }) => {
-        reglInstance.clear({ color: [0, 0, 0, 1] });
-        drawFullScreenSquare();
-        drawHalfScreenSquare();
+    const resolveFramebuffer = reglInstance({
+        frag: `
+            precision mediump float;
+            uniform sampler2D colorBuffer;
+            uniform float SUPER_SAMPLE_FACTOR;
+            uniform vec2 resolution;
+            varying vec2 uv;
+            void main() {
+                vec2 offset = 1.0 / (SUPER_SAMPLE_FACTOR * resolution);
+                vec4 color = texture2D(colorBuffer, uv);
+                color += texture2D(colorBuffer, uv + vec2(offset.x, 0));
+                color += texture2D(colorBuffer, uv + vec2(0, offset.y));
+                color += texture2D(colorBuffer, uv + offset);
+                gl_FragColor = color * 0.25;
+            }
+        `,
+        vert: `
+            precision mediump float;
+            attribute vec2 position;
+            varying vec2 uv;
+            void main() {
+                uv = 0.5 * position + 0.5; // Convert position to UV
+                gl_Position = vec4(position, 0, 1.0);
+            }
+        `,
+        attributes: {
+            position: fullSquare,
+        },
+        uniforms: {
+            colorBuffer: superSampledFramebuffer.color[0],
+            SUPER_SAMPLE_FACTOR: SUPER_SAMPLE_FACTOR,
+            resolution: () => [canvas.width, canvas.height]
+        },
+        count: 6
+    });
+
+    const frameLoop = reglInstance.frame(({ tick }) => {
+        // Clear the super-sampled framebuffer
+        reglInstance.clear({ color: [0, 0, 0, 1], framebuffer: superSampledFramebuffer });
+
+        // Render to the super sampled framebuffer
+        reglInstance({ framebuffer: superSampledFramebuffer })(() => {
+            drawFullScreenSquare();
+            drawHalfScreenSquare();
+        });
+
+        // Downsample the super sampled framebuffer to the default framebuffer
+        resolveFramebuffer();
     });
 
     return () => {
         window.removeEventListener('resize', setCanvasToFullScreen);
+        frameLoop.cancel();
     };
 });
 
