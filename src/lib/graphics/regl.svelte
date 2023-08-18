@@ -1,5 +1,6 @@
 <script>
 import { onMount, onDestroy } from 'svelte';
+import { screenType } from '$lib/store/store';
 import { page } from '$app/stores';
 
 import regl from 'regl';
@@ -194,7 +195,18 @@ function createDrawCommand(frag, vert, positions, uvCoords, assigned_colors) {
             color3: assigned_colors.color3,
             color4: assigned_colors.color4 ? assigned_colors.color4 : [0, 0, 0],
             time: ({ time }) => time,
-            mouse: () => [mouse.x, mouse.y],
+            mouse: ({ time }) => {
+                
+                if ($screenType == 1 && $page.url.pathname == '/') {
+                    return [Math.cos(time), Math.tan(time * 0.1)];
+                }
+                
+                if ($screenType == 1 && $page.url.pathname == '/niels') {
+                    return [time, time * 0.1];
+                }
+                
+                return [mouse.x, mouse.y];
+            }
         },
         viewport: {
             x: 0,
