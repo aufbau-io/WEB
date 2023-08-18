@@ -11,6 +11,9 @@
 
 	onMount(async () => {
 
+		const module = await import('$lib/graphics/three.svelte');
+		Geometry = module.default;
+
 		function getDeviceType() {
 			const width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
 
@@ -28,9 +31,6 @@
 				return 3;
 			}
 		}
-
-		const module = await import('$lib/graphics/three.svelte');
-		Geometry = module.default;
 
 		screenType.set(getDeviceType());
 		isIframe.set(window.location !== window.parent.location);
