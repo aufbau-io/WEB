@@ -8,6 +8,8 @@ import fragmentShader_aufbau from './shaders/fragmentShader-aufbau.glsl';
 
 let canvas;
 let reglInstance;
+let mouse = {x: 0.5, y: 0.5};
+let dpr;
 
 const colors = {
     color1: [208/255, 208/255, 208/255],
@@ -44,42 +46,78 @@ let projectionMatrix = mat4.create();
 let modelViewMatrix = mat4.create();
 
 function setCanvasToFullScreen() {
-    const dpr = window.devicePixelRatio || 1;
-	canvas.width = window.innerWidth * dpr;
-	canvas.height = window.innerHeight * dpr;
+    dpr = window.devicePixelRatio || 1;
+    canvas.width = window.innerWidth * dpr;
+    canvas.height = window.innerHeight * dpr;
 
-	let aspectRatio = (canvas.width / dpr) / (canvas.height / dpr);
-	const scaleFactor = aspectRatio > 1 ? aspectRatio : 1 / aspectRatio;
+    let aspectRatio = (canvas.width / dpr) / (canvas.height / dpr);
 
-	fullSquare = [
-	    -1 * scaleFactor, -1 * scaleFactor,
-	    1 * scaleFactor, -1 * scaleFactor,
-	    1 * scaleFactor, 1 * scaleFactor,
-	
-	    -1 * scaleFactor, -1 * scaleFactor,
-	    1 * scaleFactor, 1 * scaleFactor,
-	    -1 * scaleFactor, 1 * scaleFactor
-	];
+    // Let's use window height as our base scale reference
+    // Decide on a reference height (like 800 pixels) and adjust the scale accordingly
+    const baseHeight = 600;
+    const scaleFactorHalf = (window.innerHeight / baseHeight);
+    const scaleFactorFull = aspectRatio > 0.9 ? aspectRatio : 0.9 / aspectRatio;
+
+    fullSquare = [
+        -1 * scaleFactorFull, -1 * scaleFactorFull,
+        1 * scaleFactorFull, -1 * scaleFactorFull,
+        1 * scaleFactorFull, 1 * scaleFactorFull,
+
+        -1 * scaleFactorFull, -1 * scaleFactorFull,
+        1 * scaleFactorFull, 1 * scaleFactorFull,
+        -1 * scaleFactorFull, 1 * scaleFactorFull
+    ];
 
     halfSquare = [
-	    -0.5 * scaleFactor, -0.5 * scaleFactor,
-	    0.5 * scaleFactor, -0.5 * scaleFactor,
-	    0.5 * scaleFactor, 0.5 * scaleFactor,
-	
-	    -0.5 * scaleFactor, -0.5 * scaleFactor,
-	    0.5 * scaleFactor, 0.5 * scaleFactor,
-	    -0.5 * scaleFactor, 0.5 * scaleFactor
-	];
+        -0.5 * scaleFactorHalf, -0.5 * scaleFactorHalf,
+        0.5 * scaleFactorHalf, -0.5 * scaleFactorHalf,
+        0.5 * scaleFactorHalf, 0.5 * scaleFactorHalf,
+
+        -0.5 * scaleFactorHalf, -0.5 * scaleFactorHalf,
+        0.5 * scaleFactorHalf, 0.5 * scaleFactorHalf,
+        -0.5 * scaleFactorHalf, 0.5 * scaleFactorHalf
+    ];
 
     mat4.ortho(projectionMatrix, -aspectRatio, aspectRatio, -1, 1, -1, 1);
 }
 
-function onDocumentMouseMove(event) {
-    var clientX = event.clientX;
-    var clientY = event.clientY;
+// function setCanvasToFullScreen() {
+//     dpr = window.devicePixelRatio || 1;
+// 	canvas.width = window.innerWidth * dpr;
+// 	canvas.height = window.innerHeight * dpr;
 
-    mouse.x = (clientX / window.innerWidth) * 2 - 1;
-	mouse.y = -(clientY / window.innerHeight) * 2 + 1;
+// 	let aspectRatio = (canvas.width / dpr) / (canvas.height / dpr);
+	
+
+// 	fullSquare = [
+// 	    -1 * scaleFactor, -1 * scaleFactor,
+// 	    1 * scaleFactor, -1 * scaleFactor,
+// 	    1 * scaleFactor, 1 * scaleFactor,
+	
+// 	    -1 * scaleFactor, -1 * scaleFactor,
+// 	    1 * scaleFactor, 1 * scaleFactor,
+// 	    -1 * scaleFactor, 1 * scaleFactor
+// 	];
+
+//     halfSquare = [
+// 	    -0.5 * scaleFactor, -0.5 * scaleFactor,
+// 	    0.5 * scaleFactor, -0.5 * scaleFactor,
+// 	    0.5 * scaleFactor, 0.5 * scaleFactor,
+	
+// 	    -0.5 * scaleFactor, -0.5 * scaleFactor,
+// 	    0.5 * scaleFactor, 0.5 * scaleFactor,
+// 	    -0.5 * scaleFactor, 0.5 * scaleFactor
+// 	];
+
+//     mat4.ortho(projectionMatrix, -aspectRatio, aspectRatio, -1, 1, -1, 1);
+// }
+
+function onDocumentMouseMove(event) {
+    var clientX = event.clientX * dpr;
+    var clientY = event.clientY * dpr;
+
+    mouse.x = (clientX / (window.innerWidth * dpr)) * 2 - 1;
+	mouse.y = -(clientY / (window.innerHeight * dpr)) * 2 + 1;
 };
 
 onMount(() => {
@@ -110,8 +148,8 @@ onMount(() => {
                 color1: colors.color1,
                 color2: colors.color5,
                 color3: colors.color9,
-                time: ({ time }) => time,
-                mouse: [0.5, 0.5], // Center of the canvas. You can later update it with actual mouse coordinates.
+                time: ({ time }) => time *2,
+                mouse: () => [mouse.x, mouse.y],
             },
             viewport: {
                 x: 0,
