@@ -11,7 +11,7 @@
 
 	onMount(async () => {
 
-		const module = await import('$lib/graphics/three.svelte');
+		const module = await import('$lib/graphics/webgl.svelte');
 		Geometry = module.default;
 
 		function getDeviceType() {
