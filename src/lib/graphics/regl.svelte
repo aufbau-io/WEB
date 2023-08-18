@@ -56,7 +56,8 @@ function setCanvasToFullScreen() {
     // Decide on a reference height (like 800 pixels) and adjust the scale accordingly
     const baseHeight = 600;
     const scaleFactorHalf = (window.innerHeight / baseHeight);
-    const scaleFactorFull = aspectRatio > 0.9 ? aspectRatio : 0.9 / aspectRatio;
+    const scaleFactorFull = aspectRatio > 0.8 ? aspectRatio : 0.8 / aspectRatio;
+    // const scaleFactorFull = scaleFactorHalf * 1.2
 
     fullSquare = [
         -1 * scaleFactorFull, -1 * scaleFactorFull,
@@ -148,7 +149,7 @@ onMount(() => {
                 color1: colors.color1,
                 color2: colors.color5,
                 color3: colors.color9,
-                time: ({ time }) => time *2,
+                time: ({ time }) => time,
                 mouse: () => [mouse.x, mouse.y],
             },
             viewport: {
