@@ -1,15 +1,23 @@
 <script>
 import { onMount, onDestroy } from 'svelte';
+import { page } from '$app/stores';
+
 import regl from 'regl';
 import { mat4 } from 'gl-matrix';
 
 import vertexShader from './shaders/vertexShader.glsl';
 import fragmentShader_aufbau from './shaders/fragmentShader-aufbau.glsl';
+import fragmentShader_niels from './shaders/fragmentShader-niels.glsl';
+import fragmentShader_sicovecas1 from './shaders/fragmentShader-sicovecas1.glsl';
+import fragmentShader_sicovecas2 from './shaders/fragmentShader-sicovecas2.glsl';
 
 let canvas;
 let reglInstance;
 let mouse = {x: 0.5, y: 0.5};
 let dpr;
+let drawFullScreenSquare = null;
+let drawHalfScreenSquare = null;
+let unsubscribe;
 
 const colors = {
     color1: [208/255, 208/255, 208/255],
@@ -21,6 +29,34 @@ const colors = {
     color7: [0, 255/255, 0],
     color9: [143/255, 189/255, 90/255]
 };
+
+const colors_aufbau = {
+    color1: colors.color1,
+    color2: colors.color5,
+    color3: colors.color9,
+    color4: null
+}
+
+const colors_niels = {
+    color1: colors.color1,
+    color2: colors.color2,
+    color3: colors.color6,
+    color4: colors.color7,
+}
+
+const colors_sicovecas1 = {
+    color1: colors.color4,
+    color2: colors.color5,
+    color3: colors.color5,
+    color4: null
+}
+
+const colors_sicovecas2 = {
+    color1: colors.color1,
+    color2: colors.color2,
+    color3: colors.color3,
+    color4: null
+}
 
 let fullSquare, halfSquare;
 
@@ -80,38 +116,8 @@ function setCanvasToFullScreen() {
     ];
 
     mat4.ortho(projectionMatrix, -aspectRatio, aspectRatio, -1, 1, -1, 1);
+    
 }
-
-// function setCanvasToFullScreen() {
-//     dpr = window.devicePixelRatio || 1;
-// 	canvas.width = window.innerWidth * dpr;
-// 	canvas.height = window.innerHeight * dpr;
-
-// 	let aspectRatio = (canvas.width / dpr) / (canvas.height / dpr);
-	
-
-// 	fullSquare = [
-// 	    -1 * scaleFactor, -1 * scaleFactor,
-// 	    1 * scaleFactor, -1 * scaleFactor,
-// 	    1 * scaleFactor, 1 * scaleFactor,
-	
-// 	    -1 * scaleFactor, -1 * scaleFactor,
-// 	    1 * scaleFactor, 1 * scaleFactor,
-// 	    -1 * scaleFactor, 1 * scaleFactor
-// 	];
-
-//     halfSquare = [
-// 	    -0.5 * scaleFactor, -0.5 * scaleFactor,
-// 	    0.5 * scaleFactor, -0.5 * scaleFactor,
-// 	    0.5 * scaleFactor, 0.5 * scaleFactor,
-	
-// 	    -0.5 * scaleFactor, -0.5 * scaleFactor,
-// 	    0.5 * scaleFactor, 0.5 * scaleFactor,
-// 	    -0.5 * scaleFactor, 0.5 * scaleFactor
-// 	];
-
-//     mat4.ortho(projectionMatrix, -aspectRatio, aspectRatio, -1, 1, -1, 1);
-// }
 
 function onDocumentMouseMove(event) {
     var clientX = event.clientX * dpr;
@@ -121,60 +127,87 @@ function onDocumentMouseMove(event) {
 	mouse.y = -(clientY / (window.innerHeight * dpr)) * 2 + 1;
 };
 
+
 onMount(() => {
     setCanvasToFullScreen();
     reglInstance = regl(canvas);
 
-    let drawFullScreenSquare = createDrawCommand(fullSquare, uvFullSquare);
-    let drawHalfScreenSquare = createDrawCommand(halfSquare, uvHalfSquare);
+    unsubscribe = page.subscribe(({ url }) => {
+        if (reglInstance) {
+            updateDrawCommands(url.pathname);
+        }
+    });
 
     window.addEventListener('mousemove', onDocumentMouseMove);
     window.addEventListener('resize', () => {
-        setCanvasToFullScreen();
-        drawFullScreenSquare = createDrawCommand(fullSquare, uvFullSquare);
-        drawHalfScreenSquare = createDrawCommand(halfSquare, uvHalfSquare);
-    });
-
-    function createDrawCommand(positions, uvCoords) {
-        return reglInstance({
-            frag: fragmentShader_aufbau,
-            vert: vertexShader,
-            attributes: {
-                position: positions,
-                uv: uvCoords,
-            },
-            uniforms: {
-                projectionMatrix: () => projectionMatrix,
-                modelViewMatrix: () => modelViewMatrix,
-                color1: colors.color1,
-                color2: colors.color5,
-                color3: colors.color9,
-                time: ({ time }) => time,
-                mouse: () => [mouse.x, mouse.y],
-            },
-            viewport: {
-                x: 0,
-                y: 0,
-                width: () => canvas.width,
-                height: () => canvas.height
-            },
-            depth: {
-                enable: false
-            },
-            count: 6
-        });
-    }
-
+        setCanvasToFullScreen()
+        updateDrawCommands($page.url.pathname)
+    ;});
     reglInstance.frame(({ tick }) => {
         reglInstance.clear({ color: [0, 0, 0, 1] });
-        drawFullScreenSquare();
-        drawHalfScreenSquare();
+        if (drawFullScreenSquare) {
+            drawFullScreenSquare();
+        }
+        if (drawHalfScreenSquare) {
+            drawHalfScreenSquare();
+        }
     });
 
     return () => {
+        window.removeEventListener('mousemove', onDocumentMouseMove);
         window.removeEventListener('resize', setCanvasToFullScreen);
+        unsubscribe && unsubscribe();
     };
 });
+
+function updateDrawCommands(pathname) {
+     switch (pathname) {
+         case '/':
+             drawFullScreenSquare = createDrawCommand(fragmentShader_aufbau, vertexShader, fullSquare, uvFullSquare, colors_aufbau);
+             drawHalfScreenSquare = createDrawCommand(fragmentShader_aufbau, vertexShader, halfSquare, uvHalfSquare, colors_aufbau);
+             break;
+         case '/niels':
+             drawFullScreenSquare = createDrawCommand(fragmentShader_niels, vertexShader, fullSquare, uvFullSquare, colors_niels);
+             drawHalfScreenSquare = null;
+             break;
+         case '/sicovecas':
+             drawFullScreenSquare = createDrawCommand(fragmentShader_sicovecas1, vertexShader, fullSquare, uvFullSquare, colors_sicovecas1);
+             drawHalfScreenSquare = createDrawCommand(fragmentShader_sicovecas2, vertexShader, halfSquare, uvHalfSquare, colors_sicovecas2);
+             break;
+     }
+ }
+
+
+function createDrawCommand(frag, vert, positions, uvCoords, assigned_colors) {
+    return reglInstance({
+        frag: frag,
+        vert: vert,
+        attributes: {
+            position: positions,
+            uv: uvCoords,
+        },
+        uniforms: {
+            projectionMatrix: () => projectionMatrix,
+            modelViewMatrix: () => modelViewMatrix,
+            color1: assigned_colors.color1,
+            color2: assigned_colors.color2,
+            color3: assigned_colors.color3,
+            color4: assigned_colors.color4 ? assigned_colors.color4 : [0, 0, 0],
+            time: ({ time }) => time,
+            mouse: () => [mouse.x, mouse.y],
+        },
+        viewport: {
+            x: 0,
+            y: 0,
+            width: () => canvas.width,
+            height: () => canvas.height
+        },
+        depth: {
+            enable: false
+        },
+        count: 6
+    });
+}
 
 onDestroy(() => {
     reglInstance && reglInstance.destroy();
