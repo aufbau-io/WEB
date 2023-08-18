@@ -1,4 +1,4 @@
-precision highp float;
+precision mediump float;
 attribute vec2 uv;
 attribute vec2 position;
 uniform mat4 projectionMatrix;
