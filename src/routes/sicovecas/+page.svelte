@@ -3,7 +3,7 @@
 
 <section>
 	<div class="main">
-		<a href="https://sicovecas-demo.netlify.app" target="_blank" rel="noreferrer">// visit sicovecas</a>
+		<a href="https://sicovecas-demo.netlify.app" target="_blank" rel="noreferrer">// visit sicovecas (wip)</a>
 	</div>
 </section>
 

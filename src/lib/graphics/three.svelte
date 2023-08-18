@@ -217,7 +217,6 @@
 	}
 
 	function onDocumentMouseMove(event) {
-		event.preventDefault();
     var clientX = event.clientX;
     var clientY = event.clientY;
 

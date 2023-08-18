@@ -6,8 +6,6 @@ import { mat4 } from 'gl-matrix';
 import vertexShader from './shaders/vertexShader.glsl';
 import fragmentShader_aufbau from './shaders/fragmentShader-aufbau.glsl';
 
-const SUPER_SAMPLE_FACTOR = 2;
-
 let canvas;
 let reglInstance;
 
@@ -46,10 +44,11 @@ let projectionMatrix = mat4.create();
 let modelViewMatrix = mat4.create();
 
 function setCanvasToFullScreen() {
-	canvas.width = window.innerWidth;
-	canvas.height = window.innerHeight;
+    const dpr = window.devicePixelRatio || 1;
+	canvas.width = window.innerWidth * dpr;
+	canvas.height = window.innerHeight * dpr;
 
-	let aspectRatio = canvas.width / canvas.height;
+	let aspectRatio = (canvas.width / dpr) / (canvas.height / dpr);
 	const scaleFactor = aspectRatio > 1 ? aspectRatio : 1 / aspectRatio;
 
 	fullSquare = [
@@ -75,6 +74,14 @@ function setCanvasToFullScreen() {
     mat4.ortho(projectionMatrix, -aspectRatio, aspectRatio, -1, 1, -1, 1);
 }
 
+function onDocumentMouseMove(event) {
+    var clientX = event.clientX;
+    var clientY = event.clientY;
+
+    mouse.x = (clientX / window.innerWidth) * 2 - 1;
+	mouse.y = -(clientY / window.innerHeight) * 2 + 1;
+};
+
 onMount(() => {
     setCanvasToFullScreen();
     reglInstance = regl(canvas);
@@ -82,6 +89,7 @@ onMount(() => {
     let drawFullScreenSquare = createDrawCommand(fullSquare, uvFullSquare);
     let drawHalfScreenSquare = createDrawCommand(halfSquare, uvHalfSquare);
 
+    window.addEventListener('mousemove', onDocumentMouseMove);
     window.addEventListener('resize', () => {
         setCanvasToFullScreen();
         drawFullScreenSquare = createDrawCommand(fullSquare, uvFullSquare);
@@ -139,8 +147,11 @@ onDestroy(() => {
 
 
 <style>
-	canvas {
-		position: absolute;
-		z-index: -1;
+canvas {
+	position: absolute;
+    width: 100%;
+    height: 100%;
+    display: block;
+	z-index: -1;
 	}
 </style>

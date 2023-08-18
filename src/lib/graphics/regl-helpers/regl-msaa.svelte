@@ -6,8 +6,8 @@ import { mat4 } from 'gl-matrix';
 import vertexShader from './shaders/vertexShader.glsl';
 import fragmentShader_aufbau from './shaders/fragmentShader-aufbau.glsl';
 
-import blitFragShader from './shaders/utils/blit.frag.glsl';
-import quadVertShader from './shaders/utils/quad.vert.glsl';
+import blitFragShader from './util-shaders/blit.frag.glsl';
+import quadVertShader from './util-shaders/quad.vert.glsl';
 
 let canvas;
 let reglInstance;
