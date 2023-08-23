@@ -54,8 +54,7 @@ section {
 		}
 
 		.main a {
-			background:  var(--black);
-			border: solid 1px var(--black)
+			background:  var(--background);
 		}
 	}
 </style>

@@ -12,13 +12,14 @@
 			href: '/'
 		},
 		{
-			name: 'NIELS',
-			href: '/niels'
-		},
-		{
 			name: 'RAUM',
 			href: '/raum'
 		},
+		{
+			name: 'NIELS',
+			href: '/niels'
+		},
+
 	];
 
 	// let toggleDarkMode = () => {
