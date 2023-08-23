@@ -42,7 +42,8 @@
 			color6: new THREE.Color(0x0000ff),
 			color7: new THREE.Color(0x00ff00),
 			color9: new THREE.Color(0x8fbd5a),
-		};
+			color0: new THREE.Color(0x232323),
+		}
 
 		shaderMaterial_aufbau = new THREE.ShaderMaterial({
 			vertexShader: vertexShader,
@@ -72,9 +73,9 @@
 			fragmentShader: fragmentShader_sicovecas1,
 			uniforms: {
 				...uniformsBase,
-				color1: { value: colors.color4 },
-				color2: { value: colors.color4 },
-				color3: { value: colors.color5 },
+				color1: { value: colors.color1 },
+				color2: { value: colors.color1 },
+				color3: { value: colors.color0 },
 			}
 		});
 
@@ -117,7 +118,7 @@
 			}
 		}
 
-		if ($page.url.pathname == '/sicovecas') {
+		if ($page.url.pathname == '/raum') {
 			shaderMaterial_sicovecas1.uniforms.mouse.value = mouse;
 			shaderMaterial_sicovecas2.uniforms.mouse.value = mouse;
 
@@ -174,7 +175,7 @@
 
 	function setSicovecas () {
 		let plane = new THREE.Mesh(new THREE.PlaneGeometry(1000, 1000), shaderMaterial_sicovecas1);
-		let plane2 = new THREE.Mesh(new THREE.PlaneGeometry(100, 100), shaderMaterial_sicovecas2);
+		let plane2 = new THREE.Mesh(new THREE.PlaneGeometry(100, 100), shaderMaterial_sicovecas1);
 		plane2.position.z = 200;
 		scene.add(plane, plane2);
 	}
@@ -189,7 +190,7 @@
 			setNiels();
 		}
 
-		if ($page.url.pathname == '/sicovecas') {
+		if ($page.url.pathname == '/raum') {
 			setSicovecas();
 		}
 	}

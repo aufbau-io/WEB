@@ -16,8 +16,8 @@
 			href: '/niels'
 		},
 		{
-			name: 'SICOVECAS',
-			href: '/sicovecas'
+			name: 'RAUM',
+			href: '/raum'
 		},
 	];
 
