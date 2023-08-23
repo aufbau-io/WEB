@@ -114,7 +114,10 @@
 					y: clock.getElapsedTime() * 0.1
 				};
 			} else {
-				shaderMaterial_niels.uniforms.mouse.value = mouse;
+				shaderMaterial_niels.uniforms.mouse.value = {
+					x: mouse.x + clock.getElapsedTime() * 0.1,
+					y: mouse.y + clock.getElapsedTime() * 1
+				};
 			}
 		}
 
