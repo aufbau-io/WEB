@@ -11,7 +11,7 @@
 }
 
 :root {
-	--background: #0b0b0b;
+	--background: #232323;
 	--background-50: #d0d0d080;
 	--primary: #d0d0d0;
 	--primary-50: #ffa50080;
@@ -20,7 +20,7 @@
 	--white: #d0d0d0;
 	--black: #1b1b1b;
 
-	--border: dashed 1px var(--white);
+	--border: dashed 1px var(--black);
 }
 
 /* :root.dark-mode {
