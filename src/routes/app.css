@@ -20,7 +20,7 @@
 	--white: #d0d0d0;
 	--black: #1b1b1b;
 
-	--border: dashed 1px var(--black);
+	--border: solid 1px var(--black);
 }
 
 /* :root.dark-mode {
