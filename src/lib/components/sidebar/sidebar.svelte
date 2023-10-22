@@ -53,7 +53,7 @@
 	
 	$: {
 		if ($screenType === 1) { // Assuming 1 corresponds to mobile
-			navItems = navItemsBasic.filter(item => item.href !== '/software');
+			navItems = navItemsBasic.filter(item => item.href !== '/ml-network');
 		} else {
 			navItems = navItemsBasic;
 		}
