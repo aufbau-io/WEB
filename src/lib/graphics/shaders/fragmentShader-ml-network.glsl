@@ -9,11 +9,11 @@ uniform float time;
 uniform vec2 mouse;
 
 void main() {
-    vec2 pos = vUv * 2.0 - 1.0;
+    vec2 pos = vUv * 4.0 - 4.0;
     pos.x += sin(pos.y * 10.0 + time * 0.2) * 0.1;
     pos.y += cos(pos.x * 10.0 + time * 0.2) * 0.1;
     
-    float wave = sin(4.0 * atan(pos.y, pos.x) + time * 0.5) * 0.5 + 0.5;
+    float wave = sin(4.0 * atan(pos.y, pos.x) + time * 0.2) * 0.5 + 0.5;
     
     vec3 color = mix(color1, color2, wave);
     gl_FragColor = vec4(color, 1.0);

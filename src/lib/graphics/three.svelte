@@ -13,11 +13,11 @@
 	import fragmentShader_iota from './shaders/fragmentShader-iota.glsl';
 	import fragmentShader_silicon from './shaders/fragmentShader-silicon.glsl';
 	import fragmentShader_closed_loop from './shaders/fragmentShader-closed-loop.glsl';
-	import fragmentShader_software from './shaders/fragmentShader-software.glsl';
+	import fragmentShader_ml_network from './shaders/fragmentShader-ml-network.glsl';
 
 	let SIDEBAR_SIZE = 0;
 
-	let shaderMaterial_aufbau, shaderMaterial_niels, shaderMaterial_raum, shaderMaterial_silicon, shaderMaterial_iota, shaderMaterial_closed_loop, shaderMaterial_software;
+	let shaderMaterial_aufbau, shaderMaterial_niels, shaderMaterial_raum, shaderMaterial_silicon, shaderMaterial_iota, shaderMaterial_closed_loop, shaderMaterial_ml_network;
 
 	let container;
 
@@ -119,9 +119,9 @@
 			}
 		});
 
-		shaderMaterial_software = new THREE.ShaderMaterial({
+		shaderMaterial_ml_network = new THREE.ShaderMaterial({
 			vertexShader: vertexShader,
-			fragmentShader: fragmentShader_software,
+			fragmentShader: fragmentShader_ml_network,
 			uniforms: {
 				...uniformsBase,
 				color1: { value: colors.color0 },
@@ -182,8 +182,8 @@
 		}
 
 		if ($page.url.pathname == '/ml-network') {
-			shaderMaterial_software.uniforms.mouse.value = mouse;
-			shaderMaterial_software.uniforms.time.value = elapsedTime;
+			shaderMaterial_ml_network.uniforms.mouse.value = mouse;
+			shaderMaterial_ml_network.uniforms.time.value = elapsedTime;
 		}
 	}
 
@@ -261,8 +261,8 @@
 		scene.add(plane, plane2);
 	}
 
-	function setSoftware () {
-		let plane3 = new THREE.Mesh(new THREE.PlaneGeometry(600, 600), shaderMaterial_software);
+	function setMLNewtork () {
+		let plane3 = new THREE.Mesh(new THREE.PlaneGeometry(600, 600), shaderMaterial_ml_network);
 		plane3.position.z = -0.1;
 		scene.add(plane3)
 	}
@@ -295,7 +295,7 @@
 		}
 
 		if ($page.url.pathname == '/ml-network') {
-			setSoftware();
+			setMLNewtork();
 		}
 
 	}
