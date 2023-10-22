@@ -181,7 +181,7 @@
 			shaderMaterial_closed_loop.uniforms.time.value = elapsedTime;
 		}
 
-		if ($page.url.pathname == '/software') {
+		if ($page.url.pathname == '/ml-network') {
 			shaderMaterial_software.uniforms.mouse.value = mouse;
 			shaderMaterial_software.uniforms.time.value = elapsedTime;
 		}
@@ -294,7 +294,7 @@
 			setClosedLoop();
 		}
 
-		if ($page.url.pathname == '/software') {
+		if ($page.url.pathname == '/ml-network') {
 			setSoftware();
 		}
 

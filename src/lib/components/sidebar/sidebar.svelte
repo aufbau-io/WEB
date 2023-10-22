@@ -40,8 +40,8 @@
 			href: '/closed-loop',
 		},
 		{
-			name: '////////SOFTWARE/////',
-			href: '/software',
+			name: '///////ML-NETWORK////',
+			href: '/ml-network',
 		},
 		{
 			name: '//////////PERSONAL///',
