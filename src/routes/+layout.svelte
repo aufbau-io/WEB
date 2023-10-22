@@ -50,6 +50,14 @@
 	<meta name="description" content="AUFBAU :: WEB 1.0 Re-Imagined" />
 
 	<link
+	rel="preload"
+	href="/fonts/Dahlia-bold.woff2"
+	as="font"
+	type="font/woff2"
+	crossorigin="anonymous"
+/>
+
+	<link
 		rel="preload"
 		href="/fonts/NB-Architekt-Pro-Light.woff"
 		as="font"
