@@ -1,14 +1,13 @@
 <script>
 	import Nav from '../sidebar/nav.svelte';
-	import { screenType, darkMode } from '$lib/store/store';
+	import { screenType, darkMode, DARK_PAGES } from '$lib/store/store';
 
 	// import { page } from '$app/stores';
 	// import { goto } from '$app/navigation';
 
 	function setDarkModeBasedOnRoute(route) {
 		console.log(route);
-    const darkRoutes = ['/raum', '/iota', '/silicon','/closed-loop', '/software'];
-    if (darkRoutes.includes(route)) {
+    if (DARK_PAGES.includes(route)) {
         darkMode.set(true);
 				document.querySelector(':root').classList.add('dark-mode');
     } else {
@@ -25,12 +24,12 @@
 			href: '/',
 		},
 		{
-			name: '/////RAUM////////////',
-			href: '/raum',
-		},
-		{
 			name: '/////IOTA////////////',
 			href: '/iota',
+		},
+		{
+			name: '/////RAUM////////////',
+			href: '/raum',
 		},
 		{
 			name: '/////silicon/////////',
@@ -45,7 +44,7 @@
 			href: '/software',
 		},
 		{
-			name: '/////////PERSONAL////',
+			name: '//////////PERSONAL///',
 			href: '/niels',
 		},
 	];
@@ -60,9 +59,11 @@
 
 		<div class="top">
 
+			<a class="no-style" href='/'>
 				<div class="title">
 					<h1>aufbau</h1>
 				</div>
+			</a>
 
 			<Nav {navItems} setMode={setDarkModeBasedOnRoute} />
 		</div>
@@ -126,8 +127,12 @@
 		font-family: dahlia;
 		font-size: 46px;
 		letter-spacing: 0px;
-		padding-bottom: 5px;
+		padding-bottom: 30px;
 		color: var(--background);
+	}
+
+	a.no-style {
+		text-decoration: none !important;
 	}
 
 	.end {

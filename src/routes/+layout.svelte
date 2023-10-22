@@ -2,7 +2,7 @@
 	import './app.css';
 
 	import { onMount } from 'svelte';
-	import { screenType, isIframe } from '$lib/store/store';
+	import { screenType, isIframe, darkMode, DARK_PAGES } from '$lib/store/store';
 	import { page } from '$app/stores';
 
 	import Header from '$lib/components/header/header.svelte';
@@ -18,6 +18,12 @@
 
 		function getDeviceType() {
 			const width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+
+			console.log($page.url.pathname)
+			if (DARK_PAGES.includes($page.url.pathname)) {
+        darkMode.set(true);
+				document.querySelector(':root').classList.add('dark-mode');
+			}
 
 			if ('ontouchstart' in window || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0) {
 				// This is a device which supports touch
@@ -62,6 +68,8 @@
 	<link rel="preload" href="icons/cv.svg" as="image">
 	<link rel="preload" href="icons/insta.svg" as="image">
 	<link rel="preload" href="icons/mail.svg" as="image">
+
+	<link rel="preload" href="system_diagram.png" as="image">
 
 </svelte:head>
 

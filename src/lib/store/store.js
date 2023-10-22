@@ -3,6 +3,8 @@ import { writable } from 'svelte/store';
 export const userType = writable(null);
 export const screenType = writable(null);
 export const isIframe = writable(true);
+
+export const DARK_PAGES = ['/raum', '/software'];
 export const darkMode = writable(false);
 
 export const lobbySelected = writable(false);

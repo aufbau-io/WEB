@@ -1,9 +1,11 @@
 <script>
+	
 </script>
 
 <section>
 	<div class="main">
-		<p>WIP</p>
+		<!-- <p>WIP</p> -->
+		<img src="/system_diagram.png" alt="system-diagram" class="icon" />
 	</div>
 </section>
 
@@ -50,7 +52,7 @@ section {
 			bottom: 20px;
 			width: calc(100% - 40px);
 			padding: 10px;
-			background:  var(--background);
+			/* background:  var(--background); */
 		}
 
 		.main a {

@@ -3,7 +3,7 @@
 
 <section>
 	<div class="main">
-		<p>WIP</p>
+		<p>DANCE MUSIC SEARCH ENGINE - WIP</p>
 	</div>
 </section>
 

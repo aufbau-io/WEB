@@ -3,7 +3,7 @@
 
 <section>
 	<div class="main">
-		<p>WIP</p>
+		<p>MENTAL HEALTH TRACKING - WIP</p>
 	</div>
 </section>
 

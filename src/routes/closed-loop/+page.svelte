@@ -3,7 +3,7 @@
 
 <section>
 	<div class="main">
-		<p>WIP</p>
+		<p>CLOSED LOOP NEURAL STIMULATION - WIP</p>
 	</div>
 </section>
 

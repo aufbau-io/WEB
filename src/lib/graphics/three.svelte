@@ -9,12 +9,15 @@
 	import vertexShader from './shaders/vertexShader-three.glsl';
 	import fragmentShader_aufbau from './shaders/fragmentShader-aufbau.glsl';
 	import fragmentShader_niels from './shaders/fragmentShader-niels.glsl';
-	import fragmentShader_sicovecas1 from './shaders/fragmentShader-sicovecas1.glsl';
-	import fragmentShader_sicovecas2 from './shaders/fragmentShader-sicovecas2.glsl';
+	import fragmentShader_raum from './shaders/fragmentShader-raum.glsl';
+	import fragmentShader_iota from './shaders/fragmentShader-iota.glsl';
+	import fragmentShader_silicon from './shaders/fragmentShader-silicon.glsl';
+	import fragmentShader_closed_loop from './shaders/fragmentShader-closed-loop.glsl';
+	import fragmentShader_software from './shaders/fragmentShader-software.glsl';
 
 	let SIDEBAR_SIZE = 0;
 
-	let shaderMaterial_aufbau, shaderMaterial_niels, shaderMaterial_sicovecas1, shaderMaterial_sicovecas2;
+	let shaderMaterial_aufbau, shaderMaterial_niels, shaderMaterial_raum, shaderMaterial_silicon, shaderMaterial_iota, shaderMaterial_closed_loop, shaderMaterial_software;
 
 	let container;
 
@@ -43,6 +46,7 @@
 			color5: new THREE.Color(0x5099b4 ),
 			color6: new THREE.Color(0x0000ff),
 			color7: new THREE.Color(0x00ff00),
+			color8: new THREE.Color(0x0b0b0b),
 			color9: new THREE.Color(0x8fbd5a),
 			color0: new THREE.Color(0x232323),
 		}
@@ -70,9 +74,9 @@
 			}
 		});
 
-		shaderMaterial_sicovecas1 = new THREE.ShaderMaterial({
+		shaderMaterial_raum = new THREE.ShaderMaterial({
 			vertexShader: vertexShader,
-			fragmentShader: fragmentShader_sicovecas1,
+			fragmentShader: fragmentShader_raum,
 			uniforms: {
 				...uniformsBase,
 				color1: { value: colors.color1 },
@@ -81,16 +85,50 @@
 			}
 		});
 
-		shaderMaterial_sicovecas2 = new THREE.ShaderMaterial({
+		
+		shaderMaterial_iota = new THREE.ShaderMaterial({
 			vertexShader: vertexShader,
-			fragmentShader: fragmentShader_sicovecas2,
+			fragmentShader: fragmentShader_iota,
 			uniforms: {
 				...uniformsBase,
 				color1: { value: colors.color1 },
+				color2: { value: colors.color4 },
+				color3: { value: colors.color5 },
+			}
+		});
+
+		shaderMaterial_silicon = new THREE.ShaderMaterial({
+			vertexShader: vertexShader,
+			fragmentShader: fragmentShader_silicon,
+			uniforms: {
+				...uniformsBase,
+				color1: { value: colors.color3 },
 				color2: { value: colors.color2 },
 				color3: { value: colors.color3 },
 			}
 		});
+
+		shaderMaterial_closed_loop = new THREE.ShaderMaterial({
+			vertexShader: vertexShader,
+			fragmentShader: fragmentShader_closed_loop,
+			uniforms: {
+				...uniformsBase,
+				color1: { value: colors.color9 },
+				color2: { value: colors.color7 },
+				color3: { value: colors.color4 },
+			}
+		});
+
+		shaderMaterial_software = new THREE.ShaderMaterial({
+			vertexShader: vertexShader,
+			fragmentShader: fragmentShader_software,
+			uniforms: {
+				...uniformsBase,
+				color1: { value: colors.color0 },
+				color2: { value: colors.color8 },
+			}
+		});
+
 	}
 
 	function updateShaderUniforms() {
@@ -124,11 +162,28 @@
 		}
 
 		if ($page.url.pathname == '/raum') {
-			shaderMaterial_sicovecas1.uniforms.mouse.value = mouse;
-			shaderMaterial_sicovecas2.uniforms.mouse.value = mouse;
+			shaderMaterial_raum.uniforms.mouse.value = mouse;
+			shaderMaterial_raum.uniforms.time.value = elapsedTime;
+		}
 
-			shaderMaterial_sicovecas1.uniforms.time.value = elapsedTime;
-			shaderMaterial_sicovecas2.uniforms.time.value = elapsedTime;
+		if ($page.url.pathname == '/iota') {
+			shaderMaterial_iota.uniforms.mouse.value = mouse;
+			shaderMaterial_iota.uniforms.time.value = elapsedTime;
+		}
+
+		if ($page.url.pathname == '/silicon') {
+			shaderMaterial_silicon.uniforms.mouse.value = mouse;
+			shaderMaterial_silicon.uniforms.time.value = elapsedTime;
+		}
+
+		if ($page.url.pathname == '/closed-loop') {
+			shaderMaterial_closed_loop.uniforms.mouse.value = mouse;
+			shaderMaterial_closed_loop.uniforms.time.value = elapsedTime;
+		}
+
+		if ($page.url.pathname == '/software') {
+			shaderMaterial_software.uniforms.mouse.value = mouse;
+			shaderMaterial_software.uniforms.time.value = elapsedTime;
 		}
 	}
 
@@ -178,12 +233,40 @@
 		scene.add(plane3)
 	}
 
-	function setSicovecas () {
-		let plane = new THREE.Mesh(new THREE.PlaneGeometry(1000, 1000), shaderMaterial_sicovecas1);
-		let plane2 = new THREE.Mesh(new THREE.PlaneGeometry(100, 100), shaderMaterial_sicovecas1);
+	function setRaum () {
+		let plane = new THREE.Mesh(new THREE.PlaneGeometry(1000, 1000), shaderMaterial_raum);
+		let plane2 = new THREE.Mesh(new THREE.PlaneGeometry(100, 100), shaderMaterial_raum);
 		plane2.position.z = 200;
 		scene.add(plane, plane2);
 	}
+
+	function setIOTA () {
+		let plane = new THREE.Mesh(new THREE.PlaneGeometry(1000, 1000), shaderMaterial_iota);
+		let plane2 = new THREE.Mesh(new THREE.PlaneGeometry(100, 100), shaderMaterial_iota);
+		plane2.position.z = 200;
+		scene.add(plane, plane2);
+	}
+
+	function setSilicon () {
+		let plane = new THREE.Mesh(new THREE.PlaneGeometry(1000, 1000), shaderMaterial_silicon);
+		let plane2 = new THREE.Mesh(new THREE.PlaneGeometry(100, 100), shaderMaterial_silicon);
+		plane2.position.z = 200;
+		scene.add(plane, plane2);
+	}
+
+	function setClosedLoop () {
+		let plane = new THREE.Mesh(new THREE.PlaneGeometry(1000, 1000), shaderMaterial_closed_loop);
+		let plane2 = new THREE.Mesh(new THREE.PlaneGeometry(100, 100), shaderMaterial_closed_loop);
+		plane2.position.z = 200;
+		scene.add(plane, plane2);
+	}
+
+	function setSoftware () {
+		let plane3 = new THREE.Mesh(new THREE.PlaneGeometry(600, 600), shaderMaterial_software);
+		plane3.position.z = -0.1;
+		scene.add(plane3)
+	}
+
 
 	function setScene () {
 
@@ -196,8 +279,25 @@
 		}
 
 		if ($page.url.pathname == '/raum') {
-			setSicovecas();
+			setRaum();
 		}
+
+		if ($page.url.pathname == '/iota') {
+			setIOTA();
+		}
+
+		if ($page.url.pathname == '/silicon') {
+			setSilicon();
+		}
+
+		if ($page.url.pathname == '/closed-loop') {
+			setClosedLoop();
+		}
+
+		if ($page.url.pathname == '/software') {
+			setSoftware();
+		}
+
 	}
 
 	afterNavigate (onNavigate);
