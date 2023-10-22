@@ -18,7 +18,7 @@
 }
 
 	// stub data out
-	const navItems = [
+	const navItemsBasic = [
 		{
 			name: '///AUFBAU////////////',
 			href: '/',
@@ -49,6 +49,16 @@
 		},
 	];
 
+	let navItems = navItemsBasic;
+	
+	$: {
+		if ($screenType === 1) { // Assuming 1 corresponds to mobile
+			navItems = navItemsBasic.filter(item => item.href !== '/software');
+		} else {
+			navItems = navItemsBasic;
+		}
+	}
+
 	// let toggleDarkMode = () => {
 	// 	darkMode.set(!$darkMode);
 	// 	document.querySelector(':root').classList.toggle('dark-mode');
@@ -65,8 +75,8 @@
 				</div>
 			</a>
 
-			<Nav {navItems} setMode={setDarkModeBasedOnRoute} />
-		</div>
+				<Nav {navItems} setMode={setDarkModeBasedOnRoute} />
+		</div>-
 
 		{#if $screenType == 3}
 		<div class="end">
