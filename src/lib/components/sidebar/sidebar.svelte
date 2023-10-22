@@ -20,31 +20,31 @@
 	// stub data out
 	const navItemsBasic = [
 		{
-			name: '///AUFBAU////////////',
+			name: '///AUFBAU/////////////',
 			href: '/',
 		},
 		{
-			name: '/////IOTA////////////',
+			name: '/////IOTA/////////////',
 			href: '/iota',
 		},
 		{
-			name: '/////RAUM////////////',
+			name: '/////RAUM/////////////',
 			href: '/raum',
 		},
 		{
-			name: '/////silicon/////////',
+			name: '/////silicon//////////',
 			href: '/silicon',
 		},
 		{
-			name: '/////CLOSED-LOOP/////',
+			name: '/////CLOSED-LOOP//////',
 			href: '/closed-loop',
 		},
 		{
-			name: '///////ML-NETWORK////',
+			name: '///////ML-NETWORK/////',
 			href: '/ml-network',
 		},
 		{
-			name: '//////////PERSONAL///',
+			name: '//////////PERSONAL////',
 			href: '/niels',
 		},
 	];
