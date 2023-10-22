@@ -1,26 +1,26 @@
 <script>
 	import Nav from './nav.svelte';
-	// import { darkMode, screenType } from '$lib/store/store';
+	import { darkMode } from '$lib/store/store';
 
 	// import { page } from '$app/stores';
 	// import { goto } from '$app/navigation';
 
 	// stub data out
-	const navItems = [
-		{
-			name: 'AUFBAU',
-			href: '/'
-		},
-		{
-			name: 'RAUM',
-			href: '/raum'
-		},
-		{
-			name: 'NIELS',
-			href: '/niels'
-		},
+	// const navItems = [
+	// 	{
+	// 		name: 'AUFBAU',
+	// 		href: '/'
+	// 	},
+	// 	{
+	// 		name: 'RAUM',
+	// 		href: '/raum'
+	// 	},
+	// 	{
+	// 		name: 'NIELS',
+	// 		href: '/niels'
+	// 	},
 
-	];
+	// ];
 
 	// let toggleDarkMode = () => {
 	// 	darkMode.set(!$darkMode);
@@ -31,7 +31,7 @@
 <header>
 	<main>
 
-		<Nav {navItems} />
+		<!-- <Nav {navItems} /> -->
 
 	<!-- <div on:click={() => toggleDarkMode()} on:keydown={() => toggleDarkMode()} class="darkMode right">
 		<p class:selected={$darkMode == false}>ONLINE</p>
@@ -41,13 +41,25 @@
 
 	<div class="icons">
     <a href="/dan_humphries_cv.pdf">
-        <img src="/icons/cv.svg" alt="cv" class="icon" />
+			{#if $darkMode}
+        <img src="/icons/cv-dark.svg" alt="cv" class="icon" />
+			{:else}
+			<img src="/icons/cv.svg" alt="cv" class="icon" />
+			{/if}
     </a>
     <a href="mailto: dan@aufbau.io">
-        <img src="/icons/mail.svg" alt="mail" class="icon" />
+			{#if $darkMode}
+        <img src="/icons/mail-dark.svg" alt="mail" class="icon" />
+				{:else}
+				<img src="/icons/mail.svg" alt="cv" class="icon" />
+				{/if}
     </a>
     <a href="https://www.instagram.com/dn.niels" target="_blank" rel="noreferrer">
-        <img src="/icons/insta.svg" alt="instagram" class="icon" />
+			{#if $darkMode}
+        <img src="/icons/insta-dark.svg" alt="instagram" class="icon" />
+				{:else}
+				<img src="/icons/insta.svg" alt="cv" class="icon" />
+				{/if}
     </a>
 </div>
 
@@ -64,7 +76,7 @@
 		margin: auto;
 		max-width: 100vw;
 		display: flex;
-		justify-content: space-between;
+		justify-content: flex-end;
 		align-items: flex-start;
 
 		padding: 20px;

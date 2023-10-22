@@ -12,27 +12,23 @@
 
 :root {
 	--background: #232323;
-	--background-50: #d0d0d080;
+	--background-50: #23232380;
 	--primary: #d0d0d0;
-	--primary-50: #ffa50080;
+	--primary-50: #d0d0d080;
 
 	--green: #008080;
 	--white: #d0d0d0;
 	--black: #1b1b1b;
 
-	--border: solid 1px var(--black);
+	--border: solid 1px var(--background);
 }
 
-/* :root.dark-mode {
-	--background: #232323;
-	--background-50: #23232380;
-	--primary: #d0d0d0;
-	--primary-50: #f0f0f080;
-
-	--green: #008080;
-	--white: #d0d0d0;
-	--black: #232323;
-} */
+:root.dark-mode {
+	--background: #d0d0d0;
+	--background-50: #d0d0d080;
+	--primary: #232323;
+	--primary-50: #23232380;
+}
 
 @font-face {
 	font-family: nb-architekt;
@@ -44,6 +40,12 @@
 	font-family: nb-architekt;
 	src: url(/fonts/NB-Architekt-Pro-Bold.woff) format('woff');
 	font-weight: 600;
+}
+
+@font-face {
+	font-family: dahlia;
+	src: url(/fonts/Dahlia-bold.woff2) format('woff2');
+	font-weight: 700;
 }
 
 /* body {

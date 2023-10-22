@@ -12,13 +12,15 @@
 	import fragmentShader_sicovecas1 from './shaders/fragmentShader-sicovecas1.glsl';
 	import fragmentShader_sicovecas2 from './shaders/fragmentShader-sicovecas2.glsl';
 
+	let SIDEBAR_SIZE = 0;
+
 	let shaderMaterial_aufbau, shaderMaterial_niels, shaderMaterial_sicovecas1, shaderMaterial_sicovecas2;
 
 	let container;
 
 	let camera, scene, renderer;
 
-	let width = window.innerWidth;
+	let width = window.innerWidth - SIDEBAR_SIZE;
 	let height = window.innerHeight;
 
 	let mouse = new THREE.Vector2();
@@ -211,7 +213,7 @@
 	}
 
 	function onWindowResize() {
-		let width = window.innerWidth;
+		let width = window.innerWidth - SIDEBAR_SIZE;
 		let height = window.innerHeight;
 
 		camera.aspect = width / height;
@@ -245,6 +247,7 @@
 <style>
 	.geometry {
 		position: absolute;
+		right: 0;
 		overflow: hidden;
 		z-index: -1;
 	}

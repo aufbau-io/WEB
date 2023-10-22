@@ -3,8 +3,10 @@
 
 	import { onMount } from 'svelte';
 	import { screenType, isIframe } from '$lib/store/store';
+	import { page } from '$app/stores';
 
 	import Header from '$lib/components/header/header.svelte';
+	import Sidebar from '$lib/components/sidebar/sidebar.svelte';
 	import Footer from '$lib/components/footer/footer.svelte';
 
 	let Geometry;
@@ -80,6 +82,9 @@
 			<Footer />
 		</footer>
 		{/if}
+
+		<Sidebar />
+
 	</main>
 {/if}
 

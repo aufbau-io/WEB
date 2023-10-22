@@ -2,7 +2,7 @@
 </script>
 
 <footer>
-	<a href="https://archive.aufbau.io" target="_blank" rel="noreferrer">aufbau archive</a>
+	<!-- <a href="https://archive.aufbau.io" target="_blank" rel="noreferrer">aufbau archive</a> -->
 	<a href="https://www.websitecarbon.com/website/aufbau-io/" target="_blank" rel="noreferrer">0.04G CO2 / VISIT</a>
 	<!-- <p class="">COPYRIGHT 2022</p> -->
 </footer>
@@ -24,7 +24,7 @@
 		display: flex;
 		flex-flow: row nowrap;
 		align-items: center;
-		justify-content: space-between;
+		justify-content: flex-end;
 	}
 
 	footer a,
