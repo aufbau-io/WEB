@@ -1,4 +1,11 @@
 <script>
+	import { onMount } from 'svelte';
+	import { darkMode } from '$lib/store/store';
+
+	onMount(async () => {
+		darkMode.set(false);
+		document.querySelector(':root').classList.remove('dark-mode');
+	});
 </script>
 
 <section>
