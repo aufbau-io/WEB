@@ -14,7 +14,7 @@
 		z-index: 10;
 		gap: 10px;
 
-		padding: 30px 20px;
+		padding: 35px 20px;
 		height: calc(2 * var(--margin));
 
 		border-top: solid 1px var(--accent-50);
@@ -29,11 +29,11 @@
 
 	footer a,
 	footer p {
-		background: var(--background);
-		color: var(--primary);
+		backdrop-filter: blur(10px);
+		color: var(--background);
 		border: var(--border);
 
-		padding: 6px 10px;
+		padding: 10px 15px;
 		font-size: 12px;
 
 		letter-spacing: 0.15em;

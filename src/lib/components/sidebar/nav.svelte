@@ -32,7 +32,7 @@
 		display: flex;
 		flex-flow: column wrap;
 		/* gap: 20px; */
-		color: var(--primary);
+		color: var(--background);
 		/* background: var(--primary); */
 		width: 100%;
 	}
@@ -44,7 +44,7 @@
 		cursor: pointer;
 		color: inherit;
 		width: 100%;
-		border-bottom: 1px var(--primary) solid;
+		border-bottom: 1px var(--background) solid;
 		padding: 10px 0;
 	}
 

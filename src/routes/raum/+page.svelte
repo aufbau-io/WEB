@@ -52,6 +52,7 @@ section {
 			width: calc(100% - 40px);
 			padding: 10px;
 			background:  var(--background);
+			z-index: 10;
 		}
 
 		.main a {

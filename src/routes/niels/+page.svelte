@@ -3,7 +3,7 @@
 
 <section>
 	<div class="main">
-		<a href="https://niels.aufbau.io" target="_blank" rel="noreferrer">personal portfolio<br>// visit site //</a>
+		<a href="https://niels.aufbau.io" target="_blank" rel="noreferrer">personal website<br>// visit //</a>
 	</div>
 </section>
 
@@ -51,6 +51,7 @@ section {
 			width: calc(100% - 40px);
 			padding: 10px;
 			background:  var(--background);
+			z-index: 10;
 		}
 
 		.main a {

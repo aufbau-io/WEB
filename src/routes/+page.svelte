@@ -64,6 +64,7 @@
 
 		.main p {
 			background:  var(--background);
+			z-index: 10;
 		}
 	}
 </style>

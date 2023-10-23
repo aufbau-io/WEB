@@ -46,7 +46,7 @@
 </script>
 
 <svelte:head>
-	<title>AUFBAU</title>
+	<title>AUFBAU // MAKE WEB FUN AGAIN</title>
 	<meta name="description" content="AUFBAU :: WEB 1.0 Re-Imagined" />
 
 	<link

@@ -41,25 +41,25 @@
 
 	<div class="icons">
     <a href="/dan_humphries_cv.pdf">
-			{#if $darkMode}
+			{#if !$darkMode}
         <img src="/icons/cv-dark.svg" alt="cv" class="icon" />
 			{:else}
-			<img src="/icons/cv.svg" alt="cv" class="icon" />
+				<img src="/icons/cv.svg" alt="cv" class="icon" />
 			{/if}
     </a>
     <a href="mailto: dan@aufbau.io">
-			{#if $darkMode}
+			{#if !$darkMode}
         <img src="/icons/mail-dark.svg" alt="mail" class="icon" />
-				{:else}
+			{:else}
 				<img src="/icons/mail.svg" alt="cv" class="icon" />
-				{/if}
+			{/if}
     </a>
     <a href="https://www.instagram.com/dn.niels" target="_blank" rel="noreferrer">
-			{#if $darkMode}
+			{#if !$darkMode}
         <img src="/icons/insta-dark.svg" alt="instagram" class="icon" />
-				{:else}
+			{:else}
 				<img src="/icons/insta.svg" alt="cv" class="icon" />
-				{/if}
+			{/if}
     </a>
 </div>
 
@@ -89,7 +89,7 @@
 		gap: 15px;
 		padding: 6px 15px;
 		justify-content: space-evenly;
-		background: var(--background);
+		backdrop-filter: blur(10px);
 		border: var(--border);
 	}
 
