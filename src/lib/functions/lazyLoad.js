@@ -7,6 +7,7 @@ let options = {
 
 export const lazyLoad = (image, src) => {
 	const isPreloaded = (src) => {
+		image.style.opacity = '1';
 		return !!document.querySelector(`link[rel="preload"][href="${src}"]`);
 	};
 
