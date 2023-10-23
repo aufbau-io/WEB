@@ -12,7 +12,7 @@
 <section>
 	<div class="main">
 		<!-- <p>WIP</p> -->
-		<img src="" bind:this={imgElement} alt="system-diagram" class="image" />
+		<img bind:this={imgElement} alt="system-diagram" class="image" />
 	</div>
 </section>
 
