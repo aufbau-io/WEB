@@ -47,7 +47,7 @@
 
 <svelte:head>
 	<title>AUFBAU // MAKE WEB FUN AGAIN</title>
-	<meta name="description" content="AUFBAU :: WEB 1.0 Re-Imagined" />
+	<meta name="description" content="AUFBAU // Creative Website Development from London to the World // MAKE WEB FUN AGAIN" />
 
 	<link
 	rel="preload"
@@ -73,11 +73,15 @@
 		crossorigin="anonymous"
 	/>
 
-	<link rel="preload" href="icons/cv.svg" as="image">
-	<link rel="preload" href="icons/insta.svg" as="image">
-	<link rel="preload" href="icons/mail.svg" as="image">
+	<link rel="preload" href="/icons/cv.svg" as="image">
+	<link rel="preload" href="/icons/insta.svg" as="image">
+	<link rel="preload" href="/icons/mail.svg" as="image">
 
-	<link rel="preload" href="system_diagram.png" as="image">
+	<link rel="preload" href="/icons/cv-dark.svg" as="image">
+	<link rel="preload" href="/icons/insta-dark.svg" as="image">
+	<link rel="preload" href="/icons/mail-dark.svg" as="image">
+
+	<link rel="preload" href="/system_diagram.png" as="image">
 
 </svelte:head>
 
