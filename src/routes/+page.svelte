@@ -8,11 +8,11 @@
 	});
 </script>
 
-<section>
+<!-- <section>
 	<div class="main">
 		<p>make web fun again</p>
 	</div>	
-</section>
+</section> -->
 
 <style>
 	section {
@@ -49,8 +49,8 @@
 	.main p {
 		padding: 10px;
 		border: solid 1px var(--background);
-		background:  var(--background);
-		color: var(--primary);
+		/* background:  var(--background); */
+		color: var(--background);
 	}
 
 	@media only screen and (max-width: 768px) {

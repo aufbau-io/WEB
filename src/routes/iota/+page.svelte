@@ -3,7 +3,7 @@
 
 <section>
 	<div class="main">
-		<p>MENTAL HEALTH TRACKING - WIP</p>
+		<p>MENTAL HEALTH TRACKING<br>no link - WIP</p>
 	</div>
 </section>
 
@@ -40,8 +40,8 @@ section {
 	.main a, .main p {
 		padding: 10px;
 		border: solid 1px var(--background);
-		background:  var(--background);
-		color: var(--primary);
+		/* background:  var(--background); */
+		color: var(--background);
 	}
 
 	@media only screen and (max-width: 768px) {

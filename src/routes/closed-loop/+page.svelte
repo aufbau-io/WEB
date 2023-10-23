@@ -3,7 +3,7 @@
 
 <section>
 	<div class="main">
-		<p>CLOSED LOOP NEURAL STIMULATION</p>
+		<a href="https://bushlab-ucl.github.io" target="_blank" rel="noreferrer">CLOSED LOOP NEURAL STIMULATION<br>// UCL HEL lab website //</a>
 	</div>
 </section>
 

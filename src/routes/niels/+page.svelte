@@ -3,7 +3,7 @@
 
 <section>
 	<div class="main">
-		<a href="https://niels.aufbau.io" target="_blank" rel="noreferrer">// visit niels</a>
+		<a href="https://niels.aufbau.io" target="_blank" rel="noreferrer">personal portfolio<br>// visit site //</a>
 	</div>
 </section>
 

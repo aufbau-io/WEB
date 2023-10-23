@@ -113,7 +113,7 @@
 	
 		font-size: 12px;
 
-		/* background: var(--background); */
+		background: var(--background);
 	}
 
 	.top {
@@ -126,8 +126,7 @@
 	.title {
 		width: 100%;
 		height: 180px;
-		/* background: var(--primary); */
-		border: solid 1px var(--background);
+		border: solid 1px var(--primary);
 		display: flex;
 		align-items: flex-end;
 		justify-content: center;
@@ -138,7 +137,7 @@
 		font-size: 46px;
 		letter-spacing: 0px;
 		padding-bottom: 30px;
-		color: var(--background);
+		color: var(--primary);
 	}
 
 	a.no-style {
@@ -152,14 +151,14 @@
 		align-self: flex-end;
 		align-items: center;
 		justify-content: flex-start;
-		border: solid 1px var(--background);
+		border: solid 1px var(--primary);
 
 		margin: 10px;
 		padding: 5px 0;
 	}
 
 	.end p, .end a {
-		color: var(--background);
+		color: var(--primary);
 
 		font-size: 12px;
 		padding: 5px 10px;

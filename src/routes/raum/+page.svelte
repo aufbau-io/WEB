@@ -4,7 +4,7 @@
 <section>
 	<div class="main">
 		<!-- <a href="https://sicovecas-demo.netlify.app" target="_blank" rel="noreferrer">// visit sicovecas (wip)</a> -->
-		<a href="https://webgl-volumetric-renderer.netlify.app/" target="_blank" rel="noreferrer">RUST WEBGPU RENDERER - WEBGL DEMO</a>
+		<a href="https://webgl-volumetric-renderer.netlify.app/" target="_blank" rel="noreferrer">RUST WEBGPU RENDERER<br>// WEBGL DEMO //</a>
 	</div>
 </section>
 

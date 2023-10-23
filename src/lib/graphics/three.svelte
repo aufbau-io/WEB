@@ -79,9 +79,9 @@
 			fragmentShader: fragmentShader_raum,
 			uniforms: {
 				...uniformsBase,
-				color1: { value: colors.color1 },
-				color2: { value: colors.color1 },
-				color3: { value: colors.color0 },
+				color1: { value: colors.color0 },
+				color2: { value: colors.color0 },
+				color3: { value: colors.color1 },
 			}
 		});
 
