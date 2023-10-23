@@ -46,7 +46,7 @@
 </script>
 
 <svelte:head>
-	<title>AUFBAU // MAKE WEB FUN AGAIN</title>
+	<title>MAKE WEB FUN AGAIN</title>
 	<meta name="description" content="AUFBAU // Creative Website Development from London to the World // MAKE WEB FUN AGAIN" />
 
 	<link
