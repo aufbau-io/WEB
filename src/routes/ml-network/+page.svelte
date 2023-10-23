@@ -55,7 +55,6 @@ section {
 
 	.image {
 		border: solid 1px var(--background);
-		opacity: 0;
 		transition: opacity 0.5s ease-in-out;
 	}
 

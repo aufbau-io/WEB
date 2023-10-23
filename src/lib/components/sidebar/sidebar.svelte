@@ -6,7 +6,6 @@
 	// import { goto } from '$app/navigation';
 
 	function setDarkModeBasedOnRoute(route) {
-		console.log(route);
     if (DARK_PAGES.includes(route)) {
         darkMode.set(true);
 				document.querySelector(':root').classList.add('dark-mode');
@@ -14,7 +13,6 @@
         darkMode.set(false);
 				document.querySelector(':root').classList.remove('dark-mode');
     }
-		console.log($darkMode);
 }
 
 	// stub data out

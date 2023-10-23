@@ -6,19 +6,25 @@ let options = {
 };
 
 export const lazyLoad = (image, src) => {
-	const loaded = () => {
-		// image.classList.add('visible'); // doesn't work in REPL
-		image.style.opacity = '1'; // REPL hack to apply loading animation
+	const isPreloaded = (src) => {
+		return !!document.querySelector(`link[rel="preload"][href="${src}"]`);
 	};
+
+	const loaded = () => {
+		if (!isPreloaded(src)) {
+			image.style.opacity = '1';
+		}
+	};
+
 	const observer = new IntersectionObserver((entries) => {
 		if (entries[0].isIntersecting) {
-			console.log('an image has loaded'); // console log for REPL
-			image.src = src; // replace placeholder src with the image src on observe
-			if (image.complete) {
-				// check if instantly loaded
-				loaded();
+			// console.log('an image has loaded');
+			image.src = src;
+
+			if (isPreloaded(src)) {
+				// Do nothing if the image is preloaded; it should appear instantly.
 			} else {
-				image.addEventListener('load', loaded); // if the image isn't loaded yet, add an event listener
+				image.addEventListener('load', loaded);
 			}
 		}
 	}, options);
