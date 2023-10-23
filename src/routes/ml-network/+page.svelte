@@ -1,11 +1,18 @@
 <script>
-	
+	import { onMount } from 'svelte';
+	import { lazyLoad } from '$lib/functions/lazyLoad.js';
+
+  let imgElement;
+
+	onMount(() => {
+    lazyLoad(imgElement, "/system_diagram.png");
+  });
 </script>
 
 <section>
 	<div class="main">
 		<!-- <p>WIP</p> -->
-		<img src="/system_diagram.png" alt="system-diagram" class="icon" />
+		<img src="" bind:this={imgElement} alt="system-diagram" class="image" />
 	</div>
 </section>
 
@@ -35,7 +42,7 @@ section {
 		gap: 10px;
 
 		color: var(--background);
-		border: var(--border);
+
 		padding:  20px;
 	}
 
@@ -44,6 +51,12 @@ section {
 		border: solid 1px var(--background);
 		background:  var(--background);
 		color: var(--primary);
+	}
+
+	.image {
+		border: solid 1px var(--background);
+		opacity: 0;
+		transition: opacity 0.5s ease-in-out;
 	}
 
 	@media only screen and (max-width: 768px) {
