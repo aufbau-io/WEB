@@ -67,7 +67,7 @@
 			fragmentShader: fragmentShader_niels,
 			uniforms: {
 				...uniformsBase,
-				color1: { value: colors.color1 },
+				color1: { value: colors.color3 },
 				color2: { value: colors.color2 },
 				color3: { value: colors.color6 },
 				color4: { value: colors.color7 },
