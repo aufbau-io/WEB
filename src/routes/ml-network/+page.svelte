@@ -57,6 +57,7 @@ section {
 		border: solid 1px var(--background);
 		opacity: 0;
 		transition: opacity 0.5s ease-in-out;
+		backdrop-filter: blur(10px);
 	}
 
 	@media only screen and (max-width: 768px) {
