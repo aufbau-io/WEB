@@ -59,8 +59,8 @@
         <img src="/icons/insta-dark.svg" alt="instagram" class="icon" />
 			{:else}
 				<img src="/icons/insta.svg" alt="cv" class="icon" />
-			{/if} -->
-    </a>
+			{/if}
+    </a> -->
 </div>
 
 </main>
