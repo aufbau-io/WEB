@@ -10,7 +10,7 @@
 
 <section>
 	<div class="main">
-		<p>creative web engineering<br>websites, software, apps</p>
+		<p>creative + technical web engineering<br>fullstack dev, mobile, web, graphics</p>
 		<a href="/dan_humphries_cv.pdf">// read cv //</a>
 	</div>	
 </section>
