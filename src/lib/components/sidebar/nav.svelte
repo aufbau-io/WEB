@@ -33,9 +33,10 @@
 		flex-flow: column wrap;
 		/* gap: 20px; */
 		color: var(--background);
-		/* background: var(--primary); */
+		/* backdrop-filter: blur(1px); */
 		width: 100%;
 	}
+
 	nav a,
 	nav p {
 		/* padding: 10px 10px; */

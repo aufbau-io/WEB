@@ -1,10 +1,18 @@
 <script>
+	import { onMount } from 'svelte';
+	// import { darkMode } from '$lib/store/store';
+
+	// onMount(async () => {
+	// 	darkMode.set(false);
+	// 	document.querySelector(':root').classList.remove('dark-mode');
+	// });
 </script>
 
 <section>
 	<div class="main">
-		<a href="https://bushlab-ucl.github.io" target="_blank" rel="noreferrer">CLOSED LOOP NEURAL STIMULATION<br>// UCL HEL lab website //</a>
-	</div>
+		<p>closed loop neural stimulation <br>python/rust research and software</p>
+		<a href="https://bushlab-ucl.github.io/" target="_blank" rel="noreferrer">// ucl hel lab website //</a>
+	</div>	
 </section>
 
 <style>
@@ -32,9 +40,14 @@
 			justify-content: center;
 			gap: 10px;
 	
+			backdrop-filter: blur(10px);
 			color: var(--background);
 			border: var(--border);
 			padding:  20px;
+		}
+
+		.main p {
+			color: var(--background);
 		}
 	
 		.main a {
@@ -50,7 +63,7 @@
 				bottom: 20px;
 				width: calc(100% - 40px);
 				padding: 10px;
-				background:  var(--background);
+				/* background:  var(--background); */
 				z-index: 10;
 			}
 	

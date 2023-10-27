@@ -167,9 +167,5 @@
 		main {
 			backdrop-filter: none;
 		}
-
-		.top {
-			/* backdrop-filter: blur(1px); */
-		}
 	}
 </style>

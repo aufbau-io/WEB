@@ -1,11 +1,18 @@
 <script>
+	import { onMount } from 'svelte';
+	// import { darkMode } from '$lib/store/store';
+
+	// onMount(async () => {
+	// 	darkMode.set(false);
+	// 	document.querySelector(':root').classList.remove('dark-mode');
+	// });
 </script>
 
 <section>
 	<div class="main">
-		<!-- <a href="https://sicovecas-demo.netlify.app" target="_blank" rel="noreferrer">// visit sicovecas (wip)</a> -->
-		<a href="https://webgl-volumetric-renderer.netlify.app/" target="_blank" rel="noreferrer">RUST WEBGPU RENDERER<br>// WEBGL DEMO //</a>
-	</div>
+		<p>rust webgpu 3d renderer <br> custom client component</p>
+		<a href="https://webgl-volumetric-renderer.netlify.app"  target="_blank" rel="noreferrer">// webgl demo app //</a>
+	</div>	
 </section>
 
 <style>
@@ -33,9 +40,14 @@
 			justify-content: center;
 			gap: 10px;
 	
+			backdrop-filter: blur(10px);
 			color: var(--background);
 			border: var(--border);
 			padding:  20px;
+		}
+
+		.main p {
+			color: var(--background);
 		}
 	
 		.main a {
@@ -51,7 +63,7 @@
 				bottom: 20px;
 				width: calc(100% - 40px);
 				padding: 10px;
-				background:  var(--background);
+				/* background:  var(--background); */
 				z-index: 10;
 			}
 	
