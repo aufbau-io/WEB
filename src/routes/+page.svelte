@@ -10,7 +10,7 @@
 
 <section>
 	<div class="main">
-		<p>creative web engineering <br>websites, software, apps</p>
+		<p>creative web engineering<br>websites, software, apps</p>
 		<a href="/dan_humphries_cv.pdf">// read cv //</a>
 	</div>	
 </section>
