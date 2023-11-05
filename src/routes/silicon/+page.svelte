@@ -10,7 +10,7 @@
 
 <section>
 	<div class="main">
-		<p>dance music search engine<br>CVAE generated data // WebGL app</p>
+		<p>dance music search engine<br>C-VAE generated data // WebGL app</p>
 		<a href="https://silicon.fm"  target="_blank" rel="noreferrer">// prototype web app //</a>
 	</div>	
 </section>
