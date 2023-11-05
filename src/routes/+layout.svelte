@@ -72,17 +72,6 @@
 		type="font/woff"
 		crossorigin="anonymous"
 	/>
-
-	<link rel="preload" href="/icons/cv.svg" as="image">
-	<link rel="preload" href="/icons/insta.svg" as="image">
-	<link rel="preload" href="/icons/mail.svg" as="image">
-
-	<link rel="prefetch" href="/icons/cv-dark.svg" as="image">
-	<link rel="prefetch" href="/icons/insta-dark.svg" as="image">
-	<link rel="prefetch" href="/icons/mail-dark.svg" as="image">
-
-	<link rel="prefetch" href="/system_diagram.png" as="image">
-
 </svelte:head>
 
 <svelte:component this={Geometry} />
