@@ -22,19 +22,19 @@
 			href: '/',
 		},
 		{
-			name: '/////IOTA/////////////',
-			href: '/iota',
-		},
-		{
-			name: '/////RAUM/////////////',
-			href: '/raum',
-		},
-		{
-			name: '/////silicon//////////',
+			name: '///silicon////////////',
 			href: '/silicon',
 		},
 		{
-			name: '/////CLOSED-LOOP//////',
+			name: '//////IOTA////////////',
+			href: '/iota',
+		},
+		// {
+		// 	name: '//////RAUM////////////',
+		// 	href: '/raum',
+		// },
+		{
+			name: '//////CLOSED-LOOP/////',
 			href: '/closed-loop',
 		},
 		{

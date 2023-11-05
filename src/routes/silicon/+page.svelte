@@ -10,8 +10,8 @@
 
 <section>
 	<div class="main">
-		<p>dance music search engine</p>
-		<p>no link -- wip</p>
+		<p>dance music search engine<br>variational autoencoder based </p>
+		<a href="https://silicon.fm"  target="_blank" rel="noreferrer">// prototype web app //</a>
 	</div>	
 </section>
 
