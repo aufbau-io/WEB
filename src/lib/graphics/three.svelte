@@ -81,7 +81,7 @@
 				...uniformsBase,
 				color1: { value: colors.color2 },
 				color2: { value: colors.color3 },
-				color3: { value: colors.color2 },
+				color3: { value: colors.color3 },
 			}
 		});
 
