@@ -49,6 +49,7 @@
 			color8: new THREE.Color(0x0b0b0b),
 			color9: new THREE.Color(0x8fbd5a),
 			color0: new THREE.Color(0x232323),
+			color11: new THREE.Color(0xfdfdf0),
 		}
 
 		shaderMaterial_aufbau = new THREE.ShaderMaterial({
@@ -79,9 +80,9 @@
 			fragmentShader: fragmentShader_raum,
 			uniforms: {
 				...uniformsBase,
-				color1: { value: colors.color0 },
-				color2: { value: colors.color0 },
-				color3: { value: colors.color1 },
+				color1: { value: colors.color3 },
+				color2: { value: colors.color3 },
+				color3: { value: colors.color2 },
 			}
 		});
 

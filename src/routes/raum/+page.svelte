@@ -10,8 +10,8 @@
 
 <section>
 	<div class="main">
-		<p>rust webgpu 3d renderer<br>custom client component</p>
-		<a href="https://webgl-volumetric-renderer.netlify.app"  target="_blank" rel="noreferrer">// webgl demo app //</a>
+		<p>rust webgpu volumteric renderer <br>custom client component</p>
+		<a href="https://cubey-boi.aufbau.io"  target="_blank" rel="noreferrer">//webgl demo app //</a>
 	</div>	
 </section>
 

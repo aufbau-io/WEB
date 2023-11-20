@@ -29,10 +29,10 @@
 			name: '//////IOTA////////////',
 			href: '/iota',
 		},
-		// {
-		// 	name: '//////RAUM////////////',
-		// 	href: '/raum',
-		// },
+		{
+			name: '//////RAUM////////////',
+			href: '/raum',
+		},
 		{
 			name: '//////CLOSED-LOOP/////',
 			href: '/closed-loop',
