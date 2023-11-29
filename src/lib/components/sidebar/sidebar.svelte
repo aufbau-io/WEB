@@ -21,20 +21,24 @@
 			name: '///AUFBAU/////////////',
 			href: '/',
 		},
+		// {
+		// 	name: '///silicon////////////',
+		// 	href: '/silicon',
+		// },
+		// {
+		// 	name: '//////IOTA////////////',
+		// 	href: '/iota',
+		// },
 		{
-			name: '///silicon////////////',
-			href: '/silicon',
-		},
-		{
-			name: '//////IOTA////////////',
-			href: '/iota',
+			name: '///GARRETT////////////',
+			href: '/garrett',
 		},
 		{
 			name: '//////RAUM////////////',
 			href: '/raum',
 		},
 		{
-			name: '//////CLOSED-LOOP/////',
+			name: '//////CLOSED-LOOP////',
 			href: '/closed-loop',
 		},
 		{

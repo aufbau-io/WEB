@@ -10,8 +10,8 @@
 
 <section>
 	<div class="main">
-		<p>rust webgpu volumteric renderer <br>custom client component</p>
-		<a href="https://cubical-boi.aufbau.io"  target="_blank" rel="noreferrer">// webgl demo app //</a>
+		<p>simple 3d // webgl homepage<br>for client squarespace site</p>
+		<a href="https://hello.garrettmusar.work/"  target="_blank" rel="noreferrer">// garrett homepage //</a>
 	</div>	
 </section>
 
