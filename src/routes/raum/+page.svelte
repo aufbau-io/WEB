@@ -11,7 +11,7 @@
 <section>
 	<div class="main">
 		<p>rust webgpu volumteric renderer <br>custom client component</p>
-		<a href="https://cubical-boi.aufbau.io"  target="_blank" rel="noreferrer">// webgl demo app //</a>
+		<a href="https://cubical-boi.netlify.app"  target="_blank" rel="noreferrer">// webgl demo app //</a>
 	</div>	
 </section>
 
