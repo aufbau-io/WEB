@@ -40,7 +40,7 @@
 	</div> -->
 
 	<div class="icons">
-    <a href="/daniel_niels_cv.pdf">
+    <a href="/daniel_humphries_cv.pdf">
 			{#if !$darkMode}
         <img src="/icons/cv-dark.svg" alt="cv" class="icon" />
 			{:else}
