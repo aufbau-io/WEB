@@ -33,8 +33,10 @@ section {
 }
 
 .main {
-		max-width: 800px;
-		min-width: 270px;
+		/* max-width: 800px;
+		min-width: 270px; */
+
+		overflow: hidden;
 
 		display: flex;
 		flex-flow: column nowrap;
@@ -43,7 +45,7 @@ section {
 
 		color: var(--background);
 
-		padding:  20px;
+		/* padding:  20px; */
 	}
 
 	.main a, .main p {
@@ -54,10 +56,13 @@ section {
 	}
 
 	.image {
-		border: solid 1px var(--background);
+		border-left: solid 1px var(--primary);
+		border-right: solid 1px var(--primary);
 		opacity: 0;
 		transition: opacity 0.5s ease-in-out;
 		backdrop-filter: blur(10px);
+		max-width: 100%;
+		max-height: 100%;
 	}
 
 	@media only screen and (max-width: 768px) {
