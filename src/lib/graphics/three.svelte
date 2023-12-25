@@ -126,9 +126,9 @@
 			fragmentShader: fragmentShader_closed_loop,
 			uniforms: {
 				...uniformsBase,
-				color1: { value: colors.color9 },
-				color2: { value: colors.color7 },
-				color3: { value: colors.color4 },
+				color1: { value: colors.color1 },
+				color2: { value: colors.color9 },
+				color3: { value: colors.color5 },
 			}
 		});
 
