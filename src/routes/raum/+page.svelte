@@ -10,8 +10,8 @@
 
 <section>
 	<div class="main">
-		<p>rust webgpu volumteric renderer <br>custom component for c++ system</p>
-		<a href="https://cubical-boi.netlify.app"  target="_blank" rel="noreferrer">// wip - webgl demo //</a>
+		<p>spatial rendering // aufbau <br>high performance webgpu renderer</p>
+		<a href="https://raum.aufbau.io"  target="_blank" rel="noreferrer">// project homepage //</a>
 	</div>	
 </section>
 

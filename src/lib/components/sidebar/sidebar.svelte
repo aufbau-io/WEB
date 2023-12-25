@@ -25,13 +25,13 @@
 		// 	name: '///silicon////////////',
 		// 	href: '/silicon',
 		// },
-		// {
-		// 	name: '//////IOTA////////////',
-		// 	href: '/iota',
-		// },
 		{
 			name: '///GARRETT////////////',
 			href: '/garrett',
+		},
+		{
+			name: '//////IOTA////////////',
+			href: '/iota',
 		},
 		{
 			name: '//////RAUM////////////',
