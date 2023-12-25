@@ -10,7 +10,7 @@
 
 <section>
 	<div class="main">
-		<p>spatial rendering // aufbau <br>high performance webgpu renderer</p>
+		<p>wgpu spatial rendering software <br>high performance rust renderer</p>
 		<a href="https://raum.aufbau.io"  target="_blank" rel="noreferrer">// project homepage //</a>
 	</div>	
 </section>
