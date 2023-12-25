@@ -7,7 +7,7 @@ uniform float time;
 uniform vec2 mouse;
 
 float noise(vec2 uv) {
-    return fract(sin(dot(uv * 1.7, vec2(60.987, 110.654))) * 43210.1234);
+    return atan(fract(dot(uv * 1.7, vec2(60.987, 110.654))) * 43210.1234);
 }
 
 void main() {
@@ -18,7 +18,7 @@ void main() {
     hex -= 1.0;
     float dist = length(position - mouse) * 0.9;
     float wave = noise(vUv + time * 0.2);
-    wave = (step(0.5, -hex.x - hex.y * 0.5) + step(0.0, -hex.y)) * sin(dist * 4.0 - time + wave) * step(0.0, fract(position.x * 10.0));
+    wave = (step(0.25, -hex.x - hex.y * 0.5) + step(0.0, -hex.y)) * sin(dist * 4.0 - time + wave) * cos(step(0.1, fract(position.x * 10.0)));
     vec3 color = mix(color3, color1, wave);
     color = mix(color, color2, wave * wave);
     gl_FragColor = vec4(color, 1.0);

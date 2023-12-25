@@ -10,7 +10,7 @@
 	import fragmentShader_aufbau from './shaders/fragmentShader-aufbau.glsl';
 	import fragmentShader_niels from './shaders/fragmentShader-niels.glsl';
 	import fragmentShader_raum from './shaders/fragmentShader-raum.glsl';
-	import fragmentShader_iota from './shaders/fragmentShader-bars.glsl';
+	import fragmentShader_iota from './shaders/fragmentShader-iota.glsl';
 	import fragmentShader_garrett from './shaders/fragmentShader-garrett.glsl';
 	import fragmentShader_silicon from './shaders/fragmentShader-silicon.glsl';
 	import fragmentShader_closed_loop from './shaders/fragmentShader-closed-loop.glsl';
@@ -81,9 +81,9 @@
 			fragmentShader: fragmentShader_raum,
 			uniforms: {
 				...uniformsBase,
-				color1: { value: colors.color2 },
-				color2: { value: colors.color3 },
-				color3: { value: colors.color2 },
+				color1: { value: colors.color1 },
+				color2: { value: colors.color7 },
+				color3: { value: colors.color8 },
 			}
 		});
 
@@ -93,9 +93,9 @@
 			fragmentShader: fragmentShader_iota,
 			uniforms: {
 				...uniformsBase,
-				color1: { value: colors.color1 },
-				color2: { value: colors.color11 },
-				color3: { value: colors.color5 },
+				color1: { value: colors.color4 },
+				color2: { value: colors.color1 },
+				color3: { value: colors.color1 },
 			}
 		});
 
@@ -104,8 +104,8 @@
 			fragmentShader: fragmentShader_garrett,
 			uniforms: {
 				...uniformsBase,
-				color1: { value: colors.color11 },
-				color2: { value: colors.color4 },
+				color1: { value: colors.color1 },
+				color2: { value: colors.color11 },
 				color3: { value: colors.color9 },
 			}
 		});
