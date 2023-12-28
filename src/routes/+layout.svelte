@@ -48,6 +48,9 @@
 <svelte:head>
 	<title>MAKE WEB FUN AGAIN</title>
 	<meta name="description" content="AUFBAU // Creative Website Development from London to the World" />
+	<meta name="keywords" content="AUFBAU, Creative, Website, Graphics, WebGL, WebGPU, Rust, Developer, Engineer, Engineering, Development, London, World" />
+	<meta name="author" content="AUFBAU" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
 	<link
 	rel="preload"

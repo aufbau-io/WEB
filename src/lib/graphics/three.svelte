@@ -160,19 +160,19 @@
 			}
 		}
 
-		if ($page.url.pathname == '/niels') {
-			if ($screenType == 1) {
-				shaderMaterial_niels.uniforms.mouse.value = {
-					x: clock.getElapsedTime() * 1,
-					y: clock.getElapsedTime() * 0.1
-				};
-			} else {
-				shaderMaterial_niels.uniforms.mouse.value = {
-					x: mouse.x + clock.getElapsedTime() * 0.1,
-					y: mouse.y + clock.getElapsedTime() * 1
-				};
-			}
-		}
+		// if ($page.url.pathname == '/niels') {
+		// 	if ($screenType == 1) {
+		// 		shaderMaterial_niels.uniforms.mouse.value = {
+		// 			x: clock.getElapsedTime() * 1,
+		// 			y: clock.getElapsedTime() * 0.1
+		// 		};
+		// 	} else {
+		// 		shaderMaterial_niels.uniforms.mouse.value = {
+		// 			x: mouse.x + clock.getElapsedTime() * 0.1,
+		// 			y: mouse.y + clock.getElapsedTime() * 1
+		// 		};
+		// 	}
+		// }
 
 		if ($page.url.pathname == '/raum') {
 			shaderMaterial_raum.uniforms.mouse.value = mouse;
@@ -194,7 +194,7 @@
 			shaderMaterial_silicon.uniforms.time.value = elapsedTime;
 		}
 
-		if ($page.url.pathname == '/closed-loop') {
+		if ($page.url.pathname == '/niels') {
 			shaderMaterial_closed_loop.uniforms.mouse.value = mouse;
 			shaderMaterial_closed_loop.uniforms.time.value = elapsedTime;
 		}
@@ -245,11 +245,11 @@
 		}
 	}
 
-	function setNiels () {
-		let plane3 = new THREE.Mesh(new THREE.PlaneGeometry(600, 600), shaderMaterial_niels);
-		plane3.position.z = -0.1;
-		scene.add(plane3)
-	}
+	// function setNiels () {
+	// 	let plane3 = new THREE.Mesh(new THREE.PlaneGeometry(600, 600), shaderMaterial_niels);
+	// 	plane3.position.z = -0.1;
+	// 	scene.add(plane3)
+	// }
 
 	function setRaum () {
 		let plane = new THREE.Mesh(new THREE.PlaneGeometry(1000, 1000), shaderMaterial_raum);
@@ -300,7 +300,7 @@
 		}
 
 		if ($page.url.pathname == '/niels') {
-			setNiels();
+			setClosedLoop();
 		}
 
 		if ($page.url.pathname == '/raum') {
@@ -320,9 +320,9 @@
 			setSilicon();
 		}
 
-		if ($page.url.pathname == '/closed-loop') {
-			setClosedLoop();
-		}
+		// if ($page.url.pathname == '/closed-loop') {
+		// 	setClosedLoop();
+		// }
 
 		if ($page.url.pathname == '/ml-network') {
 			setMLNewtork();
