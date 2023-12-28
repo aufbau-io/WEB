@@ -11,7 +11,7 @@
 <section>
 	<div class="main">
 		<p>webgl portfolio homepage<br>for client squarespace site</p>
-		<a href="https://hello.garrettmusar.work/"  target="_blank" rel="noreferrer">// garrett homepage //</a>
+		<a href="https://hello.garrettmusar.work/"   rel="noreferrer">// garrett homepage //</a>
 	</div>	
 </section>
 

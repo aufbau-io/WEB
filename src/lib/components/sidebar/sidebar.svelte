@@ -82,7 +82,7 @@
 
 		{#if $screenType == 3}
 		<div class="end">
-			<a href="https://archive.aufbau.io" target="_blank" rel="noreferrer">aufbau archive</a>
+			<a href="https://archive.aufbau.io"  rel="noreferrer">aufbau archive</a>
 			<!-- <p>NO THOUGHTS ALL VIBES</p> -->
 		</div>
 		{/if}

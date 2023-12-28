@@ -11,7 +11,7 @@
 <section>
 	<div class="main">
 		<p>closed loop neural stimulation<br>python/rust research and software</p>
-		<a href="https://bushlab-ucl.github.io/" target="_blank" rel="noreferrer">// ucl hel lab website //</a>
+		<a href="https://bushlab-ucl.github.io/"  rel="noreferrer">// ucl hel lab website //</a>
 	</div>	
 </section>
 

@@ -11,7 +11,7 @@
 <section>
 	<div class="main">
 		<p>wgpu spatial rendering software <br>high performance rust renderer</p>
-		<a href="https://raum.aufbau.io"  target="_blank" rel="noreferrer">// raum homepage //</a>
+		<a href="https://raum.aufbau.io"   rel="noreferrer">// raum homepage //</a>
 	</div>	
 </section>
 

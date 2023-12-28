@@ -11,7 +11,7 @@
 <section>
 	<div class="main">
 		<p>creative + technical web engineering<br>fullstack dev, mobile, web, graphics</p>
-		<a href="/daniel_humphries_cv.pdf" target="_blank" rel="noreferrer">// read cv //</a>
+		<a href="/daniel_humphries_cv.pdf"  rel="noreferrer">// read cv //</a>
 	</div>	
 </section>
 

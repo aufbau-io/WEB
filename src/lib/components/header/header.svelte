@@ -54,7 +54,7 @@
 				<img src="/icons/mail.svg" alt="cv" class="icon" />
 			{/if}
     </a>
-    <!-- <a href="https://www.instagram.com/dn.niels" target="_blank" rel="noreferrer">
+    <!-- <a href="https://www.instagram.com/dn.niels"  rel="noreferrer">
 			{#if !$darkMode}
         <img src="/icons/insta-dark.svg" alt="instagram" class="icon" />
 			{:else}

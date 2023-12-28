@@ -20,7 +20,7 @@
 		>
 	{/each}
 
-	<!-- <a href="https://aufbau.io" target="_blank">EIN AUFBAU DING</a> -->
+	<!-- <a href="https://aufbau.io" >EIN AUFBAU DING</a> -->
 </nav>
 
 <style>

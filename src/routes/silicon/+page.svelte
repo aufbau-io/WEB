@@ -11,7 +11,7 @@
 <section>
 	<div class="main">
 		<!-- <p>dance music search engine<br>C-VAE generated data // WebGL app</p> -->
-		<!-- <a href="https://silicon.fm"  target="_blank" rel="noreferrer">// prototype web app //</a> -->
+		<!-- <a href="https://silicon.fm"   rel="noreferrer">// prototype web app //</a> -->
 		<p>dance music search engine</p>
 		<p>no link -- wip</p>
 	</div>	
