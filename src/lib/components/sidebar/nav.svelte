@@ -18,7 +18,7 @@
 		<a
 			href={navItem.href}
 			class=""
-			class:active={navItem.href === $page.url.pathname}
+			class:active={navItem.href === ($page.url.pathname || `${page.url.pathname}/`)}
 			on:click={() => setMode(navItem.href)}>{navItem.name}</a
 		>
 	{/each}
