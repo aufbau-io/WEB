@@ -177,32 +177,32 @@
 		// 	}
 		// }
 
-		if ($page.url.pathname == '/raum') {
+		if ($page.url.pathname == '/raum' || $page.url.pathname == '/raum/') {
 			shaderMaterial_raum.uniforms.mouse.value = mouse;
 			shaderMaterial_raum.uniforms.time.value = elapsedTime;
 		}
 
-		if ($page.url.pathname == '/garrett') {
+		if ($page.url.pathname == '/garrett' || $page.url.pathname == '/garrett/') {
 			shaderMaterial_iota.uniforms.mouse.value = mouse;
 			shaderMaterial_iota.uniforms.time.value = elapsedTime;
 		}
 
-		if ($page.url.pathname == '/iota') {
-			shaderMaterial_iota.uniforms.mouse.value = mouse;
+		if ($page.url.pathname == '/iota' || $page.url.pathname == '/iota/') {
+			// shaderMaterial_iota.uniforms.mouse.value = mouse;
 			shaderMaterial_iota.uniforms.time.value = elapsedTime;
 		}
 
-		if ($page.url.pathname == '/silicon') {
+		if ($page.url.pathname == '/silicon' || $page.url.pathname == '/silicon/') {
 			shaderMaterial_silicon.uniforms.mouse.value = mouse;
 			shaderMaterial_silicon.uniforms.time.value = elapsedTime;
 		}
 
-		if ($page.url.pathname == '/niels') {
+		if ($page.url.pathname == '/niels' || $page.url.pathname == '/niels/') {
 			shaderMaterial_closed_loop.uniforms.mouse.value = mouse;
 			shaderMaterial_closed_loop.uniforms.time.value = elapsedTime;
 		}
 
-		if ($page.url.pathname == '/ml-network') {
+		if ($page.url.pathname == '/ml-network' || $page.url.pathname == '/ml-network/') {
 			shaderMaterial_ml_network.uniforms.mouse.value = mouse;
 			shaderMaterial_ml_network.uniforms.time.value = elapsedTime;
 		}
