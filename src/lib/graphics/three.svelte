@@ -93,9 +93,7 @@
 			fragmentShader: fragmentShader_iota,
 			uniforms: {
 				...uniformsBase,
-				color1: { value: colors.color4 },
-				color2: { value: colors.color1 },
-				color3: { value: colors.color1 },
+				aspectRatio: { value: 1 },
 			}
 		});
 

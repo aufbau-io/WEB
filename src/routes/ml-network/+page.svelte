@@ -63,6 +63,7 @@ section {
 		backdrop-filter: blur(10px);
 		max-width: 100%;
 		max-height: 100%;
+		z-index: -1;
 	}
 
 	@media only screen and (max-width: 768px) {
