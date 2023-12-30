@@ -299,23 +299,23 @@
 			setHome();
 		}
 
-		if ($page.url.pathname == '/niels') {
+		if ($page.url.pathname == '/niels' || $page.url.pathname == '/niels/' ) {
 			setClosedLoop();
 		}
 
-		if ($page.url.pathname == '/raum') {
+		if ($page.url.pathname == '/raum' || $page.url.pathname == '/raum/') {
 			setRaum();
 		}
 
-		if ($page.url.pathname == '/garrett') {
+		if ($page.url.pathname == '/garrett' || $page.url.pathname == '/garrett/') {
 			setGarrett();
 		}
 
-		if ($page.url.pathname == '/iota') {
+		if ($page.url.pathname == '/iota' || $page.url.pathname == '/iota/') {
 			setIOTA();
 		}
 
-		if ($page.url.pathname == '/silicon') {
+		if ($page.url.pathname == '/silicon' || $page.url.pathname == '/silicon/') {
 			setSilicon();
 		}
 
@@ -323,7 +323,7 @@
 		// 	setClosedLoop();
 		// }
 
-		if ($page.url.pathname == '/ml-network') {
+		if ($page.url.pathname == '/ml-network' || $page.url.pathname == '/ml-network/') {
 			setMLNewtork();
 		}
 	}
