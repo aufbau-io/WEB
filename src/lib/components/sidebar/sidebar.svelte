@@ -6,20 +6,20 @@
 	// import { goto } from '$app/navigation';
 
 	function setDarkModeBasedOnRoute(route) {
-    if (DARK_PAGES.includes(route)) {
-        darkMode.set(true);
-				document.querySelector(':root').classList.add('dark-mode');
-    } else {
-        darkMode.set(false);
-				document.querySelector(':root').classList.remove('dark-mode');
-    }
-}
+		if (DARK_PAGES.includes(route)) {
+			darkMode.set(true);
+			document.querySelector(':root').classList.add('dark-mode');
+		} else {
+			darkMode.set(false);
+			document.querySelector(':root').classList.remove('dark-mode');
+		}
+	}
 
 	// stub data out
 	const navItemsBasic = [
 		{
 			name: '///AUFBAU/////////////',
-			href: '/',
+			href: '/'
 		},
 		// {
 		// 	name: '///silicon////////////',
@@ -27,15 +27,15 @@
 		// },
 		{
 			name: '///GARRETT////////////',
-			href: '/garrett',
+			href: '/garrett'
 		},
 		{
 			name: '//////IOTA////////////',
-			href: '/iota',
+			href: '/iota'
 		},
 		{
 			name: '//////RAUM////////////',
-			href: '/raum',
+			href: '/raum'
 		},
 		// {
 		// 	name: '//////CLOSED-LOOP////',
@@ -43,19 +43,20 @@
 		// },
 		{
 			name: '////////ML-NETWORK////',
-			href: '/ml-network',
+			href: '/ml-network'
 		},
 		{
 			name: '//////////PERSONAL////',
-			href: '/niels',
-		},
+			href: '/niels'
+		}
 	];
 
 	let navItems = navItemsBasic;
-	
+
 	$: {
-		if ($screenType === 1) { // Assuming 1 corresponds to mobile
-			navItems = navItemsBasic.filter(item => item.href !== '/ml-network');
+		if ($screenType === 1) {
+			// Assuming 1 corresponds to mobile
+			navItems = navItemsBasic.filter((item) => item.href !== '/ml-network');
 		} else {
 			navItems = navItemsBasic;
 		}
@@ -67,33 +68,30 @@
 	// 	};
 </script>
 
-	<main>
+<main>
+	<div class="top">
+		<a class="no-style" href="/">
+			<div class="title">
+				<h1>aufbau.</h1>
+			</div>
+		</a>
 
-		<div class="top">
+		<Nav {navItems} setMode={setDarkModeBasedOnRoute} />
+	</div>
+	-
 
-			<a class="no-style" href='/'>
-				<div class="title">
-					<h1>aufbau</h1>
-				</div>
-			</a>
-
-				<Nav {navItems} setMode={setDarkModeBasedOnRoute} />
-		</div>-
-
-		{#if $screenType == 3}
+	{#if $screenType == 3}
 		<div class="end">
-			<a href="https://archive.aufbau.io"  rel="noreferrer">aufbau archive</a>
+			<a href="https://archive.aufbau.io" rel="noreferrer">aufbau archive</a>
 			<!-- <p>NO THOUGHTS ALL VIBES</p> -->
 		</div>
-		{/if}
+	{/if}
 
 	<!-- <div on:click={() => toggleDarkMode()} on:keydown={() => toggleDarkMode()} class="darkMode right">
 		<p class:selected={$darkMode == false}>ONLINE</p>
 		<p class="selected">/</p>
 		<p class:selected={$darkMode == true}>OFFLINE</p>
 	</div> -->
-
-
 </main>
 
 <style>
@@ -111,8 +109,6 @@
 		justify-content: space-between;
 		/* align-items: flex-start; */
 
-
-	
 		font-size: 12px;
 
 		backdrop-filter: blur(10px);
@@ -136,10 +132,12 @@
 
 	h1 {
 		font-family: dahlia;
+		font-weight: 700;
 		font-size: 46px;
 		letter-spacing: 0px;
-		padding-bottom: 30px;
+		padding-bottom: 5px;
 		color: var(--background);
+		margin: 0;
 	}
 
 	a.no-style {
@@ -159,7 +157,8 @@
 		padding: 5px;
 	}
 
-	.end p, .end a {
+	.end p,
+	.end a {
 		color: var(--background);
 
 		font-size: 12px;

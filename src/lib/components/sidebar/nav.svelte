@@ -14,12 +14,12 @@
 </script>
 
 <nav>
-
 	{#each navItems as navItem}
-		<a href={navItem.href} class=""
+		<a
+			href={navItem.href}
+			class=""
 			class:active={navItem.href === $page.url.pathname}
-			on:click={() => setMode(navItem.href)}
-			>{navItem.name}</a
+			on:click={() => setMode(navItem.href)}>{navItem.name}</a
 		>
 	{/each}
 

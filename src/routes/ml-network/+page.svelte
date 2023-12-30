@@ -2,11 +2,11 @@
 	import { onMount } from 'svelte';
 	import { lazyLoad } from '$lib/functions/lazyLoad.js';
 
-  let imgElement;
+	let imgElement;
 
 	onMount(() => {
-    lazyLoad(imgElement, "/system_diagram.png");
-  });
+		lazyLoad(imgElement, '/system_diagram.png');
+	});
 </script>
 
 <section>
@@ -17,22 +17,22 @@
 </section>
 
 <style>
-section {
-  padding: 0 0;
-  height: 100%;
-  width: 100%;
+	section {
+		padding: 0 0;
+		height: 100%;
+		width: 100%;
 
-  display: flex;
-  flex-flow: column nowrap;
-  justify-content: center;
+		display: flex;
+		flex-flow: column nowrap;
+		justify-content: center;
 
-  align-items: center;
-  text-align: center;
+		align-items: center;
+		text-align: center;
 
-  overflow: auto;
-}
+		overflow: auto;
+	}
 
-.main {
+	.main {
 		/* max-width: 800px;
 		min-width: 270px; */
 
@@ -48,10 +48,11 @@ section {
 		/* padding:  20px; */
 	}
 
-	.main a, .main p {
+	.main a,
+	.main p {
 		padding: 10px;
 		border: solid 1px var(--background);
-		background:  var(--background);
+		background: var(--background);
 		color: var(--primary);
 	}
 
@@ -76,7 +77,7 @@ section {
 		}
 
 		.main a {
-			background:  var(--background);
+			background: var(--background);
 		}
 	}
 </style>

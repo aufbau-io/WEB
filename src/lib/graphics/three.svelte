@@ -18,7 +18,14 @@
 
 	let SIDEBAR_SIZE = 0;
 
-	let shaderMaterial_aufbau, shaderMaterial_niels, shaderMaterial_raum, shaderMaterial_silicon, shaderMaterial_iota, shaderMaterial_closed_loop, shaderMaterial_ml_network, shaderMaterial_garrett;
+	let shaderMaterial_aufbau,
+		shaderMaterial_niels,
+		shaderMaterial_raum,
+		shaderMaterial_silicon,
+		shaderMaterial_iota,
+		shaderMaterial_closed_loop,
+		shaderMaterial_ml_network,
+		shaderMaterial_garrett;
 
 	let container;
 
@@ -43,15 +50,15 @@
 			color1: new THREE.Color(0xd0d0d0),
 			color2: new THREE.Color(0xbb4500),
 			color3: new THREE.Color(0xdaaa55),
-			color4: new THREE.Color(0x006994 ),
-			color5: new THREE.Color(0x5099b4 ),
+			color4: new THREE.Color(0x006994),
+			color5: new THREE.Color(0x5099b4),
 			color6: new THREE.Color(0x0000ff),
 			color7: new THREE.Color(0x00ff00),
 			color8: new THREE.Color(0x0b0b0b),
 			color9: new THREE.Color(0x8fbd5a),
 			color0: new THREE.Color(0x232323),
-			color11: new THREE.Color(0xe0e0d0),
-		}
+			color11: new THREE.Color(0xe0e0d0)
+		};
 
 		shaderMaterial_aufbau = new THREE.ShaderMaterial({
 			vertexShader: vertexShader,
@@ -60,7 +67,7 @@
 				...uniformsBase,
 				color1: { value: colors.color1 },
 				color2: { value: colors.color5 },
-				color3: { value: colors.color9 },
+				color3: { value: colors.color9 }
 			}
 		});
 
@@ -72,7 +79,7 @@
 				color1: { value: colors.color1 },
 				color2: { value: colors.color2 },
 				color3: { value: colors.color6 },
-				color4: { value: colors.color7 },
+				color4: { value: colors.color7 }
 			}
 		});
 
@@ -83,17 +90,16 @@
 				...uniformsBase,
 				color1: { value: colors.color4 },
 				color2: { value: colors.color9 },
-				color3: { value: colors.color9 },
+				color3: { value: colors.color9 }
 			}
 		});
 
-		
 		shaderMaterial_iota = new THREE.ShaderMaterial({
 			vertexShader: vertexShader,
 			fragmentShader: fragmentShader_iota,
 			uniforms: {
 				...uniformsBase,
-				aspectRatio: { value: 1 },
+				aspectRatio: { value: 1 }
 			}
 		});
 
@@ -104,7 +110,7 @@
 				...uniformsBase,
 				color1: { value: colors.color1 },
 				color2: { value: colors.color11 },
-				color3: { value: colors.color9 },
+				color3: { value: colors.color9 }
 			}
 		});
 
@@ -115,7 +121,7 @@
 				...uniformsBase,
 				color1: { value: colors.color3 },
 				color2: { value: colors.color2 },
-				color3: { value: colors.color3 },
+				color3: { value: colors.color3 }
 			}
 		});
 
@@ -126,7 +132,7 @@
 				...uniformsBase,
 				color1: { value: colors.color1 },
 				color2: { value: colors.color9 },
-				color3: { value: colors.color5 },
+				color3: { value: colors.color5 }
 			}
 		});
 
@@ -136,10 +142,9 @@
 			uniforms: {
 				...uniformsBase,
 				color1: { value: colors.color0 },
-				color2: { value: colors.color8 },
+				color2: { value: colors.color8 }
 			}
 		});
-
 	}
 
 	function updateShaderUniforms() {
@@ -151,7 +156,7 @@
 				shaderMaterial_aufbau.uniforms.mouse.value = {
 					x: 4 * Math.cos(elapsedTime * 0.1),
 					y: 5 * Math.cos(elapsedTime * 0.1)
-				} 
+				};
 			} else {
 				shaderMaterial_aufbau.uniforms.mouse.value = mouse;
 				shaderMaterial_aufbau.uniforms.time.value = elapsedTime;
@@ -219,6 +224,7 @@
 
 		onMount(() => {
 			container.appendChild(renderer.domElement);
+			// timeout to release opacity block
 		});
 
 		window.addEventListener('mousemove', onDocumentMouseMove);
@@ -226,8 +232,7 @@
 		// window.addEventListener('navigate', onNavigate);
 	}
 
-	function setHome () {
-
+	function setHome() {
 		let plane4 = new THREE.Mesh(new THREE.PlaneGeometry(1000, 1000), shaderMaterial_aufbau);
 		let plane5 = new THREE.Mesh(new THREE.PlaneGeometry(100, 100), shaderMaterial_aufbau);
 		scene.add(plane4);
@@ -235,10 +240,9 @@
 		if ($screenType != 1) {
 			plane5.position.z = 200;
 			scene.add(plane5);
-
 		} else {
 			plane5.position.z = 100;
-			plane5.rotation.z = Math.PI / 2
+			plane5.rotation.z = Math.PI / 2;
 			scene.add(plane5);
 		}
 	}
@@ -249,50 +253,48 @@
 	// 	scene.add(plane3)
 	// }
 
-	function setRaum () {
+	function setRaum() {
 		let plane = new THREE.Mesh(new THREE.PlaneGeometry(1000, 1000), shaderMaterial_raum);
 		let plane2 = new THREE.Mesh(new THREE.PlaneGeometry(100, 100), shaderMaterial_raum);
 		plane2.position.z = 200;
 		scene.add(plane, plane2);
 	}
 
-	function setIOTA () {
+	function setIOTA() {
 		let plane = new THREE.Mesh(new THREE.PlaneGeometry(1000, 1000), shaderMaterial_iota);
 		let plane2 = new THREE.Mesh(new THREE.PlaneGeometry(100, 100), shaderMaterial_iota);
 		plane2.position.z = 200;
 		scene.add(plane, plane2);
 	}
 
-	function setGarrett () {
+	function setGarrett() {
 		let plane = new THREE.Mesh(new THREE.PlaneGeometry(1000, 1000), shaderMaterial_garrett);
 		let plane2 = new THREE.Mesh(new THREE.PlaneGeometry(100, 100), shaderMaterial_garrett);
 		plane2.position.z = 200;
 		scene.add(plane, plane2);
 	}
 
-	function setSilicon () {
+	function setSilicon() {
 		let plane = new THREE.Mesh(new THREE.PlaneGeometry(1000, 1000), shaderMaterial_silicon);
 		let plane2 = new THREE.Mesh(new THREE.PlaneGeometry(100, 100), shaderMaterial_silicon);
 		plane2.position.z = 200;
 		scene.add(plane, plane2);
 	}
 
-	function setClosedLoop () {
+	function setClosedLoop() {
 		let plane = new THREE.Mesh(new THREE.PlaneGeometry(1000, 1000), shaderMaterial_closed_loop);
 		let plane2 = new THREE.Mesh(new THREE.PlaneGeometry(100, 100), shaderMaterial_closed_loop);
 		plane2.position.z = 200;
 		scene.add(plane, plane2);
 	}
 
-	function setMLNewtork () {
+	function setMLNewtork() {
 		let plane3 = new THREE.Mesh(new THREE.PlaneGeometry(600, 600), shaderMaterial_ml_network);
 		plane3.position.z = -0.1;
-		scene.add(plane3)
+		scene.add(plane3);
 	}
 
-
-	function setScene () {
-
+	function setScene() {
 		if ($page.url.pathname == '/') {
 			setHome();
 		}
@@ -305,7 +307,6 @@
 			setRaum();
 		}
 
-		
 		if ($page.url.pathname == '/garrett') {
 			setGarrett();
 		}
@@ -325,19 +326,16 @@
 		if ($page.url.pathname == '/ml-network') {
 			setMLNewtork();
 		}
-
 	}
 
-	afterNavigate (onNavigate);
+	afterNavigate(onNavigate);
 	function onNavigate() {
-
-		for( var i = scene.children.length - 1; i >= 0; i--) { 
-				let obj = scene.children[i];
-				scene.remove(obj); 
+		for (var i = scene.children.length - 1; i >= 0; i--) {
+			let obj = scene.children[i];
+			scene.remove(obj);
 		}
 
 		setScene();
-
 	}
 
 	function onWindowResize() {
@@ -351,13 +349,12 @@
 	}
 
 	function onDocumentMouseMove(event) {
-    var clientX = event.clientX;
-    var clientY = event.clientY;
+		var clientX = event.clientX;
+		var clientY = event.clientY;
 
-    mouse.x = (clientX / window.innerWidth) * 2 - 1;
+		mouse.x = (clientX / window.innerWidth) * 2 - 1;
 		mouse.y = -(clientY / window.innerHeight) * 2 + 1;
-
-	};
+	}
 
 	function animate() {
 		requestAnimationFrame(animate);
@@ -375,8 +372,14 @@
 <style>
 	.geometry {
 		position: absolute;
-		right: 0;
-		overflow: hidden;
+		top: 0;
+		left:0;
+		width: 100%;
+		height: 100%;
+		display: block; /* Removes potential extra space below the canvas */
+		padding: 0;
+		margin: 0;
+		border: none;
 		z-index: -1;
 	}
 </style>

@@ -30,40 +30,38 @@
 
 <header>
 	<main>
-
 		<!-- <Nav {navItems} /> -->
 
-	<!-- <div on:click={() => toggleDarkMode()} on:keydown={() => toggleDarkMode()} class="darkMode right">
+		<!-- <div on:click={() => toggleDarkMode()} on:keydown={() => toggleDarkMode()} class="darkMode right">
 		<p class:selected={$darkMode == false}>ONLINE</p>
 		<p class="selected">/</p>
 		<p class:selected={$darkMode == true}>OFFLINE</p>
 	</div> -->
 
-	<div class="icons">
-    <a href="/daniel_humphries_cv.pdf">
-			{#if !$darkMode}
-        <img src="/icons/cv-dark.svg" alt="cv" class="icon" />
-			{:else}
-				<img src="/icons/cv.svg" alt="cv" class="icon" />
-			{/if}
-    </a>
-    <a href="mailto: dan@aufbau.io">
-			{#if !$darkMode}
-        <img src="/icons/mail-dark.svg" alt="mail" class="icon" />
-			{:else}
-				<img src="/icons/mail.svg" alt="cv" class="icon" />
-			{/if}
-    </a>
-    <!-- <a href="https://www.instagram.com/dn.niels"  rel="noreferrer">
+		<div class="icons">
+			<a href="/daniel_humphries_cv.pdf">
+				{#if !$darkMode}
+					<img src="/icons/cv-dark.svg" alt="cv" class="icon" />
+				{:else}
+					<img src="/icons/cv.svg" alt="cv" class="icon" />
+				{/if}
+			</a>
+			<a href="mailto: dan@aufbau.io">
+				{#if !$darkMode}
+					<img src="/icons/mail-dark.svg" alt="mail" class="icon" />
+				{:else}
+					<img src="/icons/mail.svg" alt="cv" class="icon" />
+				{/if}
+			</a>
+			<!-- <a href="https://www.instagram.com/dn.niels"  rel="noreferrer">
 			{#if !$darkMode}
         <img src="/icons/insta-dark.svg" alt="instagram" class="icon" />
 			{:else}
 				<img src="/icons/insta.svg" alt="cv" class="icon" />
 			{/if}
     </a> -->
-</div>
-
-</main>
+		</div>
+	</main>
 </header>
 
 <style>
@@ -87,7 +85,7 @@
 	.icons {
 		display: flex;
 		gap: 15px;
-		padding: 6px 15px;
+		padding: 6px 10px 2px 10px;
 		justify-content: space-evenly;
 		backdrop-filter: blur(10px);
 		border: var(--border);
@@ -101,7 +99,7 @@
 		opacity: 1;
 	}
 
-	.icon:hover{
-		opacity:.5;
-		}
+	.icon:hover {
+		opacity: 0.5;
+	}
 </style>

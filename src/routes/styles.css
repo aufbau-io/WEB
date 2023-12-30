@@ -1,13 +1,15 @@
-@tailwind base;
+@import 'normalize.css';
+@import '$lib/styles/fonts.css';
 
 :root {
-	--font-body: nb-architekt, sans-serif;
-	--font-header: nb-architekt, sans-serif;
+	--font-header: dahlia, serif;
+	--font-body: nb-architekt, serif;
 	--column-width: 42rem;
 	--margin: 20px;
 
 	font-family: var(--font-body);
-	color: var(--color-text);
+	color: var(--primary);
+	--border: 1px solid var(--background);
 }
 
 :root {
@@ -30,24 +32,6 @@
 	--primary-50: #23232380;
 }
 
-@font-face {
-	font-family: nb-architekt;
-	src: url(/fonts/NB-Architekt-Pro-Light.woff) format('woff');
-	font-weight: 400;
-}
-
-@font-face {
-	font-family: nb-architekt;
-	src: url(/fonts/NB-Architekt-Pro-Bold.woff) format('woff');
-	font-weight: 600;
-}
-
-@font-face {
-	font-family: dahlia;
-	src: url(/fonts/Dahlia-bold.woff2) format('woff2');
-	font-weight: 700;
-}
-
 /* body {
 	margin: 0;
 	background-attachment: fixed;
@@ -55,6 +39,41 @@
 	background-size: 100% 100%;
 	background: linear-gradient(var(--background), var(--background));
 } */
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+
+	font-weight: 400;
+	color: var(--primary);
+	text-transform: none;
+	letter-spacing: 0.1em;
+	line-height: 150%;
+	font-size: 12px;
+}
+
+/* ::-webkit-scrollbar {
+	display: none;
+}
+
+html {
+	scrollbar-width: none;
+	-ms-overflow-style: none;
+} */
+
+::-moz-selection {
+	/* Code for Firefox */
+	color: red;
+	background: yellow;
+}
+
+::selection {
+	color: red;
+	background: yellow;
+}
 
 h1,
 h2,
@@ -71,16 +90,6 @@ h1 {
 	font-weight: 400;
 }
 
-p,
-a {
-	font-weight: 400;
-	color: var(--primary);
-	text-transform: none;
-	letter-spacing: 0.1em;
-	line-height: 150%;
-	font-size: 14px;
-}
-
 a {
 	text-decoration: none;
 }
@@ -88,17 +97,6 @@ a {
 a:hover {
 	text-decoration: underline;
 }
-
-/* pre {
-	font-size: 14px;
-	font-family: var(--font-mono);
-	background-color: rgba(255, 255, 255, 0.45);
-	border-radius: 3px;
-	box-shadow: 2px 2px 6px rgb(255 255 255 / 25%);
-	padding: 0.5em;
-	overflow-x: auto;
-	color: var(--color-text);
-} */
 
 input,
 button {
@@ -109,12 +107,6 @@ button {
 button:focus:not(:focus-visible) {
 	outline: none;
 }
-
-/* @media (max-width: 720px) {
-	h1 {
-		font-size: 2.4rem;
-	}
-} */
 
 .visually-hidden {
 	border: 0;

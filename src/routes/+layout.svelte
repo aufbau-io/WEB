@@ -1,64 +1,80 @@
 <script>
-	import './app.css';
+	import './styles.css';
+
+	import { browser } from '$app/environment';
+	import { page } from '$app/stores';
+	import { webVitals } from '$lib/vitals';
 
 	import { onMount } from 'svelte';
-	import { screenType, isIframe, darkMode, DARK_PAGES } from '$lib/store/store';
-	import { page } from '$app/stores';
+	import { screenType, isIframe, screenSize, darkMode, DARK_PAGES } from '$lib/store/store';
+	import { getDeviceType, getScreenSize } from '$lib/functions/utils';
 
 	import Header from '$lib/components/header/header.svelte';
 	import Sidebar from '$lib/components/sidebar/sidebar.svelte';
 	import Footer from '$lib/components/footer/footer.svelte';
 
+	export let data;
 	let Geometry;
 
-	onMount(async () => {
+	$: if (browser && data?.analyticsId) {
+		webVitals({
+			path: $page.url.pathname,
+			params: $page.params,
+			analyticsId: data.analyticsId
+		});
+	}
 
+	function handleScreen() {
+		// screen size
+		screenSize.set(getScreenSize());
+
+		if (DARK_PAGES.includes($page.url.pathname)) {
+			darkMode.set(true);
+			document.querySelector(':root').classList.add('dark-mode');
+		}
+		// device type
+		screenType.set(getDeviceType());
+		isIframe.set(window.location !== window.parent.location);
+	}
+
+	onMount(async () => {
+		// webgl
 		const module = await import('$lib/graphics/three.svelte');
 		Geometry = module.default;
 
-		function getDeviceType() {
-			const width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+		handleScreen();
+		window.addEventListener('resize', () => handleScreen());
 
-			console.log($page.url.pathname)
-			if (DARK_PAGES.includes($page.url.pathname)) {
-        darkMode.set(true);
-				document.querySelector(':root').classList.add('dark-mode');
-			}
+		// releasr opacity block once geometry is loaded
+		document.querySelector('main').style.opacity = 1;
 
-			if ('ontouchstart' in window || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0) {
-				// This is a device which supports touch
-				if (width <= 767) {
-					// Mobile
-					return 1;
-				} else {
-					// Tablet
-					return 2;
-				}
-			} else {
-				// This is likely a laptop or desktop
-				return 3;
-			}
-		}
 
-		screenType.set(getDeviceType());
-		isIframe.set(window.location !== window.parent.location);
+		return () => {
+			window.removeEventListener('resize', () => handleScreen());
+		};
 	});
 </script>
 
 <svelte:head>
 	<title>MAKE WEB FUN AGAIN</title>
-	<meta name="description" content="AUFBAU // Creative Website Development from London to the World" />
-	<meta name="keywords" content="AUFBAU, Creative, Website, Graphics, WebGL, WebGPU, Rust, Developer, Engineer, Engineering, Development, London, World" />
+	<meta
+		name="description"
+		content="AUFBAU // Creative Website Development from London to the World"
+	/>
+	<meta
+		name="keywords"
+		content="AUFBAU, Creative, Website, Graphics, WebGL, WebGPU, Rust, Developer, Engineer, Engineering, Development, London, World"
+	/>
 	<meta name="author" content="AUFBAU" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
 	<link
-	rel="preload"
-	href="/fonts/Dahlia-bold.woff2"
-	as="font"
-	type="font/woff2"
-	crossorigin="anonymous"
-/>
+		rel="preload"
+		href="/fonts/Dahlia-bold.woff2"
+		as="font"
+		type="font/woff2"
+		crossorigin="anonymous"
+	/>
 
 	<link
 		rel="preload"
@@ -76,48 +92,50 @@
 		crossorigin="anonymous"
 	/>
 
-	<link rel="preload" href="/icons/cv.svg" as="image">
-	<link rel="preload" href="/icons/insta.svg" as="image">
-	<link rel="preload" href="/icons/mail.svg" as="image">
+	<link rel="preload" href="/icons/cv.svg" as="image" />
+	<link rel="preload" href="/icons/insta.svg" as="image" />
+	<link rel="preload" href="/icons/mail.svg" as="image" />
 
-	<link rel="prefetch" href="/icons/cv-dark.svg" as="image">
-	<link rel="prefetch" href="/icons/insta-dark.svg" as="image">
-	<link rel="prefetch" href="/icons/mail-dark.svg" as="image">
+	<link rel="prefetch" href="/icons/cv-dark.svg" as="image" />
+	<link rel="prefetch" href="/icons/insta-dark.svg" as="image" />
+	<link rel="prefetch" href="/icons/mail-dark.svg" as="image" />
 
-	<link rel="prefetch" href="/system_diagram.png" as="image">
-
+	<link rel="prefetch" href="/system_diagram.png" as="image" />
 </svelte:head>
 
-<svelte:component this={Geometry} />
+{#if Geometry}
+    <svelte:component this={Geometry} />
+{:else}
+    <div class="loading">loading.</div>
+{/if}
 
-{#if $screenType}
-	<main>
-		<header>
-			<Header />
-		</header>
+<main>
+	<header>
+		<Header />
+	</header>
 
-		<body>
-			<slot />
-		</body>
+	<body>
+		<slot />
+	</body>
 
-		{#if $screenType == 3}
+	{#if $screenType == 3}
 		<footer>
 			<Footer />
 		</footer>
-		{/if}
+	{/if}
 
-		<Sidebar />
-
-	</main>
-{/if}
+	<Sidebar />
+</main>
 
 <style>
 	main {
 		display: flex;
 		flex-direction: column;
 		height: 100dvh;
+		background: none;
+		opacity: 0;
 	}
-	
+
 	header {
 		position: absolute;
 		top: 0;
@@ -136,5 +154,17 @@
 		/* padding: calc(1 * var(--margin)); */
 		width: 100%;
 		height: 100%;
+		background: none;
+	}
+
+	.loading {
+		position: absolute;
+		font-style: italic;
+		font-family: serif;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		padding: 10px;
+		font-size: 12px;
 	}
 </style>

@@ -11,3 +11,4 @@ export const lobbySelected = writable(false);
 export const mouseOnLink = writable(false);
 
 export const mousePosition = writable({ x: 0, y: 0, z: 0 });
+export const screenSize = writable({ width: 0, height: 0 });
