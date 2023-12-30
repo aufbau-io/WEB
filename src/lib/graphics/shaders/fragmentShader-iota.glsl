@@ -1,4 +1,4 @@
-  precision highp float;
+  precision mediump float;
   varying vec2 vUv;
   uniform float time;
   uniform float aspectRatio;
@@ -20,8 +20,8 @@
 
     // Define pastel colors directly in the shader
     // vec3 sunshade = vec3(1.0, 0.5882, 0.3098); // sunshade
-    // vec3 primary = vec3(0.9, 0.4882, 0.3098);
-    vec3 primary = vec3(1.0, 0.5882, 0.3098);
+    vec3 primary = vec3(0.9, 0.4882, 0.3098);
+    // vec3 primary = vec3(1.0, 0.5882, 0.3098);
     vec3 pastel1 = vec3(1.0, 0.7137, 0.7569); // Pastel pink
     vec3 pastel2 = vec3(0.5961, 1.0, 0.5961); // Mint green
     vec3 pastel3 = vec3(0.9020, 0.9020, 0.9804); // Lavender
@@ -43,8 +43,8 @@
     // float noiseEffect = texture2D(uNoiseTexture, vUv).r;
 
     // // Create a high-frequency noise pattern
-    float noisePattern = sin(dot(adjustedPosition, vec2(12.9898, 78.233)) * 45.0 + time * timescale)
-                       + cos(dot(adjustedPosition, vec2(43.2321, 29.1234)) * 45.0 - time * timescale);
+    float noisePattern = sin(dot(adjustedPosition, vec2(12.9898, 78.233)) * 60.0 + time * timescale)
+                       + cos(dot(adjustedPosition, vec2(43.2321, 29.1234)) * 60.0 - time * timescale);
     float noiseEffect = abs(noisePattern);
 
     float range1 = step(0.33, noiseEffect);
