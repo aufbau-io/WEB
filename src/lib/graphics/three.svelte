@@ -224,7 +224,7 @@
 
 		onMount(() => {
 			container.appendChild(renderer.domElement);
-			// timeout to release opacity block
+			return cleanup;
 		});
 
 		window.addEventListener('mousemove', onDocumentMouseMove);
@@ -364,6 +364,16 @@
 	function render() {
 		updateShaderUniforms();
 		renderer.render(scene, camera);
+	}
+
+	function cleanup() {
+		window.removeEventListener('mousemove', onDocumentMouseMove);
+		window.removeEventListener('resize', onWindowResize);
+		window.removeEventListener('navigate', onNavigate);
+
+		//cleanup webgl
+		renderer.dispose();
+		scene.dispose();
 	}
 </script>
 
