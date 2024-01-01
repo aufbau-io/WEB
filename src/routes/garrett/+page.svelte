@@ -10,7 +10,7 @@
 
 <section>
 	<div class="main">
-		<p>webgl portfolio homepage<br />for client squarespace site</p>
+		<p>web-gl portfolio homepage<br />for squarespace site</p>
 		<a href="https://hello.garrettmusar.work/" rel="noreferrer">// garrett homepage //</a>
 	</div>
 </section>

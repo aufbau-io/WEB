@@ -10,8 +10,8 @@
 
 <section>
 	<div class="main">
-		<p>wgpu spatial rendering software <br />high performance rust renderer</p>
-		<a href="https://raum.aufbau.io" rel="noreferrer">// raum homepage //</a>
+		<p>spatial rendering experiments <br />rust // web-gpu // mathematics</p>
+		<a href="https://raum.aufbau.io" rel="noreferrer">// raum web // wip //</a>
 	</div>
 </section>
 
