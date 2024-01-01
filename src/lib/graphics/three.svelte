@@ -163,19 +163,19 @@
 			}
 		}
 
-		// if ($page.url.pathname == '/niels') {
-		// 	if ($screenType == 1) {
-		// 		shaderMaterial_niels.uniforms.mouse.value = {
-		// 			x: clock.getElapsedTime() * 1,
-		// 			y: clock.getElapsedTime() * 0.1
-		// 		};
-		// 	} else {
-		// 		shaderMaterial_niels.uniforms.mouse.value = {
-		// 			x: mouse.x + clock.getElapsedTime() * 0.1,
-		// 			y: mouse.y + clock.getElapsedTime() * 1
-		// 		};
-		// 	}
-		// }
+		if ($page.url.pathname == '/niels') {
+			if ($screenType == 1) {
+				shaderMaterial_niels.uniforms.mouse.value = {
+					x: clock.getElapsedTime() * 1,
+					y: clock.getElapsedTime() * 0.1
+				};
+			} else {
+				shaderMaterial_niels.uniforms.mouse.value = {
+					x: mouse.x + clock.getElapsedTime() * 0.1,
+					y: mouse.y + clock.getElapsedTime() * 1
+				};
+			}
+		}
 
 		if ($page.url.pathname == '/raum' || $page.url.pathname == '/raum/') {
 			shaderMaterial_raum.uniforms.mouse.value = mouse;
@@ -197,7 +197,7 @@
 			shaderMaterial_silicon.uniforms.time.value = elapsedTime;
 		}
 
-		if ($page.url.pathname == '/niels' || $page.url.pathname == '/niels/') {
+		if ($page.url.pathname == '/closed-loop' || $page.url.pathname == '/closed-loop/') {
 			shaderMaterial_closed_loop.uniforms.mouse.value = mouse;
 			shaderMaterial_closed_loop.uniforms.time.value = elapsedTime;
 		}
@@ -206,6 +206,7 @@
 			shaderMaterial_ml_network.uniforms.mouse.value = mouse;
 			shaderMaterial_ml_network.uniforms.time.value = elapsedTime;
 		}
+
 	}
 
 	function init() {
