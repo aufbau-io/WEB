@@ -300,7 +300,7 @@
 		}
 
 		if ($page.url.pathname == '/niels' || $page.url.pathname == '/niels/' ) {
-			setClosedLoop();
+			setSilicon();
 		}
 
 		if ($page.url.pathname == '/raum' || $page.url.pathname == '/raum/') {
@@ -319,9 +319,9 @@
 			setSilicon();
 		}
 
-		// if ($page.url.pathname == '/closed-loop') {
-		// 	setClosedLoop();
-		// }
+		if ($page.url.pathname == '/closed-loop') {
+			setClosedLoop();
+		}
 
 		if ($page.url.pathname == '/ml-network' || $page.url.pathname == '/ml-network/') {
 			setMLNewtork();

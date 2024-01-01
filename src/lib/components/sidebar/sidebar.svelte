@@ -37,14 +37,14 @@
 			name: '//////RAUM////////////',
 			href: '/raum'
 		},
-		// {
-		// 	name: '//////CLOSED-LOOP////',
-		// 	href: '/closed-loop',
-		// },
 		{
-			name: '////////ML-NETWORK////',
-			href: '/ml-network'
+			name: '//////CLOSED-LOOP////',
+			href: '/closed-loop',
 		},
+		// {
+		// 	name: '////////ML-NETWORK////',
+		// 	href: '/ml-network'
+		// },
 		{
 			name: '//////////PERSONAL////',
 			href: '/niels'
