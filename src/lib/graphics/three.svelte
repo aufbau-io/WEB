@@ -320,7 +320,7 @@
 			setSilicon();
 		}
 
-		if ($page.url.pathname == '/closed-loop') {
+		if ($page.url.pathname == '/closed-loop' || $page.url.pathname == '/closed-loop/') {
 			setClosedLoop();
 		}
 
