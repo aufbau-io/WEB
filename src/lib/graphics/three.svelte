@@ -9,7 +9,6 @@
 	import vertexShader from './shaders/vertexShader-three.glsl';
 	import fragmentShader_aufbau from './shaders/fragmentShader-aufbau.glsl';
 	import fragmentShader_niels from './shaders/fragmentShader-niels.glsl';
-	import fragmentShader_water from './shaders/fragmentShader-water.glsl';
 	import fragmentShader_raum from './shaders/fragmentShader-raum.glsl';
 	import fragmentShader_iota from './shaders/fragmentShader-iota.glsl';
 	import fragmentShader_garrett from './shaders/fragmentShader-garrett.glsl';
@@ -19,7 +18,6 @@
 
 	let shaderMaterial_aufbau,
 		shaderMaterial_niels,
-		shaderMaterial_water,
 		shaderMaterial_raum,
 		shaderMaterial_iota,
 		shaderMaterial_closed_loop,
@@ -111,17 +109,6 @@
 			}
 		});
 
-		shaderMaterial_water = new THREE.ShaderMaterial({
-			vertexShader: vertexShader,
-			fragmentShader: fragmentShader_water,
-			uniforms: {
-				...uniformsBase,
-				color1: { value: colors.color4 },
-				color2: { value: colors.color4 },
-				color3: { value: colors.color5 }
-			}
-		});
-
 		shaderMaterial_closed_loop = new THREE.ShaderMaterial({
 			vertexShader: vertexShader,
 			fragmentShader: fragmentShader_closed_loop,
@@ -168,8 +155,6 @@
 		if ($page.url.pathname == '/niels' || $page.url.pathname == '/niels/') {
 			shaderMaterial_niels.uniforms.mouse.value = mouse;
 			shaderMaterial_niels.uniforms.time.value = elapsedTime;
-			shaderMaterial_water.uniforms.mouse.value = mouse;
-			shaderMaterial_water.uniforms.time.value = elapsedTime;
 		}
 
 		if ($page.url.pathname == '/closed-loop' || $page.url.pathname == '/closed-loop/') {
@@ -219,7 +204,7 @@
 	}
 
 	function setNiels () {
-		let plane = new THREE.Mesh(new THREE.PlaneGeometry(1000, 1000), shaderMaterial_water);
+		let plane = new THREE.Mesh(new THREE.PlaneGeometry(1000, 1000), shaderMaterial_niels);
 		let plane2 = new THREE.Mesh(new THREE.PlaneGeometry(100, 100), shaderMaterial_niels);
 		plane2.position.z = 200;
 		scene.add(plane, plane2);
