@@ -163,7 +163,7 @@
 			}
 		}
 
-		if ($page.url.pathname == '/niels') {
+		if ($page.url.pathname == '/niels' || $page.url.pathname == '/niels/') {
 			if ($screenType == 1) {
 				shaderMaterial_niels.uniforms.mouse.value = {
 					x: clock.getElapsedTime() * 1,
