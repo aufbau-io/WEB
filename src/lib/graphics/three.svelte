@@ -119,16 +119,6 @@
 				color3: { value: colors.color5 }
 			}
 		});
-
-		shaderMaterial_ml_network = new THREE.ShaderMaterial({
-			vertexShader: vertexShader,
-			fragmentShader: fragmentShader_ml_network,
-			uniforms: {
-				...uniformsBase,
-				color1: { value: colors.color0 },
-				color2: { value: colors.color8 }
-			}
-		});
 	}
 
 	function updateShaderUniforms() {
