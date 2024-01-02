@@ -12,19 +12,15 @@
 	import fragmentShader_raum from './shaders/fragmentShader-raum.glsl';
 	import fragmentShader_iota from './shaders/fragmentShader-iota.glsl';
 	import fragmentShader_garrett from './shaders/fragmentShader-garrett.glsl';
-	import fragmentShader_silicon from './shaders/fragmentShader-silicon.glsl';
 	import fragmentShader_closed_loop from './shaders/fragmentShader-closed-loop.glsl';
-	import fragmentShader_ml_network from './shaders/fragmentShader-ml-network.glsl';
 
 	let SIDEBAR_SIZE = 0;
 
 	let shaderMaterial_aufbau,
 		shaderMaterial_niels,
 		shaderMaterial_raum,
-		shaderMaterial_silicon,
 		shaderMaterial_iota,
 		shaderMaterial_closed_loop,
-		shaderMaterial_ml_network,
 		shaderMaterial_garrett;
 
 	let container;
@@ -71,18 +67,6 @@
 			}
 		});
 
-		shaderMaterial_niels = new THREE.ShaderMaterial({
-			vertexShader: vertexShader,
-			fragmentShader: fragmentShader_niels,
-			uniforms: {
-				...uniformsBase,
-				color1: { value: colors.color1 },
-				color2: { value: colors.color2 },
-				color3: { value: colors.color6 },
-				color4: { value: colors.color7 }
-			}
-		});
-
 		shaderMaterial_raum = new THREE.ShaderMaterial({
 			vertexShader: vertexShader,
 			fragmentShader: fragmentShader_raum,
@@ -114,9 +98,9 @@
 			}
 		});
 
-		shaderMaterial_silicon = new THREE.ShaderMaterial({
+		shaderMaterial_niels = new THREE.ShaderMaterial({
 			vertexShader: vertexShader,
-			fragmentShader: fragmentShader_silicon,
+			fragmentShader: fragmentShader_niels,
 			uniforms: {
 				...uniformsBase,
 				color1: { value: colors.color3 },
@@ -163,20 +147,6 @@
 			}
 		}
 
-		if ($page.url.pathname == '/niels' || $page.url.pathname == '/niels/') {
-			if ($screenType == 1) {
-				shaderMaterial_niels.uniforms.mouse.value = {
-					x: clock.getElapsedTime() * 1,
-					y: clock.getElapsedTime() * 0.1
-				};
-			} else {
-				shaderMaterial_niels.uniforms.mouse.value = {
-					x: mouse.x + clock.getElapsedTime() * 0.1,
-					y: mouse.y + clock.getElapsedTime() * 1
-				};
-			}
-		}
-
 		if ($page.url.pathname == '/raum' || $page.url.pathname == '/raum/') {
 			shaderMaterial_raum.uniforms.mouse.value = mouse;
 			shaderMaterial_raum.uniforms.time.value = elapsedTime;
@@ -192,19 +162,14 @@
 			shaderMaterial_iota.uniforms.time.value = elapsedTime;
 		}
 
-		if ($page.url.pathname == '/silicon' || $page.url.pathname == '/silicon/') {
-			shaderMaterial_silicon.uniforms.mouse.value = mouse;
-			shaderMaterial_silicon.uniforms.time.value = elapsedTime;
+		if ($page.url.pathname == '/niels' || $page.url.pathname == '/niels/') {
+			shaderMaterial_niels.uniforms.mouse.value = mouse;
+			shaderMaterial_niels.uniforms.time.value = elapsedTime;
 		}
 
 		if ($page.url.pathname == '/closed-loop' || $page.url.pathname == '/closed-loop/') {
 			shaderMaterial_closed_loop.uniforms.mouse.value = mouse;
 			shaderMaterial_closed_loop.uniforms.time.value = elapsedTime;
-		}
-
-		if ($page.url.pathname == '/ml-network' || $page.url.pathname == '/ml-network/') {
-			shaderMaterial_ml_network.uniforms.mouse.value = mouse;
-			shaderMaterial_ml_network.uniforms.time.value = elapsedTime;
 		}
 
 	}
@@ -248,11 +213,12 @@
 		}
 	}
 
-	// function setNiels () {
-	// 	let plane3 = new THREE.Mesh(new THREE.PlaneGeometry(600, 600), shaderMaterial_niels);
-	// 	plane3.position.z = -0.1;
-	// 	scene.add(plane3)
-	// }
+	function setNiels () {
+		let plane = new THREE.Mesh(new THREE.PlaneGeometry(1000, 1000), shaderMaterial_niels);
+		let plane2 = new THREE.Mesh(new THREE.PlaneGeometry(100, 100), shaderMaterial_niels);
+		plane2.position.z = 200;
+		scene.add(plane, plane2);
+	}
 
 	function setRaum() {
 		let plane = new THREE.Mesh(new THREE.PlaneGeometry(1000, 1000), shaderMaterial_raum);
@@ -275,24 +241,11 @@
 		scene.add(plane, plane2);
 	}
 
-	function setSilicon() {
-		let plane = new THREE.Mesh(new THREE.PlaneGeometry(1000, 1000), shaderMaterial_silicon);
-		let plane2 = new THREE.Mesh(new THREE.PlaneGeometry(100, 100), shaderMaterial_silicon);
-		plane2.position.z = 200;
-		scene.add(plane, plane2);
-	}
-
 	function setClosedLoop() {
 		let plane = new THREE.Mesh(new THREE.PlaneGeometry(1000, 1000), shaderMaterial_closed_loop);
 		let plane2 = new THREE.Mesh(new THREE.PlaneGeometry(100, 100), shaderMaterial_closed_loop);
 		plane2.position.z = 200;
 		scene.add(plane, plane2);
-	}
-
-	function setMLNewtork() {
-		let plane3 = new THREE.Mesh(new THREE.PlaneGeometry(600, 600), shaderMaterial_ml_network);
-		plane3.position.z = -0.1;
-		scene.add(plane3);
 	}
 
 	function setScene() {
@@ -301,7 +254,7 @@
 		}
 
 		if ($page.url.pathname == '/niels' || $page.url.pathname == '/niels/' ) {
-			setSilicon();
+			setNiels();
 		}
 
 		if ($page.url.pathname == '/raum' || $page.url.pathname == '/raum/') {
@@ -316,17 +269,10 @@
 			setIOTA();
 		}
 
-		if ($page.url.pathname == '/silicon' || $page.url.pathname == '/silicon/') {
-			setSilicon();
-		}
-
 		if ($page.url.pathname == '/closed-loop' || $page.url.pathname == '/closed-loop/') {
 			setClosedLoop();
 		}
 
-		if ($page.url.pathname == '/ml-network' || $page.url.pathname == '/ml-network/') {
-			setMLNewtork();
-		}
 	}
 
 	afterNavigate(onNavigate);
