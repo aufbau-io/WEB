@@ -67,15 +67,7 @@
 	/>
 	<meta name="author" content="AUFBAU" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-	<!-- <link
-		rel="preload"
-		href="/fonts/Dahlia-bold.woff2"
-		as="font"
-		type="font/woff2"
-		crossorigin="anonymous"
-	/>
-
+	
 	<link
 		rel="preload"
 		href="/fonts/NB-Architekt-Pro-Light.woff"
@@ -92,7 +84,7 @@
 		crossorigin="anonymous"
 	/>
 
-	<link rel="preload" href="/icons/cv.svg" as="image" />
+	<!-- <link rel="preload" href="/icons/cv.svg" as="image" />
 	<link rel="preload" href="/icons/insta.svg" as="image" />
 	<link rel="preload" href="/icons/mail.svg" as="image" />
 
