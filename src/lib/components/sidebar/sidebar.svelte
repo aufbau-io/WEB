@@ -72,7 +72,8 @@
 	<div class="top">
 		<a class="no-style" href="/">
 			<div class="title">
-				<h1>aufbau.</h1>
+				<!-- <h1>aufbau.</h1> -->
+				<img src="/aufbau.svg" alt="aufbau logo" width="152" />
 			</div>
 		</a>
 
@@ -130,14 +131,8 @@
 		justify-content: center;
 	}
 
-	h1 {
-		font-family: dahlia;
-		font-weight: 700;
-		font-size: 46px;
-		letter-spacing: 0px;
-		padding-bottom: 5px;
-		color: var(--background);
-		margin: 0;
+	img {
+		padding-bottom: 18px;
 	}
 
 	a.no-style {
