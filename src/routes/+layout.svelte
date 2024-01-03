@@ -124,8 +124,10 @@
 		display: flex;
 		flex-direction: column;
 		height: 100dvh;
+		max-height: 100vh;
 		background: none;
 		opacity: 0;
+		overflow: hidden;
 	}
 
 	header {
