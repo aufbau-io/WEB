@@ -11,7 +11,7 @@
 <section>
 	<div class="main">
 		<p>personal website</p>
-		<a href="https://danielniels.co.uk" rel="noreferrer">// visit site //</a>
+		<a href="https://dan.aufbau.io" rel="noreferrer">// visit site //</a>
 	</div>
 </section>
 
