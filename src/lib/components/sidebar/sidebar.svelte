@@ -14,6 +14,7 @@
 			document.querySelector(':root').classList.remove('dark-mode');
 		}
 	}
+	
 
 	// stub data out
 	const navItemsBasic = [
