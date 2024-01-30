@@ -79,10 +79,12 @@
 		<slot />
 	</body>
 
+	{#if $screenType==3}
 	<footer>
 		<Footer />
 	</footer>
-
+	{/if}
+	
 </main>
 
 <style>

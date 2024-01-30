@@ -1,6 +1,6 @@
 <section>
   <div class="fill">
-    <h1 style="padding-bottom:10px;">D<span class="tmp">A</span>NIEL HUMPHRIES</h1>
+    <h1 style="padding:10px;">D<span class="tmp">A</span>NIEL HUMPHRIES</h1>
     <p style="text-align:center;">Freelancer, open to Creative Work<br>with Small Brands and Teams.</p>
     <br>
     <p>graphics</p>
@@ -14,7 +14,7 @@
       <a href="mailto: dan@aufbau.io">Email</a>
       <p>]</p>
     </div>
-    <a href='/'><h1><span style="font-size: 32px; margin-left: 100px;">↝</span></h1></a>
+    <a href='/'><h1><span style="font-size: 32px; width: 100%;">↝</span></h1></a>
   </div>
 </section>
 
@@ -26,6 +26,7 @@
     align-items: center;
     height: 100vh;
     color: var(--primary);
+
   }
 
   .fill {
@@ -35,6 +36,7 @@
     align-items: center;
     background: var(--background);
     padding: 10px 20px;
+    min-width: 400px;
   }
 
   .tmp {
@@ -52,7 +54,7 @@
 
   h1 {
     font-size: 20px;
-    margin: 20px 2px 2px 2px;
+    margin: 10px 2px 2px 2px;
     color: var(--primary);
     background: var(--background);
     padding-bottom: 5px;
@@ -64,5 +66,12 @@
 
   a:hover {
     text-underline-offset: 4px;
+  }
+
+  @media (max-width: 600px) {
+    .fill {
+      min-width: 90%;
+      max-width: 90%;
+    }
   }
 </style>
