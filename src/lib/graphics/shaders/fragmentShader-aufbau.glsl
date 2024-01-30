@@ -7,7 +7,7 @@ uniform float time;
 uniform vec2 mouse;
 
 void main() {
-    vec2 c = vec2(-0.8 + mouse.x * 0.3, 0.156 + mouse.y * 0.3) + vec2(sin(time * 0.1) * 0.01, sin(time * 0.1) * 0.01);
+    vec2 c = vec2(0.156 + mouse.x * 0.3, -0.8 + mouse.y * 0.3) + vec2(sin(time * 0.1) * 0.01, sin(time * 1.0) * 0.01);
     float zoom = 1.2;  
     vec2 z = (vUv - 0.5) * 4.0 / zoom;
 

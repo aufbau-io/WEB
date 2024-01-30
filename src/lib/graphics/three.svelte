@@ -11,6 +11,7 @@
 	import fragmentShader_niels from './shaders/fragmentShader-niels.glsl';
 	import fragmentShader_raum from './shaders/fragmentShader-raum.glsl';
 	import fragmentShader_closed_loop from './shaders/fragmentShader-closed-loop.glsl';
+	import fragmentShader_new from './shaders/fragmentShader-new.glsl';
 
 	let isDragging = false;
 	let previousMousePosition = { x: 0, y: 0 };
@@ -19,44 +20,6 @@
 		time: { value: 0 },
 		mouse: { value: [0.0,0.0] }
 	};
-
-// 	const colors = {
-//    color1: new THREE.Color(0xff6b6b), // Playful Red
-//    color2: new THREE.Color(0xffd93d), // Playful Yellow
-//    color3: new THREE.Color(0x6bcbef), // Playful Light Blue
-//    color4: new THREE.Color(0x32a852), // Playful Green
-//    color5: new THREE.Color(0x995d81), // Playful Mauve
-//    color6: new THREE.Color(0xed6663), // Playful Coral
-//    color7: new THREE.Color(0x4b89dc), // Playful Blue
-//    color8: new THREE.Color(0xf0a07c), // Playful Peach
-
-// 	 //original
-// 	color9: new THREE.Color(0xbb4500),
-// 	color10: new THREE.Color(0xdaaa55),
-// 	color11: new THREE.Color(0x006994),
-// 	color12: new THREE.Color(0x5099b4),
-// 	color13: new THREE.Color(0x8fbd5a),
-
-// 	// pastel
-// 	color1: new THREE.Color(0xff0054), // Bold Pink
-// 		color2: new THREE.Color(0xff5400), // Bold Orange
-// 		color3: new THREE.Color(0xffbd00), // Bold Yellow
-// 		color4: new THREE.Color(0x00ff9d), // Bold Mint
-// 		color5: new THREE.Color(0x00baff), // Bold Sky Blue
-// 		color6: new THREE.Color(0x4b00ff), // Bold Violet
-// 		color7: new THREE.Color(0x7800ff), // Bold Purple
-// 		color8: new THREE.Color(0xff0075), // Bold Magenta
-
-// 		// bold
-// 		color1: new THREE.Color(0xff0054), // Bold Pink
-// 		color2: new THREE.Color(0xff5400), // Bold Orange
-// 		color3: new THREE.Color(0xffbd00), // Bold Yellow
-// 		color4: new THREE.Color(0x00ff9d), // Bold Mint
-// 		color5: new THREE.Color(0x00baff), // Bold Sky Blue
-// 		color6: new THREE.Color(0x4b00ff), // Bold Violet
-// 		color7: new THREE.Color(0x7800ff), // Bold Purple
-// 		color8: new THREE.Color(0xff0075), // Bold Magenta
-// };
 
 	const colors = {
    color1: new THREE.Color(0xff6b6b), // Playful Red
@@ -73,7 +36,8 @@
     aufbau: fragmentShader_aufbau,
     niels: fragmentShader_niels,
     raum: fragmentShader_raum,
-    closed_loop: fragmentShader_closed_loop
+    closed_loop: fragmentShader_closed_loop,
+		new: fragmentShader_new,
 	};
 
 	let container;
