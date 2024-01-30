@@ -1,7 +1,7 @@
 <section>
   <div class="fill">
     <h1 style="padding:10px;">D<span class="tmp">A</span>NIEL HUMPHRIES</h1>
-    <p style="text-align:center;">Freelancer, open to Creative Work<br>with Small Brands and Teams.</p>
+    <p style="text-align:center;">Freelancer, open to Creative and <br> technical Work with small clients.</p>
     <br>
     <p>graphics</p>
     <p>creative web engineering</p>
