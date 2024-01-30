@@ -85,6 +85,7 @@ function randomHighlight(h1Element) {
 
 		overflow: none;
 		user-select: none;
+    
 	}
 
 	section h1 {
@@ -97,7 +98,7 @@ function randomHighlight(h1Element) {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    z-index: 1;
+
     display: flex;
     flex-direction: column;
     justify-content: center;

@@ -102,12 +102,14 @@
 		position: absolute;
 		top: 0;
 		width: 100%;
+		z-index: 1;
 	}
 
 	footer {
 		position: absolute;
 		bottom: 0;
 		width: 100%;
+
 	}
 
 	body {
