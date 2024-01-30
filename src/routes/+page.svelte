@@ -1,7 +1,7 @@
 <script>
 	import { onMount } from 'svelte';
 
-	let fonts = ['nb-television', 'martina-plantijn', 'nb-television-3d', 'nb-architekt'];
+	let fonts = ['martina-plantijn', 'nb-television-3d', 'nb-architekt', 'nb-television'];
 	let text = 'AUFBAU';
 	let lastFontChange = Date.now();
 	let lastHighlightChange = Date.now();
