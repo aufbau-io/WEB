@@ -1,14 +1,20 @@
 <section>
   <div class="fill">
-    <h1>D<span class="tmp">A</span>NIEL HUMPHRIES</h1>
-    <p style="text-align:center;">Freelancer, open to Creative Work<br>with Brands Small and Large.</p>
+    <h1 style="padding-bottom:10px;">D<span class="tmp">A</span>NIEL HUMPHRIES</h1>
+    <p style="text-align:center;">Freelancer, open to Creative Work<br>with Small Brands and Teams.</p>
     <br>
     <p>graphics</p>
     <p>creative web engineering</p>
     <p>neuroscience, ML, mathematics</p>
     <br>
-    <a href="/daniel_humphries_cv.pdf">CV</a>
-    <a href="mailto: dan@aufbau.io">Email</a>
+    <div class="links">
+      <p>[</p>
+      <a href="/daniel_humphries_cv.pdf">CV</a>
+      <p>//</p>
+      <a href="mailto: dan@aufbau.io">Email</a>
+      <p>]</p>
+    </div>
+    <a href='/'><h1><span style="font-size: 32px; margin-left: 100px;">↝</span></h1></a>
   </div>
 </section>
 
@@ -28,19 +34,32 @@
     justify-content: center;
     align-items: center;
     background: var(--background);
-    padding: 20px;
+    padding: 10px 20px;
   }
 
   .tmp {
     font-family:martina-plantijn;
     font-style: italic;
   }
+
+  .links {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+  }
+
   h1 {
     font-size: 20px;
-    padding: 2px;
+    margin: 20px 2px 2px 2px;
     color: var(--primary);
     background: var(--background);
     padding-bottom: 5px;
+  }
+
+  a {
+    padding: 0 10px;
   }
 
   a:hover {
