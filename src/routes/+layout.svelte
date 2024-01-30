@@ -58,7 +58,7 @@
 	/>
 	<meta
 		name="keywords"
-		content="AUFBAU, Creative, Website, Graphics, WebGL, WebGPU, Rust, Developer, Engineer, Engineering, Development, London, World"
+		content="AUFBAU, Creative, Freelance, Freelancer, Web, Websites, Apps, Shaders, Graphics, WebGL, WebGPU, Rust, Developer, Engineer, Engineering, Development, London, Dan Humphries, Daniel Humphries, UCL, Neuroscience, Mathematics, Machine Learning, ML"
 	/>
 	<meta name="author" content="AUFBAU" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
