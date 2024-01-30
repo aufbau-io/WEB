@@ -6,11 +6,10 @@
 	import { webVitals } from '$lib/vitals';
 
 	import { onMount } from 'svelte';
-	import { screenType, isIframe, screenSize, darkMode, DARK_PAGES } from '$lib/store/store';
+	import { screenType, isIframe, screenSize } from '$lib/store/store';
 	import { getDeviceType, getScreenSize } from '$lib/functions/utils';
 
 	import Header from '$lib/components/header/header.svelte';
-	import Sidebar from '$lib/components/sidebar/sidebar.svelte';
 	import Footer from '$lib/components/footer/footer.svelte';
 
 	export let data;
@@ -28,10 +27,6 @@
 		// screen size
 		screenSize.set(getScreenSize());
 
-		if (DARK_PAGES.includes($page.url.pathname)) {
-			darkMode.set(true);
-			document.querySelector(':root').classList.add('dark-mode');
-		}
 		// device type
 		screenType.set(getDeviceType());
 		isIframe.set(window.location !== window.parent.location);
@@ -59,7 +54,7 @@
 	<title>MAKE WEB FUN AGAIN</title>
 	<meta
 		name="description"
-		content="AUFBAU // Creative Website Development from London to the World"
+		content="AUFBAU // MAKE WEB FUN AGAIN"
 	/>
 	<meta
 		name="keywords"
@@ -67,32 +62,6 @@
 	/>
 	<meta name="author" content="AUFBAU" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	
-	<link
-		rel="preload"
-		href="/fonts/NB-Architekt-Pro-Light.woff"
-		as="font"
-		type="font/woff"
-		crossorigin="anonymous"
-	/>
-
-	<link
-		rel="preload"
-		href="/fonts/NB-Architekt-Pro-Bold.woff"
-		as="font"
-		type="font/woff"
-		crossorigin="anonymous"
-	/>
-
-	<!-- <link rel="preload" href="/icons/cv.svg" as="image" />
-	<link rel="preload" href="/icons/insta.svg" as="image" />
-	<link rel="preload" href="/icons/mail.svg" as="image" />
-
-	<link rel="prefetch" href="/icons/cv-dark.svg" as="image" />
-	<link rel="prefetch" href="/icons/insta-dark.svg" as="image" />
-	<link rel="prefetch" href="/icons/mail-dark.svg" as="image" />
-
-	<link rel="prefetch" href="/system_diagram.png" as="image" /> -->
 </svelte:head>
 
 {#if Geometry}
@@ -102,19 +71,17 @@
 {/if}
 
 <main>
-	<!-- <header>
+	<header>
 		<Header />
-	</header> -->
+	</header>
 
 	<body>
 		<slot />
 	</body>
 
-	<!-- {#if $screenType == 3}
-		<footer>
-			<Footer />
-		</footer>
-	{/if} -->
+	<footer>
+		<Footer />
+	</footer>
 
 </main>
 

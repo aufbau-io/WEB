@@ -20,17 +20,54 @@
 		mouse: { value: [0.0,0.0] }
 	};
 
+// 	const colors = {
+//    color1: new THREE.Color(0xff6b6b), // Playful Red
+//    color2: new THREE.Color(0xffd93d), // Playful Yellow
+//    color3: new THREE.Color(0x6bcbef), // Playful Light Blue
+//    color4: new THREE.Color(0x32a852), // Playful Green
+//    color5: new THREE.Color(0x995d81), // Playful Mauve
+//    color6: new THREE.Color(0xed6663), // Playful Coral
+//    color7: new THREE.Color(0x4b89dc), // Playful Blue
+//    color8: new THREE.Color(0xf0a07c), // Playful Peach
+
+// 	 //original
+// 	color9: new THREE.Color(0xbb4500),
+// 	color10: new THREE.Color(0xdaaa55),
+// 	color11: new THREE.Color(0x006994),
+// 	color12: new THREE.Color(0x5099b4),
+// 	color13: new THREE.Color(0x8fbd5a),
+
+// 	// pastel
+// 	color1: new THREE.Color(0xff0054), // Bold Pink
+// 		color2: new THREE.Color(0xff5400), // Bold Orange
+// 		color3: new THREE.Color(0xffbd00), // Bold Yellow
+// 		color4: new THREE.Color(0x00ff9d), // Bold Mint
+// 		color5: new THREE.Color(0x00baff), // Bold Sky Blue
+// 		color6: new THREE.Color(0x4b00ff), // Bold Violet
+// 		color7: new THREE.Color(0x7800ff), // Bold Purple
+// 		color8: new THREE.Color(0xff0075), // Bold Magenta
+
+// 		// bold
+// 		color1: new THREE.Color(0xff0054), // Bold Pink
+// 		color2: new THREE.Color(0xff5400), // Bold Orange
+// 		color3: new THREE.Color(0xffbd00), // Bold Yellow
+// 		color4: new THREE.Color(0x00ff9d), // Bold Mint
+// 		color5: new THREE.Color(0x00baff), // Bold Sky Blue
+// 		color6: new THREE.Color(0x4b00ff), // Bold Violet
+// 		color7: new THREE.Color(0x7800ff), // Bold Purple
+// 		color8: new THREE.Color(0xff0075), // Bold Magenta
+// };
+
 	const colors = {
-		color1: new THREE.Color(0xd0d0d0),
-		color2: new THREE.Color(0xbb4500),
-		color3: new THREE.Color(0xdaaa55),
-		color4: new THREE.Color(0x006994),
-		color5: new THREE.Color(0x5099b4),
-		color6: new THREE.Color(0x8fbd5a),
-		// new color, another pastel
-		color7: new THREE.Color(0x8fbd5a),
-		color8: new THREE.Color(0xbd5a8f),
-	};
+   color1: new THREE.Color(0xff6b6b), // Playful Red
+   color2: new THREE.Color(0xffd93d), // Playful Yellow
+   color3: new THREE.Color(0x6bcbef), // Playful Light Blue
+   color4: new THREE.Color(0x32a852), // Playful Green
+   color5: new THREE.Color(0x995d81), // Playful Mauve
+   color6: new THREE.Color(0xed6663), // Playful Coral
+   color7: new THREE.Color(0x4b89dc), // Playful Blue
+   color8: new THREE.Color(0xf0a07c), // Playful Peach
+}
 
 	const shaders = {
     aufbau: fragmentShader_aufbau,
@@ -52,53 +89,6 @@
 	init();
 	animate();
 
-	// function setupShaderMaterials() {
-
-	// 	shaderMaterial_aufbau = new THREE.ShaderMaterial({
-	// 		vertexShader: vertexShader,
-	// 		fragmentShader: fragmentShader_aufbau,
-	// 		uniforms: {
-	// 			...uniformsBase,
-	// 			color1: { value: colors.color2 },
-	// 			color2: { value: colors.color3 },
-	// 			color3: { value: colors.color2 }
-	// 		}
-	// 	});
-
-	// 	shaderMaterial_raum = new THREE.ShaderMaterial({
-	// 		vertexShader: vertexShader,
-	// 		fragmentShader: fragmentShader_raum,
-	// 		uniforms: {
-	// 			...uniformsBase,
-	// 			color1: { value: colors.color4 },
-	// 			color2: { value: colors.color9 },
-	// 			color3: { value: colors.color9 }
-	// 		}
-	// 	});
-
-	// 	shaderMaterial_niels = new THREE.ShaderMaterial({
-	// 		vertexShader: vertexShader,
-	// 		fragmentShader: fragmentShader_niels,
-	// 		uniforms: {
-	// 			...uniformsBase,
-	// 			color1: { value: colors.color3 },
-	// 			color2: { value: colors.color2 },
-	// 			color3: { value: colors.color3 }
-	// 		}
-	// 	});
-
-	// 	shaderMaterial_closed_loop = new THREE.ShaderMaterial({
-	// 		vertexShader: vertexShader,
-	// 		fragmentShader: fragmentShader_closed_loop,
-	// 		uniforms: {
-	// 			...uniformsBase,
-	// 			color1: { value: colors.color1 },
-	// 			color2: { value: colors.color6 },
-	// 			color3: { value: colors.color4 }
-	// 		}
-	// 	});
-	// }
-
 	function updateShaderUniforms() {
     const elapsedTime = clock.getElapsedTime();
 
@@ -116,7 +106,7 @@
 		camera.position.z = 400;
 
 		scene = new THREE.Scene();
-		scene.background = new THREE.Color(0xd0d0d0);
+		scene.background = new THREE.Color(0x232323);
 
 		// setupShaderMaterials();
 		assignShadersRandomly();
@@ -173,12 +163,13 @@
 								// random colours from colours dict
                 color1: { value: colors[Object.keys(colors)[Math.floor(Math.random() * Object.keys(colors).length)]] },
 								color2: { value: colors[Object.keys(colors)[Math.floor(Math.random() * Object.keys(colors).length)]] },
-								color3: { value: colors[Object.keys(colors)[Math.floor(Math.random() * Object.keys(colors).length)]] }
+								color3: { value: colors[Object.keys(colors)[Math.floor(Math.random() * Object.keys(colors).length)]] },
+								color4: { value: colors[Object.keys(colors)[Math.floor(Math.random() * Object.keys(colors).length)]] },
             }
         });
 
         // Create and position the plane
-        const plane = new THREE.Mesh(new THREE.PlaneGeometry(105, 105), shaderMaterial);
+        const plane = new THREE.Mesh(new THREE.PlaneGeometry(110, 110), shaderMaterial);
         plane.position.set(position.x, position.y, 0);
         scene.add(plane);
     });
@@ -213,7 +204,7 @@
         const deltaY = event.clientY - previousMousePosition.y;
 
         // Update camera or scene position
-        camera.position.x += deltaX * 0.1; camera.position.y += deltaY * 0.1;
+        camera.position.x += deltaX * 0.15; camera.position.y += deltaY * 0.15;
 
         previousMousePosition.x = event.clientX;
         previousMousePosition.y = event.clientY;
