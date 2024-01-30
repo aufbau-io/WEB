@@ -10,47 +10,17 @@
 	font-weight: 600;
 }
 
-/* @font-face {
-	font-family: dahlia;
-	src: url(/fonts/Dahlia-bold.woff2) format('woff2');
-	font-weight: 700;
-} */
-
-/* @font-face {
-	font-family: untitled-serif;
-	src: url(/fonts/test-untitled-serif-regular.woff2) format('woff2');
-	font-weight: 400;
+@font-face {
+	font-family: nb-television;
+	src: url(/fonts/NB-Television-Pro-Mono.woff) format('woff2');
 }
 
 @font-face {
-	font-family: untitled-serif;
-	src: url(/fonts/test-untitled-serif-medium.woff2) format('woff2');
-	font-weight: 500;
+	font-family: martina-plantijn;
+	src: url(/fonts/test-martina-plantijn-black.woff2) format('woff2');
 }
 
 @font-face {
-	font-family: untitled-serif;
-	src: url(/fonts/test-untitled-serif-bold.woff2) format('woff2');
-	font-weight: 600;
+	font-family: nb-television-3d;
+	src: url(/fonts/NB-Television-Pro-Mono-3D.woff) format('woff');
 }
-
-@font-face {
-	font-family: untitled-serif;
-	src: url(/fonts/test-untitled-serif-regular-italic.woff2) format('woff2');
-	font-weight: 400;
-	font-style: italic;
-}
-
-@font-face {
-	font-family: untitled-serif;
-	src: url(/fonts/test-untitled-serif-medium-italic.woff2) format('woff2');
-	font-weight: 500;
-	font-style: italic;
-}
-
-@font-face {
-	font-family: untitled-serif;
-	src: url(/fonts/test-untitled-serif-bold-italic.woff2) format('woff2');
-	font-weight: 600;
-	font-style: italic;
-} */

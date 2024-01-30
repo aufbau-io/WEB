@@ -102,21 +102,20 @@
 {/if}
 
 <main>
-	<header>
+	<!-- <header>
 		<Header />
-	</header>
+	</header> -->
 
 	<body>
 		<slot />
 	</body>
 
-	{#if $screenType == 3}
+	<!-- {#if $screenType == 3}
 		<footer>
 			<Footer />
 		</footer>
-	{/if}
+	{/if} -->
 
-	<Sidebar />
 </main>
 
 <style>
@@ -145,6 +144,7 @@
 	body {
 		display: flex;
 		flex-direction: column;
+		overflow: hidden;
 		/* padding: calc(1 * var(--margin)); */
 		width: 100%;
 		height: 100%;

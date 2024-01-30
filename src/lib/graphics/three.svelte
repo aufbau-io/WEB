@@ -2,7 +2,7 @@
 	import { onMount } from 'svelte';
 	import { screenType } from '$lib/store/store';
 	import { page } from '$app/stores';
-	import { afterNavigate } from '$app/navigation';
+	// import { afterNavigate } from '$app/navigation';
 
 	import * as THREE from 'three';
 
@@ -10,24 +10,40 @@
 	import fragmentShader_aufbau from './shaders/fragmentShader-aufbau.glsl';
 	import fragmentShader_niels from './shaders/fragmentShader-niels.glsl';
 	import fragmentShader_raum from './shaders/fragmentShader-raum.glsl';
-	import fragmentShader_iota from './shaders/fragmentShader-iota.glsl';
-	import fragmentShader_garrett from './shaders/fragmentShader-garrett.glsl';
 	import fragmentShader_closed_loop from './shaders/fragmentShader-closed-loop.glsl';
 
-	let SIDEBAR_SIZE = 0;
+	let isDragging = false;
+	let previousMousePosition = { x: 0, y: 0 };
 
-	let shaderMaterial_aufbau,
-		shaderMaterial_niels,
-		shaderMaterial_raum,
-		shaderMaterial_iota,
-		shaderMaterial_closed_loop,
-		shaderMaterial_garrett;
+	const uniformsBase = {
+		time: { value: 0 },
+		mouse: { value: [0.0,0.0] }
+	};
+
+	const colors = {
+		color1: new THREE.Color(0xd0d0d0),
+		color2: new THREE.Color(0xbb4500),
+		color3: new THREE.Color(0xdaaa55),
+		color4: new THREE.Color(0x006994),
+		color5: new THREE.Color(0x5099b4),
+		color6: new THREE.Color(0x8fbd5a),
+		// new color, another pastel
+		color7: new THREE.Color(0x8fbd5a),
+		color8: new THREE.Color(0xbd5a8f),
+	};
+
+	const shaders = {
+    aufbau: fragmentShader_aufbau,
+    niels: fragmentShader_niels,
+    raum: fragmentShader_raum,
+    closed_loop: fragmentShader_closed_loop
+	};
 
 	let container;
 
 	let camera, scene, renderer;
 
-	let width = window.innerWidth - SIDEBAR_SIZE;
+	let width = window.innerWidth;
 	let height = window.innerHeight;
 
 	let mouse = new THREE.Vector2();
@@ -36,143 +52,74 @@
 	init();
 	animate();
 
-	function setupShaderMaterials() {
-		const uniformsBase = {
-			time: { value: 0 },
-			mouse: { value: mouse }
-		};
+	// function setupShaderMaterials() {
 
-		const colors = {
-			color1: new THREE.Color(0xd0d0d0),
-			color2: new THREE.Color(0xbb4500),
-			color3: new THREE.Color(0xdaaa55),
-			color4: new THREE.Color(0x006994),
-			color5: new THREE.Color(0x5099b4),
-			color6: new THREE.Color(0x0000ff),
-			color7: new THREE.Color(0x00ff00),
-			color8: new THREE.Color(0x0b0b0b),
-			color9: new THREE.Color(0x8fbd5a),
-			color0: new THREE.Color(0x232323),
-			color11: new THREE.Color(0xe0e0d0)
-		};
+	// 	shaderMaterial_aufbau = new THREE.ShaderMaterial({
+	// 		vertexShader: vertexShader,
+	// 		fragmentShader: fragmentShader_aufbau,
+	// 		uniforms: {
+	// 			...uniformsBase,
+	// 			color1: { value: colors.color2 },
+	// 			color2: { value: colors.color3 },
+	// 			color3: { value: colors.color2 }
+	// 		}
+	// 	});
 
-		shaderMaterial_aufbau = new THREE.ShaderMaterial({
-			vertexShader: vertexShader,
-			fragmentShader: fragmentShader_aufbau,
-			uniforms: {
-				...uniformsBase,
-				color1: { value: colors.color1 },
-				color2: { value: colors.color5 },
-				color3: { value: colors.color9 }
-			}
-		});
+	// 	shaderMaterial_raum = new THREE.ShaderMaterial({
+	// 		vertexShader: vertexShader,
+	// 		fragmentShader: fragmentShader_raum,
+	// 		uniforms: {
+	// 			...uniformsBase,
+	// 			color1: { value: colors.color4 },
+	// 			color2: { value: colors.color9 },
+	// 			color3: { value: colors.color9 }
+	// 		}
+	// 	});
 
-		shaderMaterial_raum = new THREE.ShaderMaterial({
-			vertexShader: vertexShader,
-			fragmentShader: fragmentShader_raum,
-			uniforms: {
-				...uniformsBase,
-				color1: { value: colors.color4 },
-				color2: { value: colors.color9 },
-				color3: { value: colors.color9 }
-			}
-		});
+	// 	shaderMaterial_niels = new THREE.ShaderMaterial({
+	// 		vertexShader: vertexShader,
+	// 		fragmentShader: fragmentShader_niels,
+	// 		uniforms: {
+	// 			...uniformsBase,
+	// 			color1: { value: colors.color3 },
+	// 			color2: { value: colors.color2 },
+	// 			color3: { value: colors.color3 }
+	// 		}
+	// 	});
 
-		shaderMaterial_iota = new THREE.ShaderMaterial({
-			vertexShader: vertexShader,
-			fragmentShader: fragmentShader_iota,
-			uniforms: {
-				...uniformsBase,
-				aspectRatio: { value: 1 }
-			}
-		});
-
-		shaderMaterial_garrett = new THREE.ShaderMaterial({
-			vertexShader: vertexShader,
-			fragmentShader: fragmentShader_garrett,
-			uniforms: {
-				...uniformsBase,
-				color1: { value: colors.color1 },
-				color2: { value: colors.color11 },
-				color3: { value: colors.color9 }
-			}
-		});
-
-		shaderMaterial_niels = new THREE.ShaderMaterial({
-			vertexShader: vertexShader,
-			fragmentShader: fragmentShader_niels,
-			uniforms: {
-				...uniformsBase,
-				color1: { value: colors.color3 },
-				color2: { value: colors.color2 },
-				color3: { value: colors.color3 }
-			}
-		});
-
-		shaderMaterial_closed_loop = new THREE.ShaderMaterial({
-			vertexShader: vertexShader,
-			fragmentShader: fragmentShader_closed_loop,
-			uniforms: {
-				...uniformsBase,
-				color1: { value: colors.color1 },
-				color2: { value: colors.color9 },
-				color3: { value: colors.color5 }
-			}
-		});
-	}
+	// 	shaderMaterial_closed_loop = new THREE.ShaderMaterial({
+	// 		vertexShader: vertexShader,
+	// 		fragmentShader: fragmentShader_closed_loop,
+	// 		uniforms: {
+	// 			...uniformsBase,
+	// 			color1: { value: colors.color1 },
+	// 			color2: { value: colors.color6 },
+	// 			color3: { value: colors.color4 }
+	// 		}
+	// 	});
+	// }
 
 	function updateShaderUniforms() {
-		const elapsedTime = clock.getElapsedTime();
+    const elapsedTime = clock.getElapsedTime();
 
-		if ($page.url.pathname == '/') {
-			if ($screenType == 1) {
-				shaderMaterial_aufbau.uniforms.time.value = elapsedTime;
-				shaderMaterial_aufbau.uniforms.mouse.value = {
-					x: 4 * Math.cos(elapsedTime * 0.1),
-					y: 5 * Math.cos(elapsedTime * 0.1)
-				};
-			} else {
-				shaderMaterial_aufbau.uniforms.mouse.value = mouse;
-				shaderMaterial_aufbau.uniforms.time.value = elapsedTime;
-			}
-		}
-
-		if ($page.url.pathname == '/raum' || $page.url.pathname == '/raum/') {
-			shaderMaterial_raum.uniforms.mouse.value = mouse;
-			shaderMaterial_raum.uniforms.time.value = elapsedTime;
-		}
-
-		if ($page.url.pathname == '/garrett' || $page.url.pathname == '/garrett/') {
-			shaderMaterial_iota.uniforms.mouse.value = mouse;
-			shaderMaterial_iota.uniforms.time.value = elapsedTime;
-		}
-
-		if ($page.url.pathname == '/iota' || $page.url.pathname == '/iota/') {
-			// shaderMaterial_iota.uniforms.mouse.value = mouse;
-			shaderMaterial_iota.uniforms.time.value = elapsedTime;
-		}
-
-		if ($page.url.pathname == '/niels' || $page.url.pathname == '/niels/') {
-			shaderMaterial_niels.uniforms.mouse.value = mouse;
-			shaderMaterial_niels.uniforms.time.value = elapsedTime;
-		}
-
-		if ($page.url.pathname == '/closed-loop' || $page.url.pathname == '/closed-loop/') {
-			shaderMaterial_closed_loop.uniforms.mouse.value = mouse;
-			shaderMaterial_closed_loop.uniforms.time.value = elapsedTime;
-		}
-
-	}
+    scene.children.forEach(child => {
+        if (child.material instanceof THREE.ShaderMaterial) {
+            child.material.uniforms.time.value = elapsedTime;
+            child.material.uniforms.mouse.value.x = mouse.x;
+            child.material.uniforms.mouse.value.y = mouse.y;
+        }
+    });
+}
 
 	function init() {
-		camera = new THREE.PerspectiveCamera(20, width / height, 1, 800);
+		camera = new THREE.PerspectiveCamera(20, width / height, 1, 2000);
 		camera.position.z = 400;
 
 		scene = new THREE.Scene();
-		scene.background = new THREE.Color(0x232323);
+		scene.background = new THREE.Color(0xd0d0d0);
 
-		setupShaderMaterials();
-		setScene();
+		// setupShaderMaterials();
+		assignShadersRandomly();
 
 		renderer = new THREE.WebGLRenderer({ antialias: false });
 		renderer.setPixelRatio(window.devicePixelRatio);
@@ -185,98 +132,61 @@
 
 		window.addEventListener('mousemove', onDocumentMouseMove);
 		window.addEventListener('resize', onWindowResize);
+		window.addEventListener('mousedown', onDocumentMouseDown);
+		window.addEventListener('mousemove', onDocumentMouseMove);
+		window.addEventListener('mouseup', onDocumentMouseUp);
+		window.addEventListener('keydown', onSpacebar);
+		window.addEventListener('click', onSpacebar);
+		window.addEventListener('touchstart', onSpacebar);
 		// window.addEventListener('navigate', onNavigate);
 	}
 
-	function setHome() {
-		let plane4 = new THREE.Mesh(new THREE.PlaneGeometry(1000, 1000), shaderMaterial_aufbau);
-		let plane5 = new THREE.Mesh(new THREE.PlaneGeometry(100, 100), shaderMaterial_aufbau);
-		scene.add(plane4);
+	function assignShadersRandomly() {
+		// remove all shaders if they exist
+		scene.children.forEach(child => {
+			if (child.material instanceof THREE.ShaderMaterial) {
+				scene.remove(child);
+			}
+		});
 
-		if ($screenType != 1) {
-			plane5.position.z = 200;
-			scene.add(plane5);
-		} else {
-			plane5.position.z = 100;
-			plane5.rotation.z = Math.PI / 2;
-			scene.add(plane5);
-		}
-	}
 
-	function setNiels () {
-		let plane = new THREE.Mesh(new THREE.PlaneGeometry(1000, 1000), shaderMaterial_niels);
-		let plane2 = new THREE.Mesh(new THREE.PlaneGeometry(100, 100), shaderMaterial_niels);
-		plane2.position.z = 200;
-		scene.add(plane, plane2);
-	}
+    // Define the grid size and positions
+		const no_rows = 20;
+    const gridSize = { rows: no_rows, cols: no_rows }; // Example grid size
+    const gridPositions = [];
 
-	function setRaum() {
-		let plane = new THREE.Mesh(new THREE.PlaneGeometry(1000, 1000), shaderMaterial_raum);
-		let plane2 = new THREE.Mesh(new THREE.PlaneGeometry(100, 100), shaderMaterial_raum);
-		plane2.position.z = 200;
-		scene.add(plane, plane2);
-	}
+    // Populate grid positions
+    for (let row = 0; row < gridSize.rows; row++) {
+        for (let col = 0; col < gridSize.cols; col++) {
+					gridPositions.push({ x: col * 60 - no_rows * 30 + 30, y: row * 60 - no_rows * 30 + 30 });
+        }
+    }
 
-	function setIOTA() {
-		let plane = new THREE.Mesh(new THREE.PlaneGeometry(1000, 1000), shaderMaterial_iota);
-		let plane2 = new THREE.Mesh(new THREE.PlaneGeometry(100, 100), shaderMaterial_iota);
-		plane2.position.z = 200;
-		scene.add(plane, plane2);
-	}
+    // Randomly assign shaders to grid positions
+    gridPositions.forEach(position => {
+        const shaderName = Object.keys(shaders)[Math.floor(Math.random() * Object.keys(shaders).length)];
+        const shaderMaterial = new THREE.ShaderMaterial({
+            vertexShader: vertexShader,
+            fragmentShader: shaders[shaderName],
+            uniforms: {
+                ...uniformsBase,
+								// random colours from colours dict
+                color1: { value: colors[Object.keys(colors)[Math.floor(Math.random() * Object.keys(colors).length)]] },
+								color2: { value: colors[Object.keys(colors)[Math.floor(Math.random() * Object.keys(colors).length)]] },
+								color3: { value: colors[Object.keys(colors)[Math.floor(Math.random() * Object.keys(colors).length)]] }
+            }
+        });
 
-	function setGarrett() {
-		let plane = new THREE.Mesh(new THREE.PlaneGeometry(1000, 1000), shaderMaterial_garrett);
-		let plane2 = new THREE.Mesh(new THREE.PlaneGeometry(100, 100), shaderMaterial_garrett);
-		plane2.position.z = 200;
-		scene.add(plane, plane2);
-	}
+        // Create and position the plane
+        const plane = new THREE.Mesh(new THREE.PlaneGeometry(105, 105), shaderMaterial);
+        plane.position.set(position.x, position.y, 0);
+        scene.add(plane);
+    });
+}
 
-	function setClosedLoop() {
-		let plane = new THREE.Mesh(new THREE.PlaneGeometry(1000, 1000), shaderMaterial_closed_loop);
-		let plane2 = new THREE.Mesh(new THREE.PlaneGeometry(100, 100), shaderMaterial_closed_loop);
-		plane2.position.z = 200;
-		scene.add(plane, plane2);
-	}
-
-	function setScene() {
-		if ($page.url.pathname == '/') {
-			setHome();
-		}
-
-		if ($page.url.pathname == '/niels' || $page.url.pathname == '/niels/' ) {
-			setNiels();
-		}
-
-		if ($page.url.pathname == '/raum' || $page.url.pathname == '/raum/') {
-			setRaum();
-		}
-
-		if ($page.url.pathname == '/garrett' || $page.url.pathname == '/garrett/') {
-			setGarrett();
-		}
-
-		if ($page.url.pathname == '/iota' || $page.url.pathname == '/iota/') {
-			setIOTA();
-		}
-
-		if ($page.url.pathname == '/closed-loop' || $page.url.pathname == '/closed-loop/') {
-			setClosedLoop();
-		}
-
-	}
-
-	afterNavigate(onNavigate);
-	function onNavigate() {
-		for (var i = scene.children.length - 1; i >= 0; i--) {
-			let obj = scene.children[i];
-			scene.remove(obj);
-		}
-
-		setScene();
-	}
 
 	function onWindowResize() {
-		let width = window.innerWidth - SIDEBAR_SIZE;
+		let width = window.innerWidth;
 		let height = window.innerHeight;
 
 		camera.aspect = width / height;
@@ -285,13 +195,39 @@
 		renderer.setSize(width, height);
 	}
 
+	function onDocumentMouseDown(event) {
+    isDragging = true;
+    previousMousePosition.x = event.clientX;
+    previousMousePosition.y = event.clientY;
+}
+
 	function onDocumentMouseMove(event) {
 		var clientX = event.clientX;
 		var clientY = event.clientY;
 
 		mouse.x = (clientX / window.innerWidth) * 2 - 1;
 		mouse.y = -(clientY / window.innerHeight) * 2 + 1;
+
+		if (true) { // if (isDragging) {
+        const deltaX = event.clientX - previousMousePosition.x;
+        const deltaY = event.clientY - previousMousePosition.y;
+
+        // Update camera or scene position
+        camera.position.x += deltaX * 0.1; camera.position.y += deltaY * 0.1;
+
+        previousMousePosition.x = event.clientX;
+        previousMousePosition.y = event.clientY;
+    }
 	}
+
+	function onDocumentMouseUp() {
+    isDragging = false;
+	}
+
+	function onSpacebar() {
+		assignShadersRandomly();
+	}
+
 
 	function animate() {
 		requestAnimationFrame(animate);
@@ -304,9 +240,14 @@
 	}
 
 	function cleanup() {
-		window.removeEventListener('mousemove', onDocumentMouseMove);
 		window.removeEventListener('resize', onWindowResize);
 		window.removeEventListener('navigate', onNavigate);
+		window.removeEventListener('mousemove', onDocumentMouseMove);
+		window.removeEventListener('mousedown', onDocumentMouseDown);
+		window.removeEventListener('mouseup', onDocumentMouseUp);
+		window.removeEventListener('keydown', onSpacebar);
+		window.removeEventListener('click', onSpacebar);
+		window.removeEventListener('touchstart', onSpacebar);
 
 		//cleanup webgl
 		renderer.dispose();

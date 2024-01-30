@@ -1,19 +1,17 @@
 <script>
 	import { onMount } from 'svelte';
-	import { darkMode } from '$lib/store/store';
+	// import { darkMode } from '$lib/store/store';
 
-	onMount(async () => {
-		darkMode.set(false);
-		document.querySelector(':root').classList.remove('dark-mode');
-	});
+	// onMount(async () => {
+	// 	darkMode.set(false);
+	// 	document.querySelector(':root').classList.remove('dark-mode');
+	// });
 </script>
 
 <section>
 	<div class="main">
-		<!-- <p>dance music search engine<br>C-VAE generated data // WebGL app</p> -->
-		<!-- <a href="https://silicon.fm"   rel="noreferrer">// prototype web app //</a> -->
-		<p>dance music search engine</p>
-		<p>no link -- wip</p>
+		<p>creative + technical web engineering<br />fullstack dev, mobile, web, graphics</p>
+		<a href="/daniel_humphries_cv.pdf" rel="noreferrer">// read cv //</a>
 	</div>
 </section>
 
@@ -31,6 +29,7 @@
 		text-align: center;
 
 		overflow: auto;
+
 	}
 
 	.main {
