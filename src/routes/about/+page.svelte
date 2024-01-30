@@ -70,7 +70,7 @@ function randomHighlight(h1Element) {
 </section>
 
 <style>
-  	body {
+  	section {
 		padding: 0 0;
 		height: 100%;
 		width: 100%;
@@ -91,12 +91,12 @@ function randomHighlight(h1Element) {
 		color: var(--background);
 	}
 
-  section {
+  body {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    z-index: -1;
+    z-index: 1;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -130,7 +130,7 @@ function randomHighlight(h1Element) {
     gap: 10px;
   }
 
-  h1 {
+  body h1 {
     font-size: 20px;
     margin: 10px 2px 2px 2px;
     color: var(--primary);
