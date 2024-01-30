@@ -1,5 +1,6 @@
 <script>
   	import { onMount } from 'svelte';
+    import { screenType } from '$lib/store/store';
 
 let fonts = ['martina-plantijn', 'nb-television-3d', 'nb-architekt', 'nb-television'];
 let text = 'AUFBAU';
@@ -48,7 +49,7 @@ function randomHighlight(h1Element) {
 <body>
   <div class="fill">
     <h1 style="padding:10px;">D<span class="tmp">A</span>NIEL HUMPHRIES</h1>
-    <p style="text-align:center;">Freelancer, open to Creative and <br> technical Work with small clients.</p>
+    <p style="text-align:center;">Freelancer, open to Creative and{#if $screenType !=1}<br>{/if} technical Work with small clients.</p>
     <br>
     <p>graphics</p>
     <p>creative web engineering</p>
@@ -147,7 +148,7 @@ function randomHighlight(h1Element) {
   }
 
   @media (max-width: 600px) {
-    .fill {
+    body, .fill {
       min-width: 90%;
       max-width: 90%;
     }
