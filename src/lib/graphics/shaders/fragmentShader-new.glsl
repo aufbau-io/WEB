@@ -9,7 +9,7 @@ uniform float time;
 uniform vec2 mouse;
 
 void main() {
-    vec2 pos = vUv * 6.0 - 6.0;
+    vec2 pos = vUv * 4.0 - 4.0;
     pos.x += sin(pos.y * 10.0 + time * 0.2) * 0.5;
     pos.y += cos(pos.x * 10.0 + time * 0.2) * 0.5;
     
