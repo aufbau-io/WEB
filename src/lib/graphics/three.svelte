@@ -12,6 +12,7 @@
 	import fragmentShader_raum from './shaders/fragmentShader-raum.glsl';
 	import fragmentShader_closed_loop from './shaders/fragmentShader-closed-loop.glsl';
 	import fragmentShader_new from './shaders/fragmentShader-new.glsl';
+	import fragmentShader_garret from './shaders/fragmentShader-garrett.glsl';
 
 	let isDragging = false;
 	let previousMousePosition = { x: 0, y: 0 };
@@ -38,6 +39,7 @@
     raum: fragmentShader_raum,
     closed_loop: fragmentShader_closed_loop,
 		new: fragmentShader_new,
+		garrett: fragmentShader_garret,
 	};
 
 	let container;
