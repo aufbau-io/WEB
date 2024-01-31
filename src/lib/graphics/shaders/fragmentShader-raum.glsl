@@ -7,7 +7,7 @@ uniform float time;
 uniform vec2 mouse;
 
 void main() {
-    vec2 position = vUv * 2.0;
+    vec2 position = vUv * 4.0;
     vec2 ripple = position;
     float dist = 0.1 * 3.0 + sin(0.2 * time + 0.1) * sin(dot(ripple, ripple));
     dist += 0.25 * mouse.x + log(2.0 * atan(ripple.y, ripple.x + 0.1)); // add circular distortion
