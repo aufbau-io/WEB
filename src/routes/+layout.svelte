@@ -11,7 +11,6 @@
 
 	import Header from '$lib/components/header/header.svelte';
 	import Footer from '$lib/components/footer/footer.svelte';
-	import Title from '$lib/components/site/title.svelte';
 
 	export let data;
 	let Geometry;
@@ -77,7 +76,6 @@
 	</header>
 
 	<body>
-		<Title />
 		<slot />
 	</body>
 
