@@ -6,7 +6,7 @@
 <header>
 
 	{#if $screenType==3}
-	<h1 style="padding-right:10px;">PROJECTS (sitebuild in progress)</h1>
+	<h1 style="padding-right:10px;">PRESS SPACEBAR</h1>
 	{/if}
 	
 	{#if $page.url.pathname == '/'}
