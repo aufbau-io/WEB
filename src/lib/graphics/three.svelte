@@ -135,7 +135,8 @@
         });
 
         // Create and position the plane
-        const plane = new THREE.Mesh(new THREE.PlaneGeometry(110, 110), shaderMaterial);
+				const plane_size = 110;
+        const plane = new THREE.Mesh(new THREE.PlaneGeometry(plane_size, plane_size), shaderMaterial);
         plane.position.set(position.x, position.y, 0);
         scene.add(plane);
     });
