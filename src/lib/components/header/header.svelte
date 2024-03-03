@@ -5,9 +5,9 @@
 
 <header>
 
-	{#if $screenType==3}
+	<!-- {#if $screenType==3}
 	<h1 style="padding-right:10px;">PRESS SPACEBAR</h1>
-	{/if}
+	{/if} -->
 	
 	{#if $page.url.pathname == '/'}
 	<a href='/about'><h1 style="padding-left:10px;">ABOUT // CONTACT</h1></a>
@@ -22,7 +22,7 @@
 		user-select: none;
 		color: var(--primary);
 		display: flex;
-		justify-content: space-between;
+		justify-content: flex-end;
 	}
 
 	h1 {
@@ -31,7 +31,7 @@
 		color:var(--primary);
 		background: var(--background);
 		
-	}s
+	}
 
 	a:hover {
 		text-underline-offset: 4px;
