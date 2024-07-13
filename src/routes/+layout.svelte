@@ -54,7 +54,7 @@
 	<title>MAKE WEB FUN AGAIN</title>
 	<meta
 		name="description"
-		content="Der Logische Aufbau der Web."
+		content="Der logische Aufbau der Web."
 	/>
 	<meta
 		name="keywords"
