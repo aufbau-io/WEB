@@ -7,8 +7,9 @@
 
 <body>
   <div class="fill">
-    <h1 style="padding:10px;">D<span class="tmp">A</span>NIEL HUMPHRIES</h1>
-    <p style="text-align:center;">Freelancer, open to Creative and{#if $screenType !=1}<br>{/if} technical Work with small clients.</p>
+    <!-- <h1 style="padding:10px;">D<span class="tmp">A</span>NIEL HUMPHRIES</h1> -->
+    <h1 style="padding:10px;">AUFBAU</h1>
+    <p style="text-align:center;">Open to Creative and technical{#if $screenType !=1}<br>{/if}  Work with small clients.</p>
     <br>
     <p>graphics</p>
     <p>creative web engineering</p>
@@ -16,7 +17,7 @@
     <br>
     <div class="links">
       <p>[</p>
-      <a href="https://danielniels.co.uk">ME</a>
+      <a href="https://danielniels.co.uk">DAN</a>
       <p>//</p>
       <!-- <a href="/daniel_humphries_cv.pdf">CV</a>
       <p>//</p> -->
