@@ -11,7 +11,7 @@
     <h1 style="padding:10px;">AUFBAU</h1>
     <p style="text-align:center;">Open to Creative and technical{#if $screenType !=1}<br>{/if}  Work with small clients.</p>
     <br>
-    <p>graphics</p>
+    <p>graphics & websites</p>
     <p>creative web engineering</p>
     <p>neuroscience, ML, mathematics</p>
     <br>
