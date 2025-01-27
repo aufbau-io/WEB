@@ -51,7 +51,7 @@
 </script>
 
 <svelte:head>
-	<title>MAKE WEB FUN AGAIN</title>
+	<title>SICOVECAS || EXTRA WORDS</title>
 	<meta
 		name="description"
 		content="Der logische Aufbau der Web."

@@ -72,7 +72,7 @@
 		camera.position.z = 400;
 
 		scene = new THREE.Scene();
-		scene.background = new THREE.Color(0x232323);
+		scene.background = new THREE.Color(0xfafafa);
 
 		// setupShaderMaterials();
 		assignShadersRandomly();

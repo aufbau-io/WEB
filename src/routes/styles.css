@@ -2,7 +2,7 @@
 @import '$lib/styles/fonts.css';
 
 :root {
-	--font-header: nb-television, serif;
+	--font-header: nb-television-3d, serif;
 	--font-body: nb-architekt, serif;
 	--column-width: 42rem;
 	--margin: 20px;
@@ -13,14 +13,14 @@
 }
 
 :root {
-	--background: #232323;
-	--background-50: #23232380;
-	--primary: #d0d0d0;
-	--primary-50: #d0d0d080;
+	--background: #f4f4f4;
+	--background-50: #f4f4f480;
+	--primary: #232323;
+	--primary-50: #23232380;
 
 	--green: #008080;
-	--white: #fafafa;
-	--black: #1b1b1b;
+	--white: #f4f4f4;
+	--black: #232323;
 
 	--border: solid 1px var(--background);
 }
