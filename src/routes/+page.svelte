@@ -1,15 +1,15 @@
 <script>
     import { screenType } from '$lib/store/store';
-    // import Title from '$lib/components/site/title.svelte';
+    import Title from '$lib/components/site/title.svelte';
 </script>
 
-<!-- <Title /> -->
+<Title />
 
 <body>
   <div class="fill">
     <!-- <h1 style="padding:10px;">D<span class="tmp">A</span>NIEL HUMPHRIES</h1> -->
-    <h1 style="padding:10px;">SICOVECAS</h1>
-    <!-- <p style="text-align:center;">Open to Creative and technical{#if $screenType !=1}<br>{/if}  Work with small clients.</p>
+    <h1 style="padding:10px;">AUFBAU</h1>
+    <p style="text-align:center;">Open to Creative and technical{#if $screenType !=1}<br>{/if}  Work with small clients.</p>
     <br>
     <p>graphics & websites</p>
     <p>creative web engineering</p>
@@ -19,10 +19,13 @@
       <p>[</p>
       <a href="https://danielniels.co.uk">DAN</a>
       <p>//</p>
+      <!-- <a href="/daniel_humphries_cv.pdf">CV</a>
+      <p>//</p> -->
       <a href="mailto: dan@aufbau.io">Email</a>
       <p>]</p>
     </div>
-    <h1><span style="font-size: 24px; width: 100%;">🍉</span></h1> -->
+    <!-- <a href='/'><h1><span style="font-size: 32px; width: 100%;">↝</span></h1></a> -->
+    <h1><span style="font-size: 24px; width: 100%;">🍉</span></h1>
   </div>
 </body>
 
