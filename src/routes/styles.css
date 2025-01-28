@@ -13,23 +13,23 @@
 }
 
 :root {
-	--background: #f4f4f4;
+	--background: #E6D5B8;
 	--background-50: #f4f4f480;
-	--primary: #232323;
-	--primary-50: #23232380;
+	--primary: #1F1F1F;
+	--primary-50: #1F1F1F80;
 
 	--green: #008080;
 	--white: #f4f4f4;
-	--black: #232323;
+	--black: #1F1F1F;
 
 	--border: solid 1px var(--background);
 }
 
 :root.dark-mode {
-	--background: #d0d0d0;
+	/* --background: #d0d0d0;
 	--background-50: #d0d0d080;
 	--primary: #232323;
-	--primary-50: #23232380;
+	--primary-50: #23232380; */
 }
 
 /* body {
