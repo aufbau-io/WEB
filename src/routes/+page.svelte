@@ -8,7 +8,9 @@
 <body>
   <div class="fill">
     <!-- <h1 style="padding:10px;">D<span class="tmp">A</span>NIEL HUMPHRIES</h1> -->
-    <h1 style="padding:10px;">SICOVECAS</h1>
+    <!-- <h1 style="padding:10px;">SICOVECAS</h1> -->
+    <img src="img-1.png" />
+    <!-- <img src="img-2.png" /> -->
     <!-- <p style="text-align:center;">Open to Creative and technical{#if $screenType !=1}<br>{/if}  Work with small clients.</p>
     <br>
     <p>graphics & websites</p>

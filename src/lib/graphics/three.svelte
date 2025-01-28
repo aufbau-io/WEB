@@ -34,13 +34,13 @@
 	// }
 
 			const colors = {
-	color1: new THREE.Color(0xE6D5B8), // Playful Red
-	color2: new THREE.Color(0x1F1F1F), // Playful Yellow
-	color3: new THREE.Color(0xE6D5B8), // Playful Light Blue
+	color1: new THREE.Color(0x874c62), // Playful Red
+	color2: new THREE.Color(0x874c62), // Playful Yellow
+	color3: new THREE.Color(0x1F1F1F), // Playful Light Blue
 	color4: new THREE.Color(0x1F1F1F), // Playful Green
-	color5: new THREE.Color(0xE6D5B8), // Playful Mauve
+	color5: new THREE.Color(0x1F1F1F), // Playful Mauve
 	color6: new THREE.Color(0x1F1F1F), // Playful Coral
-	color7: new THREE.Color(0xE6D5B8), // Playful Blue
+	color7: new THREE.Color(0x1F1F1F), // Playful Blue
 	color8: new THREE.Color(0x1F1F1F), // Playful Peach
 	}
 
@@ -83,7 +83,7 @@
 		camera.position.z = 400;
 
 		scene = new THREE.Scene();
-		scene.background = new THREE.Color(0xE6D5B8);
+		scene.background = new THREE.Color(0x1f1f1f);
 
 		// setupShaderMaterials();
 		assignShadersRandomly();
