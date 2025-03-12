@@ -1,51 +1,59 @@
 <script>
+	// Footer component
+	import { onMount } from 'svelte';
+	import { theme } from '$lib/store/theme';
+	
+	export let showFooter = true;
+	
+	let year = new Date().getFullYear();
+	let mounted = false;
+	
+	onMount(() => {
+		mounted = true;
+	});
 </script>
 
-<footer>
-	<!-- <a href="https://archive.aufbau.io"  rel="noreferrer">aufbau archive</a> -->
-	<a href="https://www.websitecarbon.com/website/aufbau-io/" rel="noreferrer">0.05G CO2 / VISIT</a>
-	<!-- <p class="">COPYRIGHT 2022</p> -->
-</footer>
+{#if showFooter && mounted}
+	<footer>
+		<div class="footer-content">
+			<div class="copyright">© {year} Sicovecas Studio</div>
+			<div class="links">
+				<a href="/privacy">Privacy</a>
+				<a href="/terms">Terms</a>
+			</div>
+		</div>
+	</footer>
+{/if}
 
 <style>
 	footer {
-		width: 100%;
-
-		z-index: 10;
-		gap: 10px;
-
-		padding: 35px 20px;
-		height: calc(2 * var(--margin));
-
-		border-top: solid 1px var(--accent-50);
-		text-transform: none;
-
+		padding: var(--margin);
+		border-top: var(--border);
+		margin-top: auto;
+	}
+	
+	/* Removing the unused footer p selector */
+	
+	.footer-content {
 		display: flex;
-		flex-flow: row nowrap;
+		justify-content: space-between;
 		align-items: center;
-		justify-content: flex-end;
-	}
-
-	footer a,
-	footer p {
-		backdrop-filter: blur(10px);
-		color: var(--background);
-		border: var(--border);
-
-		padding: 10px 15px;
+		max-width: var(--column-width);
+		margin: 0 auto;
 		font-size: 12px;
-
-		letter-spacing: 0.15em;
-		font-family: var(--font-body);
 	}
-
-	@media only screen and (max-width: 768px) {
-		footer {
-			padding: 20px 24px;
-		}
-		footer a,
-		footer p {
-			font-size: 12px;
-		}
+	
+	.links {
+		display: flex;
+		gap: 20px;
+	}
+	
+	a {
+		color: var(--primary);
+		text-decoration: none;
+	}
+	
+	a:hover {
+		text-decoration: underline;
 	}
 </style>

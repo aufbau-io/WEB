@@ -24,26 +24,29 @@
 }
 
 :root {
-	--background: #E0F2F7;
+	--background: #F2F0EB;
 	--background-50: rgba(51, 51, 51, 0.05);
 	--primary: #333333;
 	--primary-50: rgba(51, 51, 51, 0.5);
-	--accent: #FFA62B;
+	--accent: #D6C2B0;
 
-	--sea-light: #E0F2F7;
-	--sea-medium: #CCE8F2;
-	--sea-dark: #B8DEEC;
+	/* Contemporary muted stone and pastel palette */
+	--stone-light: #F2F0EB;
+	--stone-medium: #E6E2DB;
+	--stone-dark: #D6C2B0;
+	--sage: #C2D6CF;
+	--slate: #BFC0C5;
+	--sand: #D8C5A8;
+	--teal: #B8CCC5;
+	--gray: #C5C6CB;
+	--taupe: #CABFAD;
+	--pale-sage: #C9D8D3;
 	--white: #FFFFFF;
 	--black: #333333;
-	--yellow: #FFD166;
-	--orange: #FF9E44;
-	--orange-dark: #FFA62B;
-	--teal: #4DA6A6;
-	--blue: #5090C0;
 
 	--border: solid 1px var(--primary-50);
-	--shadow-light: 0 2px 10px rgba(0, 0, 0, 0.05);
-	--shadow-medium: 0 4px 20px rgba(0, 0, 0, 0.08);
+	--shadow-light: 0 2px 10px rgba(0, 0, 0, 0.03);
+	--shadow-medium: 0 4px 20px rgba(0, 0, 0, 0.05);
 }
 
 body {

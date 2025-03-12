@@ -47,9 +47,9 @@
 				<div class="info-item">
 					<h2>Social</h2>
 					<div class="social-links">
-						<a href="#" class="social-link">Instagram</a>
-						<a href="#" class="social-link">Twitter</a>
-						<a href="#" class="social-link">Facebook</a>
+						<a href="https://instagram.com/sicovecasstudio" class="social-link">Instagram</a>
+						<a href="https://twitter.com/sicovecasstudio" class="social-link">Twitter</a>
+						<a href="https://facebook.com/sicovecasstudio" class="social-link">Facebook</a>
 					</div>
 				</div>
 			</div>
