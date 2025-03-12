@@ -8,10 +8,12 @@
 	import { onMount, onDestroy } from 'svelte';
 	import { screenType, isIframe, screenSize } from '$lib/store/store';
 	import { theme } from '$lib/store/theme';
+	import { isDarkMode } from '$lib/store/darkMode';
 	import { getDeviceType, getScreenSize } from '$lib/functions/utils';
 
 	import Footer from '$lib/components/footer/footer.svelte';
 	import Menu from '$lib/components/Menu.svelte';
+	import DarkModeToggle from '$lib/components/DarkModeToggle.svelte';
 
 	export let data;
 	let Geometry;
@@ -31,10 +33,10 @@
 	// Apply theme colors to CSS variables - only when theme changes
 	$: if (browser && $theme) {
 		try {
-			document.documentElement.style.setProperty('--background', $theme.background);
-			document.documentElement.style.setProperty('--primary', $theme.primary);
-			document.documentElement.style.setProperty('--accent', $theme.accent);
-			document.documentElement.style.setProperty('--background-50', $theme.primary + '50');
+			document.documentElement.style.setProperty('--background', $isDarkMode ? '#222222' : $theme.background);
+			document.documentElement.style.setProperty('--primary', $isDarkMode ? '#F9F9F7' : $theme.primary);
+			document.documentElement.style.setProperty('--accent', $isDarkMode ? '#F9F9F7' : $theme.accent);
+			document.documentElement.style.setProperty('--background-50', $isDarkMode ? '#F9F9F750' : $theme.primary + '50');
 		} catch (error) {
 			console.error("Error applying theme colors:", error);
 		}
@@ -164,6 +166,7 @@
 	{/if}
 	
 	<Menu />
+	<DarkModeToggle />
 
 	<main>
 		<slot />
@@ -196,5 +199,19 @@
 		main {
 			padding: 0;
 		}
+	}
+	
+	:global(body.dark-mode) {
+		background-color: #222222;
+		color: #F9F9F7;
+	}
+	
+	:global(body.dark-mode a) {
+		color: #F9F9F7;
+	}
+	
+	:global(body.dark-mode button) {
+		color: #F9F9F7;
+		border-color: #F9F9F7;
 	}
 </style>

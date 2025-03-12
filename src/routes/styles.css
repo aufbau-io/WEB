@@ -49,6 +49,31 @@
 	--shadow-medium: 0 4px 20px rgba(0, 0, 0, 0.05);
 }
 
+/* Dark mode variables */
+body.dark-mode {
+	--background: #222222;
+	--background-50: rgba(249, 249, 247, 0.05);
+	--primary: #F9F9F7;
+	--primary-50: rgba(249, 249, 247, 0.5);
+	--accent: #F9F9F7;
+	
+	/* Dark mode palette */
+	--stone-light: #333333;
+	--stone-medium: #444444;
+	--stone-dark: #555555;
+	--sage: #3A4A45;
+	--slate: #3A3B40;
+	--sand: #4A4235;
+	--teal: #2A3C35;
+	--gray: #3A3B40;
+	--taupe: #3A3730;
+	--pale-sage: #2A3835;
+	
+	--border: solid 1px var(--primary-50);
+	--shadow-light: 0 2px 10px rgba(0, 0, 0, 0.2);
+	--shadow-medium: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
 body {
 	margin: 0;
 	background-color: transparent; /* Make background transparent to show shader */
@@ -155,9 +180,13 @@ button {
 
 button:hover, .filter-btn.active {
 	background-color: var(--accent) !important;
-	color: var(--white) !important;
+	color: var(--background) !important;
 	transform: scale(1.05);
-	box-shadow: 0 5px 15px rgba(255, 166, 43, 0.2);
+	box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+body.dark-mode button:hover, body.dark-mode .filter-btn.active {
+	color: var(--black) !important;
 }
 
 button:focus:not(:focus-visible) {
@@ -239,4 +268,9 @@ img:hover, .image-placeholder:hover, .art-image:hover, .exhibition-image:hover, 
 	font-size: 24px;
 	opacity: 0.5;
 	color: var(--accent);
+}
+
+/* Dark mode transitions */
+body, body * {
+	transition: background-color var(--transition-medium), color var(--transition-medium), border-color var(--transition-medium), box-shadow var(--transition-medium);
 }
