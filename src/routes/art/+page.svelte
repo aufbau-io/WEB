@@ -49,7 +49,11 @@
 			{#each artItems as item, i}
 				<div class="art-item" style="--aspect: {item.aspectRatio}; --rotation: {item.rotation}deg">
 					<div class="art-image" style="opacity: {0.7 + (i % 3) * 0.1}; border-radius: {getRandomShape(i)};">
-						<img src={i % 2 === 0 ? '/img-1.png' : '/img-2.png'} alt={item.title} />
+						<img 
+							src={i % 2 === 0 ? '/img-1.png' : '/img-2.png'} 
+							alt={item.title}
+							onerror="this.onerror=null; this.src='/img-1.png';"
+						/>
 					</div>
 					<h2 style="--rotation: {getRandomRotation()}">{item.title} <span class="flower">{flowers[i % flowers.length]}</span></h2>
 					<p style="--rotation: {getRandomRotation()}">{item.medium}</p>

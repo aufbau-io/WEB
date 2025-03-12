@@ -70,7 +70,11 @@
 				{#each upcomingExhibitions as exhibition, i}
 					<div class="exhibition-card" style="--rotation: {exhibition.rotation}deg">
 						<div class="exhibition-image" style="opacity: {0.7 + (i % 2) * 0.2}">
-							<img src={i % 2 === 0 ? '/img-1.png' : '/img-2.png'} alt={exhibition.title} />
+							<img 
+								src={i % 2 === 0 ? '/img-1.png' : '/img-2.png'} 
+								alt={exhibition.title}
+								onerror="this.onerror=null; this.src='/img-1.png';"
+							/>
 						</div>
 						<div class="exhibition-details">
 							<h3>{exhibition.title} <span class="flower">{flowers[i % flowers.length]}</span></h3>
@@ -95,7 +99,11 @@
 						</div>
 						<div class="past-exhibition-content">
 							<div class="thumbnail" style="opacity: {0.6 + (i % 4) * 0.1}">
-								<img src={i % 2 === 0 ? '/abstract-art.jpg' : (i % 3 === 0 ? '/img-1.png' : '/img-2.png')} alt={exhibition.title} />
+								<img 
+									src={i % 2 === 0 ? '/img-1.png' : '/img-2.png'} 
+									alt={exhibition.title}
+									onerror="this.onerror=null; this.src='/img-1.png';"
+								/>
 							</div>
 							<div class="details">
 								<p class="location">{exhibition.location}</p>

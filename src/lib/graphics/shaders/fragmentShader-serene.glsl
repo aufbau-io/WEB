@@ -34,9 +34,7 @@ float fbm(vec2 p) {
     f += 0.5 * noise(p);
     p *= 2.0;
     f += 0.25 * noise(p);
-    p *= 2.0;
-    f += 0.125 * noise(p);
-    return f;
+    return f; // Reduced to 2 iterations for better performance
 }
 
 // Optimized rotation matrix - precompute sin/cos
@@ -56,9 +54,8 @@ vec2 distort(vec2 p, vec2 center, float intensity) {
 
 // Optimized color transition function
 vec3 transitionColor(vec3 from, vec3 to, float t) {
-    // Simplified easing
-    float ease = t < 0.5 ? 4.0 * t * t * t : 1.0 - pow(-2.0 * t + 2.0, 3.0) / 2.0;
-    return mix(from, to, ease);
+    // Simple linear interpolation for better performance
+    return mix(from, to, t);
 }
 
 void main() {
@@ -66,7 +63,7 @@ void main() {
     vec2 uv = vUv;
     
     // Aspect ratio correction
-    float aspect = resolution.x / resolution.y;
+    float aspect = max(resolution.x / resolution.y, 0.5); // Prevent extreme values
     uv.x *= aspect;
     
     // Simplified time variable
@@ -92,12 +89,12 @@ void main() {
     
     // Simplified ripple effect
     float rippleDistance = length(uv - interactionPoint);
-    vec2 rippleDir = normalize(uv - interactionPoint);
+    vec2 rippleDir = normalize(uv - interactionPoint + vec2(0.0001)); // Prevent NaN
     float rippleStrength = 0.02 * sin(rippleDistance * 20.0 - t * 5.0) / (rippleDistance + 0.5);
     distortedUV += rippleDir * rippleStrength;
     
-    // Simplified rotation
-    if (rippleDistance < 0.8) { // Only apply rotation when close to interaction point
+    // Simplified rotation - only apply when needed
+    if (rippleDistance < 0.8) {
         float rotationAngle = 0.1 * sin(t) * (0.8 - rippleDistance);
         vec2 rotationUV = distortedUV - interactionPoint;
         rotationUV = rotate2d(rotationAngle) * rotationUV;
@@ -110,15 +107,18 @@ void main() {
     vec3 transitionSeaColor = seaColor;
     vec3 transitionMountainColor = mountainColor;
     
-    if (routeTransition > 0.01) {
+    // Clamp routeTransition to prevent issues
+    float safeRouteTransition = clamp(routeTransition, 0.0, 1.0);
+    
+    if (safeRouteTransition > 0.01) {
         // Simplified color transitions
-        float transitionPulse = sin(routeTransition * 12.0) * (1.0 - routeTransition) * 0.3;
+        float transitionPulse = sin(safeRouteTransition * 12.0) * (1.0 - safeRouteTransition) * 0.3;
         
         // Optimized color transitions
-        transitionSkyColor = transitionColor(skyColor, skyColor * vec3(1.3, 1.2, 1.1), routeTransition);
-        transitionSunColor = transitionColor(sunColor, sunColor * vec3(1.4, 1.3, 0.9), routeTransition);
-        transitionSeaColor = transitionColor(seaColor, seaColor * vec3(0.9, 1.3, 1.4), routeTransition);
-        transitionMountainColor = transitionColor(mountainColor, mountainColor * vec3(1.2, 1.1, 1.3), routeTransition);
+        transitionSkyColor = transitionColor(skyColor, skyColor * vec3(1.3, 1.2, 1.1), safeRouteTransition);
+        transitionSunColor = transitionColor(sunColor, sunColor * vec3(1.4, 1.3, 0.9), safeRouteTransition);
+        transitionSeaColor = transitionColor(seaColor, seaColor * vec3(0.9, 1.3, 1.4), safeRouteTransition);
+        transitionMountainColor = transitionColor(mountainColor, mountainColor * vec3(1.2, 1.1, 1.3), safeRouteTransition);
         
         // Add pulse
         transitionSkyColor += vec3(transitionPulse);
@@ -144,7 +144,6 @@ void main() {
     
     // Horizon and landscape with fewer calculations
     float horizonHeight = 0.35 + (interactionPoint.y - 0.5) * 0.05;
-    float horizonBlur = 0.1;
     
     // Simplified landscape
     float landHeight = horizonHeight;
@@ -155,10 +154,7 @@ void main() {
     float waterHeight = horizonHeight;
     float waterLine = smoothstep(waterHeight - 0.05, waterHeight + 0.05, distortedUV.y);
     
-    // Simplified waves
-    float waves = 0.02 * sin(distortedUV.x * 15.0 + t * 3.0) * smoothstep(0.0, 0.3, distortedUV.y);
-    
-    // Add landscape and water
+    // Add landscape and water with simplified logic
     if (distortedUV.y > landHeight) {
         color = mix(color, transitionMountainColor, (1.0 - land) * 0.8);
     }
@@ -170,9 +166,9 @@ void main() {
         color += vec3(0.9) * reflections * (1.0 - waterLine);
     }
     
-    // Color splash effect only during transitions
-    if (routeTransition > 0.01 && routeTransition < 0.99) {
-        float burstIntensity = sin(routeTransition * 6.28) * (1.0 - routeTransition) * routeTransition * 4.0;
+    // Color splash effect only during transitions - simplified
+    if (safeRouteTransition > 0.01 && safeRouteTransition < 0.99) {
+        float burstIntensity = sin(safeRouteTransition * 6.28) * (1.0 - safeRouteTransition) * safeRouteTransition * 4.0;
         
         // Simplified burst color
         vec3 burstColor = vec3(
@@ -200,6 +196,9 @@ void main() {
     
     // Theme blend
     color = mix(color, themeColor, 0.1);
+    
+    // Ensure valid color output
+    color = clamp(color, 0.0, 1.0);
     
     // Output
     gl_FragColor = vec4(color, 1.0);
