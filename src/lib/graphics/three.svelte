@@ -170,11 +170,11 @@
 				scene.background = new THREE.Color(initialTheme.background);
 			}
 
-			// Create a single full-screen shader first
-			createFullScreenShader();
-
-			// Set up the theme subscription
+			// Set up the theme subscription first
 			setupThemeSubscription();
+
+			// Create a single full-screen shader
+			createFullScreenShader();
 
 			// Optimized renderer settings
 			renderer = new THREE.WebGLRenderer({ 
@@ -204,40 +204,9 @@
 				document.body.classList.add('dark-mode');
 			}
 
-			// Force initial color update with current theme
-			if (scene.children[0]?.material && initialTheme) {
+			// Force initial color update
+			if (scene.children[0]?.material) {
 				const material = scene.children[0].material;
-				const accentRgb = hexToRgb(initialTheme.accent);
-				
-				// Update theme colors
-				material.uniforms.themeColor.value.copy(new THREE.Color(initialTheme.background));
-				material.uniforms.primaryColor.value.copy(new THREE.Color(initialTheme.primary));
-				
-				// Set initial colors based on current path
-				if (currentPath === '/contact') {
-					material.uniforms.sunColor.value.copy(new THREE.Color(0xFFB74D));
-					material.uniforms.seaColor.value.copy(new THREE.Color(0xFFA726));
-					material.uniforms.mountainColor.value.copy(new THREE.Color(0xFF8A65));
-					material.uniforms.skyColor.value.copy(colors.skyColor);
-				} else {
-					material.uniforms.sunColor.value.copy(new THREE.Color(
-						Math.min(1, accentRgb.r * 1.2),
-						Math.min(1, accentRgb.g * 1.1),
-						Math.min(1, accentRgb.b * 0.9)
-					));
-					material.uniforms.seaColor.value.copy(new THREE.Color(
-						Math.min(1, accentRgb.r * 0.8),
-						Math.min(1, accentRgb.g * 1.3),
-						Math.min(1, accentRgb.b * 1.4)
-					));
-					material.uniforms.mountainColor.value.copy(new THREE.Color(
-						Math.min(1, accentRgb.r * 1.1),
-						Math.min(1, accentRgb.g * 0.9),
-						Math.min(1, accentRgb.b * 1.2)
-					));
-					material.uniforms.skyColor.value.copy(colors.skyColor);
-				}
-				
 				material.uniformsNeedUpdate = true;
 				if (renderer && camera) {
 					renderer.render(scene, camera);
