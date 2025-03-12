@@ -40,14 +40,6 @@
 		mountainColor: new THREE.Color(0xBFC0C5)
 	};
 	
-	// Dark mode colors
-	const darkColors = {
-		skyColor: new THREE.Color(0x151517), // Dark blue-gray
-		sunColor: new THREE.Color(0xE6E6D9), // Off-white
-		seaColor: new THREE.Color(0x202225), // Dark sea
-		mountainColor: new THREE.Color(0x252527) // Dark mountains
-	};
-
 	// Uniforms for the shader - defined once
 	const uniforms = {
 		time: { value: 0 },
@@ -92,52 +84,30 @@
 				// Subscribe to dark mode changes
 				darkModeUnsubscribe = isDarkMode.subscribe(isDarkMode => {
 					try {
-						if (!scene?.children[0]?.material) return;
+						console.log("Dark mode changed:", isDarkMode); // Debug log
 						
-						const material = scene.children[0].material;
+						if (!scene?.children[0]) {
+							console.log("Scene or mesh not ready"); // Debug log
+							return;
+						}
 						
-						// Apply dark mode colors or regular colors
+						const mesh = scene.children[0];
+						
 						if (isDarkMode) {
-							// Apply dark mode colors
-							material.uniforms.skyColor.value.copy(darkColors.skyColor);
-							material.uniforms.sunColor.value.copy(darkColors.sunColor);
-							material.uniforms.seaColor.value.copy(darkColors.seaColor);
-							material.uniforms.mountainColor.value.copy(darkColors.mountainColor);
-							
+							// Hide the shader mesh in dark mode
+							mesh.visible = false;
+							// Set scene background to black
+							scene.background = new THREE.Color(0x000000);
 							// Add dark mode class to body
 							document.body.classList.add('dark-mode');
 						} else {
-							// Reapply current theme colors
-							const theme = $currentTheme;
-							if (theme) {
-								// Apply regular theme colors
-								material.uniforms.skyColor.value.copy(colors.skyColor);
-								material.uniforms.sunColor.value.copy(new THREE.Color(theme.accent));
-								
-								// Derive sea and mountain colors
-								const accentRgb = hexToRgb(theme.accent);
-								const seaColor = new THREE.Color(
-									Math.max(0, accentRgb.r * 0.5),
-									Math.min(1, accentRgb.g * 1.3),
-									Math.min(1, accentRgb.b * 1.5)
-								);
-								
-								const mountainColor = new THREE.Color(
-									Math.min(1, accentRgb.r * 1.2),
-									Math.max(0, accentRgb.g * 0.7),
-									Math.max(0, accentRgb.b * 0.6)
-								);
-								
-								material.uniforms.seaColor.value.copy(seaColor);
-								material.uniforms.mountainColor.value.copy(mountainColor);
-							}
-							
+							// Show the shader mesh in light mode
+							mesh.visible = true;
+							// Reset scene background to transparent
+							scene.background = null;
 							// Remove dark mode class from body
 							document.body.classList.remove('dark-mode');
 						}
-						
-						// Force uniform update
-						material.uniformsNeedUpdate = true;
 						
 						// Force a render to immediately show the changes
 						if (renderer && camera) {
@@ -339,10 +309,13 @@
 				try {
 					if (!theme || !scene) return;
 					
-					// Update background color
-					const bgColor = new THREE.Color(theme.background);
-					const primaryColor = new THREE.Color(theme.primary);
-					const accentColor = new THREE.Color(theme.accent);
+					// Skip theme updates if in dark mode
+					if ($isDarkMode) {
+						console.log("Skipping theme update in dark mode"); // Debug log
+						return;
+					}
+					
+					console.log("Updating theme colors"); // Debug log
 					
 					// Update shader uniforms
 					if (scene.children[0]?.material) {
@@ -353,36 +326,31 @@
 						isTransitioning = true;
 						
 						// Update theme colors - force immediate update
-						material.uniforms.themeColor.value.copy(bgColor);
-						material.uniforms.primaryColor.value.copy(primaryColor);
+						material.uniforms.themeColor.value.copy(new THREE.Color(theme.background));
+						material.uniforms.primaryColor.value.copy(new THREE.Color(theme.primary));
+						material.uniforms.sunColor.value.copy(new THREE.Color(theme.accent));
 						
-						// Only update color scheme if not in dark mode
-						if (!$isDarkMode) {
-							// For all pages, use normal color derivation
-							material.uniforms.sunColor.value.copy(accentColor);
-							
-							// Derive more dramatic and contrasting sea and mountain colors from the accent
-							const accentRgb = hexToRgb(theme.accent);
-							
-							// Create complementary colors for more dramatic effect
-							const seaColor = new THREE.Color(
-								Math.max(0, accentRgb.r * 0.5),
-								Math.min(1, accentRgb.g * 1.3),
-								Math.min(1, accentRgb.b * 1.5)
-							);
-							
-							const mountainColor = new THREE.Color(
-								Math.min(1, accentRgb.r * 1.2),
-								Math.max(0, accentRgb.g * 0.7),
-								Math.max(0, accentRgb.b * 0.6)
-							);
-							
-							material.uniforms.seaColor.value.copy(seaColor);
-							material.uniforms.mountainColor.value.copy(mountainColor);
-							material.uniforms.skyColor.value.copy(colors.skyColor);
-						}
+						// Derive more dramatic and contrasting sea and mountain colors from the accent
+						const accentRgb = hexToRgb(theme.accent);
 						
-						// Force uniform update by setting needsUpdate flag
+						// Create complementary colors for more dramatic effect
+						const seaColor = new THREE.Color(
+							Math.max(0, accentRgb.r * 0.5),
+							Math.min(1, accentRgb.g * 1.3),
+							Math.min(1, accentRgb.b * 1.5)
+						);
+						
+						const mountainColor = new THREE.Color(
+							Math.min(1, accentRgb.r * 1.2),
+							Math.max(0, accentRgb.g * 0.7),
+							Math.max(0, accentRgb.b * 0.6)
+						);
+						
+						material.uniforms.seaColor.value.copy(seaColor);
+						material.uniforms.mountainColor.value.copy(mountainColor);
+						material.uniforms.skyColor.value.copy(colors.skyColor);
+						
+						// Force uniform update
 						material.uniformsNeedUpdate = true;
 						
 						// Force a render to immediately show the changes
