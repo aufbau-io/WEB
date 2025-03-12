@@ -48,7 +48,7 @@
 
 body {
 	margin: 0;
-	background-color: var(--background);
+	background-color: transparent; /* Make background transparent to show shader */
 	min-height: 100vh;
 	overflow-y: auto;
 	overflow-x: hidden;

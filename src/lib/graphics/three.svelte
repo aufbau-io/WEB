@@ -2,7 +2,7 @@
 	import { onMount } from 'svelte';
 	import { screenType } from '$lib/store/store';
 	import { page } from '$app/stores';
-	import { currentTheme, hexToRgb } from '$lib/store/theme';
+	import { currentTheme } from '$lib/store/theme';
 	// import { afterNavigate } from '$app/navigation';
 
 	import * as THREE from 'three';
@@ -20,14 +20,12 @@
 	let mouse = new THREE.Vector2();
 	const clock = new THREE.Clock();
 
-	// Simplified colors for the shader
+	// More vibrant colors for the shader
 	const colors = {
-		skyColor: new THREE.Color(0x87CEEB),    // Sky blue
-		sunColor: new THREE.Color(0xFFA62B),    // Warm sun (orange)
-		seaColor: new THREE.Color(0x4DA6A6),    // Deeper teal sea
-		mountainColor: new THREE.Color(0x5090C0), // Deeper blue mountains
-		cityColor: new THREE.Color(0x3D7070),   // Deeper teal city
-		accentColor: new THREE.Color(0xFFD166)  // Yellow accent
+		skyColor: new THREE.Color(0x6ECBFF),    // Brighter sky blue
+		sunColor: new THREE.Color(0xFFB74D),    // Warmer sun (orange)
+		seaColor: new THREE.Color(0x4DB6B6),    // Brighter teal sea
+		mountainColor: new THREE.Color(0x5D9FD0) // Brighter blue mountains
 	};
 
 	// Uniforms for the shader
@@ -39,8 +37,6 @@
 		sunColor: { value: colors.sunColor },
 		seaColor: { value: colors.seaColor },
 		mountainColor: { value: colors.mountainColor },
-		cityColor: { value: colors.cityColor },
-		accentColor: { value: colors.accentColor },
 		themeColor: { value: new THREE.Color(0xF5F5F0) },
 		primaryColor: { value: new THREE.Color(0x333333) }
 	};
@@ -58,7 +54,6 @@
 		
 		if (scene && scene.children[0] && scene.children[0].material) {
 			scene.children[0].material.uniforms.time.value = elapsedTime;
-			scene.children[0].material.uniforms.mouse.value = mouse;
 		}
 	}
 
@@ -76,14 +71,17 @@
 		// Create a single full-screen shader
 		createFullScreenShader();
 
-		renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-		renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2)); // Limit pixel ratio for performance
+		renderer = new THREE.WebGLRenderer({ 
+			antialias: true, // Enable antialiasing for better quality
+			alpha: true,
+			powerPreference: 'default' // Use default power preference for better quality
+		});
+		renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2)); // Better quality
 		renderer.setSize(width, height);
 		renderer.setClearColor(0x000000, 0);
 
 		container.appendChild(renderer.domElement);
 
-		window.addEventListener('mousemove', onDocumentMouseMove, { passive: true });
 		window.addEventListener('resize', onWindowResize, { passive: true });
 	}
 	
@@ -95,13 +93,11 @@
 				// Update background color
 				const bgColor = new THREE.Color(theme.background);
 				const primaryColor = new THREE.Color(theme.primary);
-				const accentColor = new THREE.Color(theme.accent);
 				
 				// Update shader uniforms
 				if (scene.children[0] && scene.children[0].material) {
 					scene.children[0].material.uniforms.themeColor.value = bgColor;
 					scene.children[0].material.uniforms.primaryColor.value = primaryColor;
-					scene.children[0].material.uniforms.accentColor.value = accentColor;
 					scene.children[0].material.uniforms.sunColor.value = new THREE.Color(theme.accent);
 				}
 			}
@@ -117,7 +113,9 @@
 			vertexShader: vertexShader,
 			fragmentShader: fragmentShader_serene,
 			uniforms: uniforms,
-			transparent: true
+			transparent: true,
+			depthWrite: false,
+			depthTest: false
 		});
 		
 		const plane = new THREE.Mesh(geometry, material);
@@ -136,11 +134,7 @@
 		}
 	}
 
-	function onDocumentMouseMove(event) {
-		mouse.x = (event.clientX / window.innerWidth);
-		mouse.y = 1 - (event.clientY / window.innerHeight);
-	}
-	
+	// Use requestAnimationFrame with higher framerate for smoother animation
 	function animate() {
 		requestAnimationFrame(animate);
 		render();
@@ -153,7 +147,6 @@
 
 	function cleanup() {
 		window.removeEventListener('resize', onWindowResize);
-		window.removeEventListener('mousemove', onDocumentMouseMove);
 
 		// Unsubscribe from theme store
 		if (unsubscribe) {
@@ -177,20 +170,21 @@
 	}
 </script>
 
-<div bind:this={container} class:geometry={true} />
+<div bind:this={container} class="geometry" />
 
 <style>
 	.geometry {
-		position: absolute;
+		position: fixed;
 		top: 0;
-		left:0;
-		width: 100%;
-		height: 100%;
+		left: 0;
+		width: 100vw;
+		height: 100vh;
 		display: block;
 		padding: 0;
 		margin: 0;
 		border: none;
 		z-index: -1;
-		opacity: 0.7;
+		opacity: 1.0; /* Full opacity */
+		pointer-events: none; /* Allow clicks to pass through */
 	}
 </style>

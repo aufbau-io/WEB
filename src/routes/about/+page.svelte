@@ -1,6 +1,5 @@
 <script>
 	// About page
-	import { onMount } from 'svelte';
 	import { theme } from '$lib/store/theme';
 	
 	// Flower symbols
@@ -21,7 +20,7 @@
 		<p>His work is not only public in the location being a public space, but it is a social act – in painting on someone's wall, or in someone's neighborhood, Sic's pieces involve trust and building relationships with those he encounters. <span class="flower">✿</span></p>
 		
 		<div class="image-placeholder">
-			<img src="/img-1.png" alt="Sicovecas artwork" />
+			<img src="/obi.png" alt="Sicovecas artwork" />
 		</div>
 		
 		<p><span class="flower">❀</span> All these elements of interaction inform what he paints, creating colorful and sensitive pieces with stories of neighbors and families, shared food, and waiting for the rain to pass on people's porches.</p>
@@ -72,14 +71,6 @@
 		margin: 0 auto;
 	}
 	
-	p:nth-child(odd) {
-		transform: rotate(-0.5deg);
-	}
-	
-	p:nth-child(even) {
-		transform: rotate(0.5deg);
-	}
-	
 	.intro, .outro {
 		font-size: 16px;
 		font-style: italic;
@@ -92,9 +83,8 @@
 		background-color: var(--background-50);
 		margin: 10px 0;
 		border-radius: 15px;
-		transform: rotate(-1deg);
-		transition: all var(--transition-medium);
 		overflow: hidden;
+		transition: transform var(--transition-medium);
 	}
 	
 	.image-placeholder img {
@@ -105,32 +95,24 @@
 	}
 	
 	.image-placeholder:hover {
-		transform: rotate(0deg) scale(1.02);
+		transform: scale(1.02);
 	}
 	
 	.image-placeholder:hover img {
 		transform: scale(1.05);
 	}
 	
-	.image-placeholder:last-of-type {
-		transform: rotate(1deg);
-	}
-	
-	.image-placeholder:last-of-type:hover {
-		transform: rotate(0deg) scale(1.02);
-	}
-	
 	.flower {
 		display: inline-block;
 		font-size: 0.9em;
-		animation: sway 3s ease-in-out infinite alternate;
+		color: var(--accent);
 	}
 	
 	.flower-corner {
 		position: absolute;
 		font-size: 24px;
-		opacity: 0.7;
-		animation: sway 4s ease-in-out infinite alternate;
+		opacity: 0.5;
+		color: var(--accent);
 	}
 	
 	.top-left {
@@ -152,23 +134,37 @@
 		bottom: 10px;
 		right: 10px;
 	}
-	
-	@keyframes sway {
-		0% {
-			transform: rotate(-5deg);
-		}
-		100% {
-			transform: rotate(5deg);
-		}
-	}
 
 	@media (max-width: 768px) {
+		.container {
+			margin-top: 40px;
+		}
+		
 		.image-placeholder {
 			height: 200px;
 		}
 		
 		p {
 			max-width: 100%;
+			font-size: 13px;
+		}
+		
+		.intro, .outro {
+			font-size: 15px;
+		}
+	}
+	
+	@media (max-width: 480px) {
+		.container {
+			margin-top: 30px;
+		}
+		
+		.image-placeholder {
+			height: 180px;
+		}
+		
+		.flower-corner {
+			font-size: 18px;
 		}
 	}
 </style>

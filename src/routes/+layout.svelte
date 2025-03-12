@@ -34,31 +34,54 @@
 	}
 
 	function handleScreen() {
+		if (!browser) return;
+		
 		// screen size
-		screenSize.set(getScreenSize());
+		screenSize.set({
+			width: window.innerWidth,
+			height: window.innerHeight
+		});
 
 		// device type
-		screenType.set(getDeviceType());
-		isIframe.set(window.location !== window.parent.location);
+		let deviceType = 3; // Default to desktop
+		if (window.innerWidth <= 767) {
+			deviceType = 1; // Mobile
+		} else if (window.innerWidth <= 1024) {
+			deviceType = 2; // Tablet
+		}
+		
+		screenType.set(deviceType);
+		
+		if (window !== undefined && window.location !== undefined && window.parent !== undefined && window.parent.location !== undefined) {
+			isIframe.set(window.location !== window.parent.location);
+		}
 	}
 
 	onMount(async () => {
-		// webgl - load only if not on mobile
-		if (window.innerWidth > 768) {
+		// webgl - load for all screen sizes
+		if (browser) {
 			try {
 				const module = await import('$lib/graphics/three.svelte');
 				Geometry = module.default;
 				geometryLoaded = true;
+				console.log("Three.js component loaded successfully");
 			} catch (error) {
 				console.error("Error loading Three.js component:", error);
 			}
 		}
 
 		handleScreen();
-		window.addEventListener('resize', handleScreen);
+		if (browser) {
+			window.addEventListener('resize', handleScreen);
+		}
 
 		// release opacity block once content is loaded
-		document.querySelector('main').style.opacity = 1;
+		if (browser) {
+			const mainElement = document.querySelector('main');
+			if (mainElement) {
+				mainElement.style.opacity = 1;
+			}
+		}
 	});
 
 	onDestroy(() => {
@@ -83,6 +106,10 @@
 </svelte:head>
 
 <div class="app">
+	{#if browser && geometryLoaded}
+		<svelte:component this={Geometry} />
+	{/if}
+	
 	<Menu />
 
 	<main>
@@ -90,10 +117,6 @@
 	</main>
 
 	<Footer />
-	
-	{#if browser && geometryLoaded}
-		<svelte:component this={Geometry} />
-	{/if}
 </div>
 
 <style>
@@ -101,7 +124,7 @@
 		display: flex;
 		flex-direction: column;
 		min-height: 100vh;
-		background-color: var(--background);
+		background-color: transparent;
 	}
 
 	main {
@@ -112,7 +135,7 @@
 		margin: 0 auto;
 		box-sizing: border-box;
 		position: relative;
-		opacity: 0;
+		opacity: 1;
 		transition: opacity 0.5s ease;
 	}
 

@@ -20,7 +20,7 @@
 	
 	<div class="featured-work">
 		<div class="main-image">
-			<img src="/abstract-art.jpg" alt="Featured artwork by Sicovecas" />
+			<img src="/obi.png" alt="Featured artwork by Sicovecas" />
 		</div>
 		
 		<div class="featured-text">
@@ -41,7 +41,7 @@
 		<div class="category">
 			<a href="/murals">
 				<div class="category-image">
-					<img src="/img-2.png" alt="Murals by Sicovecas" />
+					<img src="/obi.png" alt="Murals by Sicovecas" />
 				</div>
 				<h2>Murals <span class="flower">❀</span></h2>
 			</a>

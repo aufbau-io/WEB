@@ -1,6 +1,5 @@
 <script>
 	import { page } from '$app/stores';
-	import { onMount } from 'svelte';
 	import { theme } from '$lib/store/theme';
 
 	// Menu items
@@ -14,8 +13,6 @@
 		{ path: '/shop', label: 'Shop', flower: '✿' },
 		{ path: '/contact', label: 'Contact', flower: '❀' }
 	];
-	
-	// Removing all animation code
 </script>
 
 <div class="menu-wrapper">
@@ -87,6 +84,7 @@
 		display: inline-block;
 		font-size: 0.9em;
 		margin-left: 2px;
+		color: var(--accent);
 	}
 
 	nav a {
@@ -148,5 +146,47 @@
 	a.active .label::after {
 		transform: scaleX(1);
 		transform-origin: bottom left;
+	}
+	
+	/* Mobile styles */
+	@media (max-width: 768px) {
+		.menu-wrapper {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			background-color: var(--background);
+			box-shadow: var(--shadow-light);
+			padding: 8px var(--margin);
+			z-index: 100;
+		}
+		
+		nav ul {
+			justify-content: center;
+			gap: 8px 12px;
+		}
+		
+		nav a {
+			font-size: 12px;
+			padding: 2px 3px;
+		}
+		
+		.flower {
+			font-size: 0.8em;
+		}
+	}
+	
+	@media (max-width: 480px) {
+		.menu-wrapper {
+			padding: 5px var(--margin);
+		}
+		
+		nav ul {
+			gap: 5px 8px;
+		}
+		
+		nav a {
+			font-size: 11px;
+		}
 	}
 </style> 
