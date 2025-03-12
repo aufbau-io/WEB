@@ -9,36 +9,50 @@
 
 	font-family: var(--font-body);
 	color: var(--primary);
-	--border: 1px solid var(--background);
+	--border: 1px solid var(--primary-50);
+	
+	/* Transition variables */
+	--transition-slow: 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+	--transition-medium: 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+	--transition-fast: 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+	
+	/* Fluid variables */
+	--flow-space: 1rem;
+	--flow-space-large: 2rem;
+	--border-radius: 12px;
+	--border-radius-large: 24px;
 }
 
 :root {
-	--background: #1f1f1f;
-	--background-50: #1f1f1f;
-	--primary: #E6D5B8;
-	--primary-50: #E6D5B8;
+	--background: #E0F2F7;
+	--background-50: rgba(51, 51, 51, 0.05);
+	--primary: #333333;
+	--primary-50: rgba(51, 51, 51, 0.5);
+	--accent: #FFA62B;
 
-	--green: #008080;
-	--white: #f4f4f4;
-	--black: #1F1F1F;
+	--sea-light: #E0F2F7;
+	--sea-medium: #CCE8F2;
+	--sea-dark: #B8DEEC;
+	--white: #FFFFFF;
+	--black: #333333;
+	--yellow: #FFD166;
+	--orange: #FF9E44;
+	--orange-dark: #FFA62B;
+	--teal: #4DA6A6;
+	--blue: #5090C0;
 
-	--border: solid 1px var(--background);
+	--border: solid 1px var(--primary-50);
+	--shadow-light: 0 2px 10px rgba(0, 0, 0, 0.05);
+	--shadow-medium: 0 4px 20px rgba(0, 0, 0, 0.08);
 }
 
-:root.dark-mode {
-	/* --background: #d0d0d0;
-	--background-50: #d0d0d080;
-	--primary: #232323;
-	--primary-50: #23232380; */
-}
-
-/* body {
+body {
 	margin: 0;
-	background-attachment: fixed;
 	background-color: var(--background);
-	background-size: 100% 100%;
-	background: linear-gradient(var(--background), var(--background));
-} */
+	min-height: 100vh;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
 
 *,
 *::before,
@@ -53,26 +67,34 @@
 	letter-spacing: 0.1em;
 	line-height: 150%;
 	font-size: 12px;
+	transition: color var(--transition-medium), background-color var(--transition-medium);
 }
 
-/* ::-webkit-scrollbar {
-	display: none;
-}
-
+/* Fluid typography */
 html {
-	scrollbar-width: none;
-	-ms-overflow-style: none;
-} */
+	font-size: clamp(14px, 1vw + 10px, 18px);
+	height: 100%;
+	scroll-behavior: smooth;
+}
+
+/* Fluid spacing utility class */
+.flow > * + * {
+	margin-top: var(--flow-space, 1rem);
+}
+
+/* Basic styling for elements */
+img, .art-item, .exhibition-card, .mural-item, .category, .featured-work {
+	box-shadow: var(--shadow-light);
+}
 
 ::-moz-selection {
-	/* Code for Firefox */
-	color: red;
-	background: yellow;
+	color: var(--white);
+	background: var(--accent);
 }
 
 ::selection {
-	color: red;
-	background: yellow;
+	color: var(--white);
+	background: var(--accent);
 }
 
 h1,
@@ -93,20 +115,64 @@ h1 {
 
 a {
 	text-decoration: none;
+	position: relative;
+	transition: all var(--transition-fast);
 }
 
 a:hover {
-	text-decoration: underline;
+	text-decoration: none;
+}
+
+a::after {
+	content: '';
+	position: absolute;
+	width: 100%;
+	height: 1px;
+	bottom: -2px;
+	left: 0;
+	background-color: var(--primary-50);
+	transform: scaleX(0);
+	transform-origin: bottom right;
+	transition: transform var(--transition-medium);
+}
+
+a:hover::after {
+	transform: scaleX(1);
+	transform-origin: bottom left;
+	background-color: var(--accent);
 }
 
 input,
 button {
 	font-size: inherit;
 	font-family: inherit;
+	border-radius: var(--border-radius);
+	transition: all var(--transition-fast);
+}
+
+button:hover, .filter-btn.active {
+	background-color: var(--accent) !important;
+	color: var(--white) !important;
+	transform: scale(1.05);
+	box-shadow: 0 5px 15px rgba(255, 166, 43, 0.2);
 }
 
 button:focus:not(:focus-visible) {
 	outline: none;
+}
+
+/* Make images and containers more refined */
+img, .image-placeholder, .art-image, .exhibition-image, .mural-image, .category-image {
+	border-radius: var(--border-radius);
+	overflow: hidden;
+	transition: all var(--transition-medium);
+	box-shadow: var(--shadow-light);
+	max-width: 100%;
+	height: auto;
+}
+
+img:hover, .image-placeholder:hover, .art-image:hover, .exhibition-image:hover, .mural-image:hover, .category-image:hover {
+	box-shadow: var(--shadow-medium);
 }
 
 .visually-hidden {
@@ -121,17 +187,53 @@ button:focus:not(:focus-visible) {
 	white-space: nowrap;
 }
 
+/* Mobile responsiveness improvements */
 @media only screen and (max-width: 768px) {
+	:root {
+		--margin: 15px;
+	}
+	
 	h1 {
 		font-size: 18px;
 		font-weight: 400;
 	}
 
-	p,
-	a {
+	p, a {
 		font-weight: 400;
 		text-transform: none;
 		letter-spacing: 0.08em;
 		font-size: 13px;
 	}
+	
+	.container {
+		padding: var(--margin);
+	}
+}
+
+@media only screen and (max-width: 480px) {
+	:root {
+		--margin: 10px;
+	}
+	
+	h1 {
+		font-size: 16px;
+	}
+	
+	.container {
+		padding: var(--margin);
+	}
+}
+
+/* Simplified flower styles without animations */
+.flower {
+	display: inline-block;
+	font-size: 0.9em;
+	color: var(--accent);
+}
+
+.flower-corner {
+	position: absolute;
+	font-size: 24px;
+	opacity: 0.5;
+	color: var(--accent);
 }

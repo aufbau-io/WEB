@@ -1,93 +1,271 @@
 <script>
-    import { screenType } from '$lib/store/store';
-    // import Title from '$lib/components/site/title.svelte';
+	// Home page
+	import { onMount } from 'svelte';
+	import { theme } from '$lib/store/theme';
+	
+	// Flower symbols for more organic feel
+	const flowers = ['✿', '❀', '✾', '❁', '✽'];
 </script>
 
 <!-- <Title /> -->
 
-<body>
-  <div class="fill">
-    <!-- <h1 style="padding:10px;">D<span class="tmp">A</span>NIEL HUMPHRIES</h1> -->
-    <!-- <h1 style="padding:10px;">SICOVECAS</h1> -->
-    <img src="img-1.png" />
-    <!-- <img src="img-2.png" /> -->
-    <!-- <p style="text-align:center;">Open to Creative and technical{#if $screenType !=1}<br>{/if}  Work with small clients.</p>
-    <br>
-    <p>graphics & websites</p>
-    <p>creative web engineering</p>
-    <p>neuroscience, ML, mathematics</p>
-    <br>
-    <div class="links">
-      <p>[</p>
-      <a href="https://danielniels.co.uk">DAN</a>
-      <p>//</p>
-      <a href="mailto: dan@aufbau.io">Email</a>
-      <p>]</p>
-    </div>
-    <h1><span style="font-size: 24px; width: 100%;">🍉</span></h1> -->
-  </div>
-</body>
+<div class="container">
+	<div class="flower-corner top-left">✿</div>
+	<div class="flower-corner top-right">❀</div>
+	
+	<div class="hero">
+		<h1>SICOVECAS <span class="flower">✿</span></h1>
+		<p class="tagline">Graffiti and Visual Artist</p>
+	</div>
+	
+	<div class="featured-work">
+		<div class="main-image">
+			<img src="/abstract-art.jpg" alt="Featured artwork by Sicovecas" />
+		</div>
+		
+		<div class="featured-text">
+			<p><span class="flower">❀</span> Creating colorful and sensitive pieces with stories of neighbors and families, shared food, and waiting for the rain to pass on people's porches <span class="flower">❀</span></p>
+			<a href="/about" class="learn-more">Learn more about the artist ✿</a>
+		</div>
+	</div>
+	
+	<div class="categories">
+		<div class="category">
+			<a href="/art">
+				<div class="category-image">
+					<img src="/img-1.png" alt="Art by Sicovecas" />
+				</div>
+				<h2>Art <span class="flower">✿</span></h2>
+			</a>
+		</div>
+		<div class="category">
+			<a href="/murals">
+				<div class="category-image">
+					<img src="/img-2.png" alt="Murals by Sicovecas" />
+				</div>
+				<h2>Murals <span class="flower">❀</span></h2>
+			</a>
+		</div>
+		<div class="category">
+			<a href="/exhibitions">
+				<div class="category-image">
+					<img src="/abstract-art.jpg" alt="Exhibitions by Sicovecas" />
+				</div>
+				<h2>Exhibitions <span class="flower">✿</span></h2>
+			</a>
+		</div>
+	</div>
+	
+	<div class="flower-corner bottom-left">❀</div>
+	<div class="flower-corner bottom-right">✿</div>
+</div>
 
 <style>
-  body {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+	.container {
+		padding: var(--margin);
+		margin-top: 60px;
+		max-width: var(--column-width);
+		margin-left: auto;
+		margin-right: auto;
+		position: relative;
+		overflow: visible;
+	}
 
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    color: var(--primary);
+	.hero {
+		margin-bottom: 40px;
+		text-align: center;
+	}
 
-  }
+	h1 {
+		font-size: 32px;
+		margin-bottom: 10px;
+		font-weight: 400;
+		letter-spacing: 0.15em;
+	}
 
-  .fill {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background: var(--background);
-    border: solid 1px var(--primary);
-    padding: 10px 20px;
-    min-width: 400px;
-  }
+	.tagline {
+		font-size: 16px;
+		opacity: 0.8;
+		font-style: italic;
+	}
 
-  .tmp {
-    font-family:martina-plantijn;
-    font-style: italic;
-  }
+	.featured-work {
+		margin-bottom: 60px;
+	}
 
-  .links {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-  }
+	.main-image {
+		width: 100%;
+		height: 400px;
+		background-color: var(--background-50);
+		margin-bottom: 20px;
+		border-radius: 20px;
+		transition: transform var(--transition-medium);
+		overflow: hidden;
+	}
+	
+	.main-image img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		transition: transform var(--transition-medium);
+	}
+	
+	.main-image:hover {
+		transform: scale(1.02);
+	}
+	
+	.main-image:hover img {
+		transform: scale(1.05);
+	}
 
-  body h1 {
-    font-size: 20px;
-    margin: 10px 2px 2px 2px;
-    color: var(--primary);
+	.featured-text {
+		margin-top: 20px;
+		text-align: center;
+		max-width: 80%;
+		margin-left: auto;
+		margin-right: auto;
+	}
 
-    padding-bottom: 5px;
-  }
+	.featured-text p {
+		margin-bottom: 20px;
+		line-height: 1.8;
+		font-size: 16px;
+		font-style: italic;
+	}
 
-  a {
-    padding: 0 10px;
-  }
+	.learn-more {
+		display: inline-block;
+		margin-top: 10px;
+		border-bottom: 1px solid var(--primary);
+		padding-bottom: 2px;
+	}
 
-  a:hover {
-    text-underline-offset: 4px;
-  }
+	.categories {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 30px;
+	}
 
-  @media (max-width: 600px) {
-    body, .fill {
-      min-width: 90%;
-      max-width: 90%;
-    }
-  }
+	.category {
+		text-align: center;
+		transition: transform var(--transition-medium);
+	}
+	
+	.category:hover {
+		transform: translateY(-5px);
+	}
+
+	.category a {
+		text-decoration: none;
+	}
+	
+	.category a::after {
+		display: none;
+	}
+
+	.category-image {
+		width: 100%;
+		aspect-ratio: 1;
+		background-color: var(--background-50);
+		margin-bottom: 10px;
+		transition: all var(--transition-medium);
+		border-radius: 50%;
+		overflow: hidden;
+	}
+	
+	.category-image img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		transition: transform var(--transition-medium);
+	}
+
+	.category:hover .category-image {
+		transform: translateY(-5px) scale(1.05);
+	}
+	
+	.category:hover .category-image img {
+		transform: scale(1.1);
+	}
+
+	h2 {
+		font-size: 18px;
+		margin-top: 10px;
+		font-weight: 400;
+	}
+	
+	.flower {
+		display: inline-block;
+		font-size: 0.9em;
+		color: var(--accent);
+	}
+	
+	.flower-corner {
+		position: absolute;
+		font-size: 24px;
+		opacity: 0.7;
+		color: var(--accent);
+	}
+	
+	.top-left {
+		top: 10px;
+		left: 10px;
+	}
+	
+	.top-right {
+		top: 10px;
+		right: 10px;
+	}
+	
+	.bottom-left {
+		bottom: 10px;
+		left: 10px;
+	}
+	
+	.bottom-right {
+		bottom: 10px;
+		right: 10px;
+	}
+	
+	/* Mobile responsiveness */
+	@media only screen and (max-width: 768px) {
+		.container {
+			margin-top: 40px;
+		}
+		
+		h1 {
+			font-size: 28px;
+		}
+		
+		.main-image {
+			height: 300px;
+		}
+		
+		.categories {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+	
+	@media only screen and (max-width: 480px) {
+		.container {
+			margin-top: 30px;
+		}
+		
+		h1 {
+			font-size: 24px;
+		}
+		
+		.main-image {
+			height: 250px;
+		}
+		
+		.categories {
+			grid-template-columns: 1fr;
+			gap: 20px;
+		}
+		
+		.featured-text {
+			max-width: 100%;
+		}
+	}
 </style>

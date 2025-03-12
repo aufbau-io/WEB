@@ -2,60 +2,17 @@
 	import { onMount } from 'svelte';
 	import { screenType } from '$lib/store/store';
 	import { page } from '$app/stores';
+	import { currentTheme, hexToRgb } from '$lib/store/theme';
 	// import { afterNavigate } from '$app/navigation';
 
 	import * as THREE from 'three';
 
 	import vertexShader from './shaders/vertexShader-three.glsl';
-	import fragmentShader_aufbau from './shaders/fragmentShader-aufbau.glsl';
-	import fragmentShader_niels from './shaders/fragmentShader-niels.glsl';
-	import fragmentShader_raum from './shaders/fragmentShader-raum.glsl';
-	import fragmentShader_closed_loop from './shaders/fragmentShader-closed-loop.glsl';
-	import fragmentShader_new from './shaders/fragmentShader-new.glsl';
-	import fragmentShader_garret from './shaders/fragmentShader-garrett.glsl';
-
-	let isDragging = false;
-	let previousMousePosition = { x: 0, y: 0 };
-
-	const uniformsBase = {
-		time: { value: 0 },
-		mouse: { value: [0.0,0.0] }
-	};
-
-	// 	const colors = {
-	// color1: new THREE.Color(0xff6b6b), // Playful Red
-	// color2: new THREE.Color(0xffd93d), // Playful Yellow
-	// color3: new THREE.Color(0x6bcbef), // Playful Light Blue
-	// color4: new THREE.Color(0x32a852), // Playful Green
-	// color5: new THREE.Color(0x995d81), // Playful Mauve
-	// color6: new THREE.Color(0xed6663), // Playful Coral
-	// color7: new THREE.Color(0x4b89dc), // Playful Blue
-	// color8: new THREE.Color(0xf0a07c), // Playful Peach
-	// }
-
-			const colors = {
-	color1: new THREE.Color(0x874c62), // Playful Red
-	color2: new THREE.Color(0x874c62), // Playful Yellow
-	color3: new THREE.Color(0x1F1F1F), // Playful Light Blue
-	color4: new THREE.Color(0x1F1F1F), // Playful Green
-	color5: new THREE.Color(0x1F1F1F), // Playful Mauve
-	color6: new THREE.Color(0x1F1F1F), // Playful Coral
-	color7: new THREE.Color(0x1F1F1F), // Playful Blue
-	color8: new THREE.Color(0x1F1F1F), // Playful Peach
-	}
-
-	const shaders = {
-    aufbau: fragmentShader_aufbau,
-    niels: fragmentShader_niels,
-    raum: fragmentShader_raum,
-    closed_loop: fragmentShader_closed_loop,
-		new: fragmentShader_new,
-		garrett: fragmentShader_garret,
-	};
+	import fragmentShader_serene from './shaders/fragmentShader-serene.glsl';
 
 	let container;
-
 	let camera, scene, renderer;
+	let unsubscribe;
 
 	let width = window.innerWidth;
 	let height = window.innerHeight;
@@ -63,141 +20,127 @@
 	let mouse = new THREE.Vector2();
 	const clock = new THREE.Clock();
 
-	init();
-	animate();
+	// Simplified colors for the shader
+	const colors = {
+		skyColor: new THREE.Color(0x87CEEB),    // Sky blue
+		sunColor: new THREE.Color(0xFFA62B),    // Warm sun (orange)
+		seaColor: new THREE.Color(0x4DA6A6),    // Deeper teal sea
+		mountainColor: new THREE.Color(0x5090C0), // Deeper blue mountains
+		cityColor: new THREE.Color(0x3D7070),   // Deeper teal city
+		accentColor: new THREE.Color(0xFFD166)  // Yellow accent
+	};
+
+	// Uniforms for the shader
+	const uniforms = {
+		time: { value: 0 },
+		resolution: { value: new THREE.Vector2(width, height) },
+		mouse: { value: new THREE.Vector2(0.5, 0.5) },
+		skyColor: { value: colors.skyColor },
+		sunColor: { value: colors.sunColor },
+		seaColor: { value: colors.seaColor },
+		mountainColor: { value: colors.mountainColor },
+		cityColor: { value: colors.cityColor },
+		accentColor: { value: colors.accentColor },
+		themeColor: { value: new THREE.Color(0xF5F5F0) },
+		primaryColor: { value: new THREE.Color(0x333333) }
+	};
+
+	// Initialize only when component is mounted
+	onMount(() => {
+		init();
+		animate();
+		
+		return cleanup;
+	});
 
 	function updateShaderUniforms() {
-    const elapsedTime = clock.getElapsedTime();
-
-    scene.children.forEach(child => {
-        if (child.material instanceof THREE.ShaderMaterial) {
-            child.material.uniforms.time.value = elapsedTime;
-            child.material.uniforms.mouse.value.x = mouse.x;
-            child.material.uniforms.mouse.value.y = mouse.y;
-        }
-    });
-}
+		const elapsedTime = clock.getElapsedTime();
+		
+		if (scene && scene.children[0] && scene.children[0].material) {
+			scene.children[0].material.uniforms.time.value = elapsedTime;
+			scene.children[0].material.uniforms.mouse.value = mouse;
+		}
+	}
 
 	function init() {
-		camera = new THREE.PerspectiveCamera(20, width / height, 1, 2000);
-		camera.position.z = 400;
-
+		camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
 		scene = new THREE.Scene();
-		scene.background = new THREE.Color(0x1f1f1f);
+		
+		// Get initial theme color
+		const initialTheme = $currentTheme;
+		scene.background = new THREE.Color(initialTheme.background);
 
-		// setupShaderMaterials();
-		assignShadersRandomly();
+		// Set up the theme subscription
+		setupThemeSubscription();
 
-		renderer = new THREE.WebGLRenderer({ antialias: false });
-		renderer.setPixelRatio(window.devicePixelRatio);
+		// Create a single full-screen shader
+		createFullScreenShader();
+
+		renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+		renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2)); // Limit pixel ratio for performance
 		renderer.setSize(width, height);
+		renderer.setClearColor(0x000000, 0);
 
-		onMount(() => {
-			container.appendChild(renderer.domElement);
-			return cleanup;
-		});
+		container.appendChild(renderer.domElement);
 
-		window.addEventListener('mousemove', onDocumentMouseMove);
-		window.addEventListener('resize', onWindowResize);
-		window.addEventListener('mousedown', onDocumentMouseDown);
-		window.addEventListener('mousemove', onDocumentMouseMove);
-		window.addEventListener('mouseup', onDocumentMouseUp);
-		window.addEventListener('keydown', onSpacebar);
-		window.addEventListener('click', onSpacebar);
-		window.addEventListener('touchstart', onSpacebar);
-		// window.addEventListener('navigate', onNavigate);
+		window.addEventListener('mousemove', onDocumentMouseMove, { passive: true });
+		window.addEventListener('resize', onWindowResize, { passive: true });
 	}
-
-	function assignShadersRandomly() {
-		// remove all shaders if they exist
-		scene.children.forEach(child => {
-			if (child.material instanceof THREE.ShaderMaterial) {
-				scene.remove(child);
+	
+	// Set up theme subscription
+	function setupThemeSubscription() {
+		// Subscribe to theme changes
+		unsubscribe = currentTheme.subscribe(theme => {
+			if (theme && scene) {
+				// Update background color
+				const bgColor = new THREE.Color(theme.background);
+				const primaryColor = new THREE.Color(theme.primary);
+				const accentColor = new THREE.Color(theme.accent);
+				
+				// Update shader uniforms
+				if (scene.children[0] && scene.children[0].material) {
+					scene.children[0].material.uniforms.themeColor.value = bgColor;
+					scene.children[0].material.uniforms.primaryColor.value = primaryColor;
+					scene.children[0].material.uniforms.accentColor.value = accentColor;
+					scene.children[0].material.uniforms.sunColor.value = new THREE.Color(theme.accent);
+				}
 			}
 		});
+	}
 
-
-    // Define the grid size and positions
-		const no_rows = 20;
-    const gridSize = { rows: no_rows, cols: no_rows }; // Example grid size
-    const gridPositions = [];
-
-    // Populate grid positions
-    for (let row = 0; row < gridSize.rows; row++) {
-        for (let col = 0; col < gridSize.cols; col++) {
-					gridPositions.push({ x: col * 60 - no_rows * 30 + 30, y: row * 60 - no_rows * 30 + 30 });
-        }
-    }
-
-    // Randomly assign shaders to grid positions
-    gridPositions.forEach(position => {
-        const shaderName = Object.keys(shaders)[Math.floor(Math.random() * Object.keys(shaders).length)];
-        const shaderMaterial = new THREE.ShaderMaterial({
-            vertexShader: vertexShader,
-            fragmentShader: shaders[shaderName],
-            uniforms: {
-                ...uniformsBase,
-								// random colours from colours dict
-                color1: { value: colors[Object.keys(colors)[Math.floor(Math.random() * Object.keys(colors).length)]] },
-								color2: { value: colors[Object.keys(colors)[Math.floor(Math.random() * Object.keys(colors).length)]] },
-								color3: { value: colors[Object.keys(colors)[Math.floor(Math.random() * Object.keys(colors).length)]] },
-								color4: { value: colors[Object.keys(colors)[Math.floor(Math.random() * Object.keys(colors).length)]] },
-            }
-        });
-
-        // Create and position the plane
-				const plane_size = 110;
-        const plane = new THREE.Mesh(new THREE.PlaneGeometry(plane_size, plane_size), shaderMaterial);
-        plane.position.set(position.x, position.y, 0);
-        scene.add(plane);
-    });
-}
-
+	function createFullScreenShader() {
+		// Create a single full-screen plane
+		const geometry = new THREE.PlaneGeometry(2, 2);
+		
+		// Create shader material
+		const material = new THREE.ShaderMaterial({
+			vertexShader: vertexShader,
+			fragmentShader: fragmentShader_serene,
+			uniforms: uniforms,
+			transparent: true
+		});
+		
+		const plane = new THREE.Mesh(geometry, material);
+		scene.add(plane);
+	}
 
 	function onWindowResize() {
-		let width = window.innerWidth;
-		let height = window.innerHeight;
-
-		camera.aspect = width / height;
-		camera.updateProjectionMatrix();
+		width = window.innerWidth;
+		height = window.innerHeight;
 
 		renderer.setSize(width, height);
+		
+		if (scene.children[0] && scene.children[0].material) {
+			scene.children[0].material.uniforms.resolution.value.x = width;
+			scene.children[0].material.uniforms.resolution.value.y = height;
+		}
 	}
-
-	function onDocumentMouseDown(event) {
-    isDragging = true;
-    previousMousePosition.x = event.clientX;
-    previousMousePosition.y = event.clientY;
-}
 
 	function onDocumentMouseMove(event) {
-		var clientX = event.clientX;
-		var clientY = event.clientY;
-
-		mouse.x = (clientX / window.innerWidth) * 2 - 1;
-		mouse.y = -(clientY / window.innerHeight) * 2 + 1;
-
-		if (true) { // if (isDragging) {
-        const deltaX = event.clientX - previousMousePosition.x;
-        const deltaY = event.clientY - previousMousePosition.y;
-
-        // Update camera or scene position
-        camera.position.x += deltaX * 0.15; camera.position.y += deltaY * 0.15;
-
-        previousMousePosition.x = event.clientX;
-        previousMousePosition.y = event.clientY;
-    }
+		mouse.x = (event.clientX / window.innerWidth);
+		mouse.y = 1 - (event.clientY / window.innerHeight);
 	}
-
-	function onDocumentMouseUp() {
-    isDragging = false;
-	}
-
-	function onSpacebar() {
-		assignShadersRandomly();
-	}
-
-
+	
 	function animate() {
 		requestAnimationFrame(animate);
 		render();
@@ -210,17 +153,27 @@
 
 	function cleanup() {
 		window.removeEventListener('resize', onWindowResize);
-		window.removeEventListener('navigate', onNavigate);
 		window.removeEventListener('mousemove', onDocumentMouseMove);
-		window.removeEventListener('mousedown', onDocumentMouseDown);
-		window.removeEventListener('mouseup', onDocumentMouseUp);
-		window.removeEventListener('keydown', onSpacebar);
-		window.removeEventListener('click', onSpacebar);
-		window.removeEventListener('touchstart', onSpacebar);
 
-		//cleanup webgl
-		renderer.dispose();
-		scene.dispose();
+		// Unsubscribe from theme store
+		if (unsubscribe) {
+			unsubscribe();
+		}
+
+		// Cleanup webgl
+		if (renderer) {
+			renderer.dispose();
+		}
+		if (scene) {
+			scene.traverse(object => {
+				if (object.geometry) object.geometry.dispose();
+				if (object.material) {
+					if (object.material.map) object.material.map.dispose();
+					object.material.dispose();
+				}
+			});
+			scene.dispose();
+		}
 	}
 </script>
 
@@ -233,10 +186,11 @@
 		left:0;
 		width: 100%;
 		height: 100%;
-		display: block; /* Removes potential extra space below the canvas */
+		display: block;
 		padding: 0;
 		margin: 0;
 		border: none;
 		z-index: -1;
+		opacity: 0.7;
 	}
 </style>
