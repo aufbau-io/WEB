@@ -34,10 +34,10 @@
 
 	// Base colors - defined once
 	const colors = {
-		skyColor: new THREE.Color(0xE6E6E6),
-		sunColor: new THREE.Color(0xD6C2B0),
-		seaColor: new THREE.Color(0xC2D6CF),
-		mountainColor: new THREE.Color(0xBFC0C5)
+		skyColor: new THREE.Color(0xF5F5F0), // Warm stone background
+		sunColor: new THREE.Color(0xFFE5D6), // Soft peachy glow
+		seaColor: new THREE.Color(0xE6F3F0), // Gentle mint
+		mountainColor: new THREE.Color(0xF0E6E6) // Soft rose
 	};
 	
 	// Uniforms for the shader - defined once
@@ -328,26 +328,35 @@
 						// Update theme colors - force immediate update
 						material.uniforms.themeColor.value.copy(new THREE.Color(theme.background));
 						material.uniforms.primaryColor.value.copy(new THREE.Color(theme.primary));
-						material.uniforms.sunColor.value.copy(new THREE.Color(theme.accent));
 						
-						// Derive more dramatic and contrasting sea and mountain colors from the accent
+						// Create a softer, more ethereal color scheme based on the accent
 						const accentRgb = hexToRgb(theme.accent);
 						
-						// Create complementary colors for more dramatic effect
-						const seaColor = new THREE.Color(
-							Math.max(0, accentRgb.r * 0.5),
-							Math.min(1, accentRgb.g * 1.3),
-							Math.min(1, accentRgb.b * 1.5)
-						);
-						
-						const mountainColor = new THREE.Color(
+						// Create a gentle, ethereal sun color
+						const sunColor = new THREE.Color(
 							Math.min(1, accentRgb.r * 1.2),
-							Math.max(0, accentRgb.g * 0.7),
-							Math.max(0, accentRgb.b * 0.6)
+							Math.min(1, accentRgb.g * 1.1),
+							Math.min(1, accentRgb.b * 0.9)
 						);
+						material.uniforms.sunColor.value.copy(sunColor);
 						
+						// Create a soft, flowing sea color
+						const seaColor = new THREE.Color(
+							Math.min(1, accentRgb.r * 0.8),
+							Math.min(1, accentRgb.g * 1.3),
+							Math.min(1, accentRgb.b * 1.4)
+						);
 						material.uniforms.seaColor.value.copy(seaColor);
+						
+						// Create a gentle mountain color
+						const mountainColor = new THREE.Color(
+							Math.min(1, accentRgb.r * 1.1),
+							Math.min(1, accentRgb.g * 0.9),
+							Math.min(1, accentRgb.b * 1.2)
+						);
 						material.uniforms.mountainColor.value.copy(mountainColor);
+						
+						// Keep the warm stone background
 						material.uniforms.skyColor.value.copy(colors.skyColor);
 						
 						// Force uniform update
