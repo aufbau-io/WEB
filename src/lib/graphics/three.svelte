@@ -332,32 +332,51 @@
 						// Create a softer, more ethereal color scheme based on the accent
 						const accentRgb = hexToRgb(theme.accent);
 						
-						// Create a gentle, ethereal sun color
-						const sunColor = new THREE.Color(
-							Math.min(1, accentRgb.r * 1.2),
-							Math.min(1, accentRgb.g * 1.1),
-							Math.min(1, accentRgb.b * 0.9)
-						);
-						material.uniforms.sunColor.value.copy(sunColor);
-						
-						// Create a soft, flowing sea color
-						const seaColor = new THREE.Color(
-							Math.min(1, accentRgb.r * 0.8),
-							Math.min(1, accentRgb.g * 1.3),
-							Math.min(1, accentRgb.b * 1.4)
-						);
-						material.uniforms.seaColor.value.copy(seaColor);
-						
-						// Create a gentle mountain color
-						const mountainColor = new THREE.Color(
-							Math.min(1, accentRgb.r * 1.1),
-							Math.min(1, accentRgb.g * 0.9),
-							Math.min(1, accentRgb.b * 1.2)
-						);
-						material.uniforms.mountainColor.value.copy(mountainColor);
-						
-						// Keep the warm stone background
-						material.uniforms.skyColor.value.copy(colors.skyColor);
+						// Special handling for contact page
+						if (currentPath === '/contact') {
+							// Hardcode warm, sunny colors for contact page
+							const sunColor = new THREE.Color(0xFFB74D);  // Warm orange
+							material.uniforms.sunColor.value.copy(sunColor);
+							
+							// Warm, golden sea color
+							const seaColor = new THREE.Color(0xFFA726);  // Deep orange
+							material.uniforms.seaColor.value.copy(seaColor);
+							
+							// Warm mountain color with red tones
+							const mountainColor = new THREE.Color(0xFF8A65);  // Coral red
+							material.uniforms.mountainColor.value.copy(mountainColor);
+							
+							// Keep the warm stone background
+							material.uniforms.skyColor.value.copy(colors.skyColor);
+						} else {
+							// Regular page colors
+							// Create a gentle, ethereal sun color
+							const sunColor = new THREE.Color(
+								Math.min(1, accentRgb.r * 1.2),
+								Math.min(1, accentRgb.g * 1.1),
+								Math.min(1, accentRgb.b * 0.9)
+							);
+							material.uniforms.sunColor.value.copy(sunColor);
+							
+							// Create a soft, flowing sea color
+							const seaColor = new THREE.Color(
+								Math.min(1, accentRgb.r * 0.8),
+								Math.min(1, accentRgb.g * 1.3),
+								Math.min(1, accentRgb.b * 1.4)
+							);
+							material.uniforms.seaColor.value.copy(seaColor);
+							
+							// Create a gentle mountain color
+							const mountainColor = new THREE.Color(
+								Math.min(1, accentRgb.r * 1.1),
+								Math.min(1, accentRgb.g * 0.9),
+								Math.min(1, accentRgb.b * 1.2)
+							);
+							material.uniforms.mountainColor.value.copy(mountainColor);
+							
+							// Keep the warm stone background
+							material.uniforms.skyColor.value.copy(colors.skyColor);
+						}
 						
 						// Force uniform update
 						material.uniformsNeedUpdate = true;
