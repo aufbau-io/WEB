@@ -23,10 +23,31 @@ export const currentTheme = writable(defaultTheme);
 // Create a derived store that updates the theme based on the current route
 export const theme = derived(page, ($page) => {
   const path = $page.url.pathname;
-  const theme = themeColors[path] || defaultTheme;
   
-  // Update the currentTheme store
-  currentTheme.set(theme);
+  // Find the exact match first
+  let theme = themeColors[path];
+  
+  // If no exact match, try to find a parent route match
+  if (!theme) {
+    // Sort paths by length (longest first) to match the most specific route
+    const sortedPaths = Object.keys(themeColors).sort((a, b) => b.length - a.length);
+    
+    for (const routePath of sortedPaths) {
+      // Check if the current path starts with this route path
+      if (path.startsWith(routePath) && routePath !== '/') {
+        theme = themeColors[routePath];
+        break;
+      }
+    }
+    
+    // If still no match, use default
+    if (!theme) {
+      theme = defaultTheme;
+    }
+  }
+  
+  // Update the currentTheme store with a new object to ensure reactivity
+  currentTheme.set({...theme});
   
   return theme;
 });

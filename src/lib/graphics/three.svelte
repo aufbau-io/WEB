@@ -107,6 +107,9 @@
 				const rt = material.uniforms.routeTransition;
 				if (rt.value < 1.0) {
 					rt.value = Math.min(1.0, rt.value + 0.1);
+					
+					// Ensure uniforms are updated during transition
+					material.uniformsNeedUpdate = true;
 				} else {
 					isTransitioning = false; // Transition complete
 				}
@@ -275,7 +278,7 @@
 						material.uniforms.routeTransition.value = 0.0;
 						isTransitioning = true;
 						
-						// Update theme colors
+						// Update theme colors - force immediate update
 						material.uniforms.themeColor.value.copy(bgColor);
 						material.uniforms.primaryColor.value.copy(primaryColor);
 						material.uniforms.sunColor.value.copy(accentColor);
@@ -298,6 +301,14 @@
 						
 						material.uniforms.seaColor.value.copy(seaColor);
 						material.uniforms.mountainColor.value.copy(mountainColor);
+						
+						// Force uniform update by setting needsUpdate flag
+						material.uniformsNeedUpdate = true;
+						
+						// Force a render to immediately show the changes
+						if (renderer && camera) {
+							renderer.render(scene, camera);
+						}
 					}
 				} catch (error) {
 					console.error("Error in theme subscription handler:", error);

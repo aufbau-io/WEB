@@ -58,6 +58,33 @@ vec3 transitionColor(vec3 from, vec3 to, float t) {
     return mix(from, to, t);
 }
 
+// Gentle floating particles function
+float gentleParticles(vec2 uv, float time) {
+    float particles = 0.0;
+    
+    // Create 6 particles with different speeds and positions
+    for (int i = 0; i < 6; i++) {
+        float idx = float(i) + 1.0;
+        float speed = 0.2 + 0.1 * hash(idx);
+        float size = 0.003 + 0.002 * hash(idx * 2.1);
+        
+        // Unique movement pattern for each particle
+        vec2 particlePos = vec2(
+            0.2 + 0.6 * hash(idx * 3.7) + 0.1 * sin(time * speed + idx * 2.0),
+            0.2 + 0.6 * hash(idx * 2.3) + 0.1 * cos(time * speed * 0.7 + idx)
+        );
+        
+        // Gentle pulsing
+        float pulse = 0.5 + 0.5 * sin(time * 0.5 + idx);
+        
+        // Calculate particle
+        float dist = length(uv - particlePos);
+        particles += smoothstep(size * (0.8 + 0.2 * pulse), 0.0, dist) * 0.5;
+    }
+    
+    return particles;
+}
+
 void main() {
     // Use vUv directly
     vec2 uv = vUv;
@@ -154,16 +181,59 @@ void main() {
     float waterHeight = horizonHeight;
     float waterLine = smoothstep(waterHeight - 0.05, waterHeight + 0.05, distortedUV.y);
     
+    // Add islands on the sea
+    float islands = 0.0;
+    if (distortedUV.y < waterHeight) {
+        // Create several small islands with different sizes and positions
+        for (int i = 0; i < 4; i++) {
+            float idx = float(i) + 1.0;
+            
+            // Island position - spread across the water
+            float islandPosX = 0.2 + 0.6 * hash(idx * 3.7);
+            float islandDistance = waterHeight - 0.05 - 0.15 * hash(idx * 2.3); // Further from shore
+            
+            // Island shape
+            float islandSize = 0.03 + 0.02 * hash(idx * 1.5);
+            float islandShape = islandSize * (0.8 + 0.4 * fbm(vec2(distortedUV.x * 10.0 + idx, distortedUV.y * 10.0)));
+            
+            // Calculate island
+            vec2 islandCenter = vec2(islandPosX * aspect, islandDistance);
+            float dist = length(distortedUV - islandCenter);
+            
+            // Add gentle movement to islands
+            dist += 0.005 * sin(time * 0.5 + idx * 2.0 + distortedUV.x * 5.0);
+            
+            // Island shape with smoother edges
+            float island = smoothstep(islandShape, islandShape - 0.01, dist);
+            
+            // Island color variation - slightly different for each island
+            vec3 islandColor = transitionMountainColor * (0.9 + 0.2 * hash(idx * 7.3));
+            
+            // Add island to the scene
+            color = mix(color, islandColor, island * 0.8 * (1.0 - waterLine));
+            
+            // Add reflection below island
+            float reflectionStrength = 0.2 * (1.0 - waterLine);
+            float reflectionDist = length(vec2(distortedUV.x, waterHeight + (waterHeight - distortedUV.y) * 0.3) - islandCenter);
+            float reflection = smoothstep(islandShape * 1.5, islandShape * 1.2, reflectionDist);
+            color = mix(color, islandColor * 0.6, reflection * reflectionStrength * (1.0 - waterLine));
+            
+            // Add island to total
+            islands += island;
+        }
+    }
+    
     // Add landscape and water with simplified logic
     if (distortedUV.y > landHeight) {
         color = mix(color, transitionMountainColor, (1.0 - land) * 0.8);
     }
     if (distortedUV.y < waterHeight) {
-        color = mix(color, transitionSeaColor, (1.0 - waterLine) * 0.8);
+        // Only apply sea color where there are no islands
+        color = mix(color, transitionSeaColor, (1.0 - waterLine) * 0.8 * (1.0 - islands));
         
-        // Simplified reflections
+        // Simplified reflections - less visible where islands are
         float reflections = fbm(vec2(distortedUV.x * 20.0, distortedUV.y * 20.0 + t)) * 0.03;
-        color += vec3(0.9) * reflections * (1.0 - waterLine);
+        color += vec3(0.9) * reflections * (1.0 - waterLine) * (1.0 - islands * 0.8);
     }
     
     // Color splash effect only during transitions - simplified
@@ -181,6 +251,19 @@ void main() {
         float burstPattern = fbm(uv * 8.0 + vec2(sin(time * 0.2), cos(time * 0.2)));
         color = mix(color, burstColor, burstPattern * burstIntensity * 0.3);
     }
+    
+    // Add gentle floating particles (like fireflies or dust motes)
+    float particles = gentleParticles(uv, time * 10.0);
+    
+    // Create a warm, gentle glow for the particles
+    vec3 particleColor = mix(
+        vec3(1.0, 0.95, 0.8),  // Warm yellow
+        vec3(0.9, 0.95, 1.0),  // Cool blue
+        sin(time * 0.1) * 0.5 + 0.5
+    );
+    
+    // Add particles with subtle glow
+    color += particleColor * particles;
     
     // Simplified vignette
     float vignette = smoothstep(1.0, 0.4, length((uv - vec2(aspect * 0.5, 0.5)) * vec2(0.7, 1.0)));
